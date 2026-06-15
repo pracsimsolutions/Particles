@@ -31,6 +31,10 @@ public:
     // System-wide controls (bound, GUI-editable). Defaults must match Particles.fsx.
     double pointSize = 5;        // uniform size for the batched points draw
     double liveCap = 200000;     // max live particles per emitter
+    // Handle visibility (always-on by default) + arrow world size.
+    double showPlanes = 1;       // draw emitter region outlines
+    double showArrows = 1;       // draw emitter aim arrows
+    double arrowSize = 1;        // world-unit length of the aim arrow
 
     // Aggregate stats (bound, read-only)
     double statEmitterCount = 0, statTotalLive = 0, statBuildMs = 0, statDrawMs = 0;

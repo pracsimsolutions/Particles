@@ -10,6 +10,9 @@ LiveRange computeLiveRange(const EmitterSpec& s, float T) {
     return { iMin, iMax };
 }
 
+// RNG streams (must stay stable for frame-skip determinism):
+//  0,1 cone dir | 2,3 shape sample (+9 box-z) | 4 speed | 5 lifetime
+//  6 swirl (positionAt) | 7,8 omni dir
 static pvec3 sampleConeDir(const EmitterSpec& s, long i) {
     // Cone around +Z, half-angle coneHalfAngleDeg. u1 -> cos(theta), u2 -> phi.
     float maxCos = std::cos(s.coneHalfAngleDeg * 3.14159265f / 180.0f);
@@ -19,29 +22,36 @@ static pvec3 sampleConeDir(const EmitterSpec& s, long i) {
     return { sinT * std::cos(phi), sinT * std::sin(phi), c };
 }
 
-static pvec3 sampleUnitSphere(const EmitterSpec& s, long i) {
-    float z = prandRange(s.seed, (uint32_t)i, 2, -1.0f, 1.0f);
-    float phi = prandRange(s.seed, (uint32_t)i, 3, 0.0f, 6.2831853f);
+// Uniform point on the unit sphere, using RNG streams (base, base+1).
+static pvec3 sampleUnitSphere(const EmitterSpec& s, long i, unsigned int base) {
+    float z = prandRange(s.seed, (uint32_t)i, base, -1.0f, 1.0f);
+    float phi = prandRange(s.seed, (uint32_t)i, base + 1, 0.0f, 6.2831853f);
     float r = std::sqrt(std::max(0.0f, 1.0f - z * z));
     return { r * std::cos(phi), r * std::sin(phi), z };
 }
 
 void initialConditions(const EmitterSpec& s, long i, pvec3& p0, pvec3& v0, float& lifetime) {
-    pvec3 dir;
+    const float hx = s.regionX * 0.5f, hy = s.regionY * 0.5f, hz = s.regionZ * 0.5f;
+    // --- spawn position: where the particle is born (region from object size) ---
     switch (s.shape) {
-        case EmitShape::Point: p0 = {0,0,0}; dir = sampleConeDir(s, i); break;
-        case EmitShape::Cone:  p0 = {0,0,0}; dir = sampleConeDir(s, i); break;
-        case EmitShape::Sphere: { pvec3 u = sampleUnitSphere(s, i); p0 = u * s.shapeSize; dir = u; break; }
+        case EmitShape::Point: p0 = {0,0,0}; break;
+        case EmitShape::Line:  p0 = { prandRange(s.seed,(uint32_t)i,2,-hx,hx), 0, 0 }; break;
         case EmitShape::Disk: {
             float ang = prandRange(s.seed,(uint32_t)i,2,0,6.2831853f);
-            float rad = s.shapeSize * std::sqrt(prandf(s.seed,(uint32_t)i,3));
-            p0 = { rad*std::cos(ang), rad*std::sin(ang), 0 }; dir = {0,0,1}; break;
+            float rr  = std::sqrt(prandf(s.seed,(uint32_t)i,3));
+            p0 = { hx*rr*std::cos(ang), hy*rr*std::sin(ang), 0 }; break;
         }
-        case EmitShape::Line:
-            p0 = { 0, 0, prandRange(s.seed,(uint32_t)i,2,-s.shapeSize,s.shapeSize) };
-            dir = sampleConeDir(s, i); break;
-        default: p0 = {0,0,0}; dir = {0,0,1};
+        case EmitShape::Plane:
+            p0 = { prandRange(s.seed,(uint32_t)i,2,-hx,hx), prandRange(s.seed,(uint32_t)i,3,-hy,hy), 0 }; break;
+        case EmitShape::Box:
+            p0 = { prandRange(s.seed,(uint32_t)i,2,-hx,hx), prandRange(s.seed,(uint32_t)i,3,-hy,hy),
+                   prandRange(s.seed,(uint32_t)i,9,-hz,hz) }; break;
+        case EmitShape::Sphere: { pvec3 u = sampleUnitSphere(s, i, 2); p0 = { u.x*hx, u.y*hy, u.z*hz }; break; }
+        default: p0 = {0,0,0};
     }
+    // --- launch direction: Aimed (cone around +Z) or Omni (all directions) ---
+    pvec3 dir = (s.direction == DirectionMode::Omni) ? sampleUnitSphere(s, i, 7)
+                                                     : sampleConeDir(s, i);
     float spd = s.speed + prandRange(s.seed,(uint32_t)i,4,-s.speedJitter,s.speedJitter);
     v0 = dir.normalized() * spd;
     lifetime = s.lifetime + prandf(s.seed,(uint32_t)i,5) * s.lifetimeJitter;

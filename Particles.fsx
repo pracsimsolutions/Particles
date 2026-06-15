@@ -29,6 +29,9 @@
         <node f="80000040"><name></name></node>
         <node f="42" dt="1"><name>pointSize</name><data>0000000040140000</data></node>
         <node f="42" dt="1"><name>liveCap</name><data>0000000041086a00</data></node>
+        <node f="42" dt="1"><name>showPlanes</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>showArrows</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>arrowSize</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>statEmitterCount</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>statTotalLive</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>statBuildMs</name><data>0000000000000000</data></node>
@@ -38,7 +41,7 @@
         <node f="40"><name></name></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node>
-         <node f="42" dt="2"><name>flexScriptInterface</name><data></data></node>
+         <node f="42" dt="2"><name>flexScriptInterface</name><data>Particle.Emitter</data></node>
         </node>
        </node>
        <node f="42"><name>visual</name>
@@ -92,9 +95,9 @@
         <node f="42" dt="1"><name>lifetimeJitter</name><data>9999999a3fd99999</data></node>
         <node f="42" dt="1"><name>startTime</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>stopTimeField</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>shapeField</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>shapeField</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>directionField</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040390000</data></node>
-        <node f="42" dt="1"><name>shapeSize</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>speed</name><data>0000000040000000</data></node>
         <node f="42" dt="1"><name>speedJitter</name><data>000000003fe00000</data></node>
         <node f="42" dt="1"><name>gravX</name><data>0000000000000000</data></node>
@@ -125,12 +128,13 @@
         <node f="40"><name></name></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node>
-         <node f="42" dt="2"><name>flexScriptInterface</name><data></data></node>
+         <node f="42" dt="2"><name>flexScriptInterface</name><data>Particle.Emitter</data></node>
          <node f="442" dt="2"><name>OnCreate</name><data>// Auto-create the singleton ParticleSystem on first emitter drop.
 if (model().find("ParticleSystem") == NULL) {
 	treenode sys = createinstance(library().find("?ParticleSystem"), model());
 	sys.name = "ParticleSystem";
 }</data></node>
+         <node f="442" dt="2"><name>OnDraw</name><data>return c->objectAs(ParticleEmitter)->onDraw(tonode(eventdata));</data></node>
          <node f="42"><name>configs</name>
           <node f="40"><name></name></node>
           <node f="42" dt="4"><name>Emitter</name><data>
@@ -145,7 +149,7 @@ if (model().find("ParticleSystem") == NULL) {
             <node f="42" dt="1"><name>rate</name><data>0000000040690000</data></node>
             <node f="42" dt="1"><name>lifetime</name><data>0000000040000000</data></node>
             <node f="42" dt="1"><name>lifetimeJitter</name><data>9999999a3fd99999</data></node>
-            <node f="42" dt="1"><name>shapeField</name><data>000000003ff00000</data></node>
+            <node f="42" dt="1"><name>shapeField</name><data>0000000000000000</data></node>
             <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040390000</data></node>
             <node f="42" dt="1"><name>speed</name><data>0000000040000000</data></node>
             <node f="42" dt="1"><name>speedJitter</name><data>000000003fe00000</data></node>
@@ -315,7 +319,7 @@ double dropY = param(4);
 double dropZ = param(5);
 treenode view = param(6);
 
-treenode obj = dropuserlibraryobject(template, dragTo, dropX, dropY, dropZ, view);
+treenode obj = dropuserlibraryobject(node("~",template), dragTo, dropX, dropY, dropZ, view);
 
 //Apply any changes specified by the subnodes of the template shape
 for(int j = 1; j &lt;= template.subnodes.length; j++)
@@ -334,7 +338,7 @@ for(int j = 1; j &lt;= template.subnodes.length; j++)
 	}
 }
 rebindobjectattributes(obj);
-
+return obj;
 </data></node>
         </node>
        </data></node>

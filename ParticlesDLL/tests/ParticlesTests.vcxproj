@@ -28,6 +28,7 @@
     <ClCompile Include="test_spec.cpp" />
     <ClCompile Include="test_liverange.cpp" />
     <ClCompile Include="test_initial.cpp" />
+    <ClCompile Include="test_shapes.cpp" />
     <ClCompile Include="test_motion.cpp" />
     <ClCompile Include="test_appearance.cpp" />
     <ClCompile Include="test_evaluate.cpp" />

@@ -2,7 +2,12 @@
 #include "pmath.h"
 #include <cstdint>
 
-enum class EmitShape { Point, Cone, Sphere, Disk, Line };
+// Where a particle is born. Integer values are persisted in Particles.fsx
+// (shapeField) and exposed as FlexScript PARTICLE_* constants -- do not reorder.
+enum class EmitShape { Point = 0, Line = 1, Disk = 2, Plane = 3, Box = 4, Sphere = 5 };
+// Which way a particle launches. Aimed = cone around local +Z (the arrow);
+// Omni = uniform all-directions (default for Sphere).
+enum class DirectionMode { Aimed = 0, Omni = 1 };
 enum class EmitMode  { Continuous, Burst, LoopingBurst };
 enum class RenderStyle { Points, Sprite };  // Instanced is a future style
 
@@ -33,10 +38,12 @@ struct EmitterSpec {
     int   burstCount = 100;
     float burstPeriod = 1.0f;      // for LoopingBurst
 
-    // Shape
-    EmitShape shape = EmitShape::Cone;
-    float coneHalfAngleDeg = 20.0f;
-    float shapeSize = 0.0f;        // sphere/disk radius, line half-length
+    // Shape — region dimensions come from the emitter object's size (sx,sy,sz),
+    // set by buildSpec() at draw time, so resizing the object resizes the area.
+    EmitShape shape = EmitShape::Plane;
+    DirectionMode direction = DirectionMode::Aimed;
+    float coneHalfAngleDeg = 20.0f;          // "spread": Aimed cone half-angle
+    float regionX = 1.0f, regionY = 1.0f, regionZ = 1.0f;  // emission region size
 
     // Launch
     float speed = 1.0f, speedJitter = 0.2f;

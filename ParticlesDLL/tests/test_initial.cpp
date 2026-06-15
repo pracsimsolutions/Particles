@@ -20,7 +20,8 @@ TEST(lifetime_jitter_within_bounds) {
 }
 
 TEST(sphere_shape_on_radius) {
-    EmitterSpec s; s.shape = EmitShape::Sphere; s.shapeSize = 3.0f;
+    EmitterSpec s; s.shape = EmitShape::Sphere;
+    s.regionX = s.regionY = s.regionZ = 6.0f;   // radius = 3
     pvec3 p0, v0; float life;
     initialConditions(s, 5, p0, v0, life);
     CHECK_NEAR(p0.length(), 3.0, 1e-4);   // on sphere surface

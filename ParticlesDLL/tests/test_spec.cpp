@@ -5,7 +5,8 @@ TEST(spec_defaults_are_sane) {
     EmitterSpec s;   // default-constructed
     CHECK(s.rate > 0.0f);
     CHECK(s.lifetime > 0.0f);
-    CHECK(s.shape == EmitShape::Cone);
+    CHECK(s.shape == EmitShape::Plane);
+    CHECK(s.direction == DirectionMode::Aimed);
     CHECK(s.style == RenderStyle::Points);
     CHECK(s.colorStops.count >= 2);
     CHECK(s.maxLifetime() >= s.lifetime);   // jitter-inclusive ceiling

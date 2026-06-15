@@ -15,6 +15,7 @@ void ParticleSystem::bindVariables() {
     ParticleSystem::instance = this;
     bindVariable(pointSize);
     bindVariable(liveCap);
+    bindVariable(showPlanes); bindVariable(showArrows); bindVariable(arrowSize);
     bindVariable(statEmitterCount); bindVariable(statTotalLive);
     bindVariable(statBuildMs); bindVariable(statDrawMs);
 }
