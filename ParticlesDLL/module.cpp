@@ -3,8 +3,8 @@
 #include "FlexsimDefs.h"
 #include "allobjects.h"
 #include "ParticleEmitter.h"
+#include "ParticleSystem.h"
 #include "ParticleEvaluator.h"
-#include "Instrumentation.h"
 #include <vector>
 #include <chrono>
 #include <cstring>
@@ -15,10 +15,12 @@ visible void dllinitialize() {
 
 namespace Particles {
 
-// Object factory: dropping a "ParticleEmitter" in the model instantiates this.
+// Object factory: dropping these in the model instantiates the C++ classes.
+// Dropping a ParticleEmitter auto-creates the ParticleSystem (see onCreate).
 visible ObjectDataType* createodtderivative(char* classname)
 {
     if (strcmp(classname, "ParticleEmitter") == 0) return new ParticleEmitter;
+    if (strcmp(classname, "ParticleSystem") == 0)  return new ParticleSystem;
     return nullptr;
 }
 
@@ -31,7 +33,8 @@ __declspec(dllexport) Variant Particles_ping(FLEXSIMINTERFACE)
 // Set the per-emitter live-particle cap (graceful degradation for heavy scenes).
 __declspec(dllexport) Variant Particles_setCap(FLEXSIMINTERFACE)
 {
-    GlobalParticleStats::get().liveCap = (long)param(1);
+    if (ParticleSystem::instance)
+        ParticleSystem::instance->liveCap = (double)param(1);
     return 1;
 }
 

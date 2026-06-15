@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexsim-tree version="4" treetype="tree">
+<node f="42"><name>Particles</name>
+ <node f="40"><name></name></node>
+ <node f="42"><name>installdata</name>
+  <node f="40"><name></name></node>
+  <node f="42" dt="2"><name>add_library</name><data>MAIN:/project/library</data>
+   <node f="40"><name></name></node>
+   <node f="42" dt="3"><name>Particles</name><data><coupling>null</coupling></data>
+    <node f="40"><name></name></node>
+    <node f="42" dt="1"><name>rank</name><data>0000000000000000</data></node>
+    <node f="42" dt="2"><name>after</name><data>fluid</data></node>
+    <node f="42" dt="1"><name>into object</name><data>0000000000000000</data></node>
+    <node f="42"><name>data</name>
+     <node f="40"><name></name></node>
+     <node f="42"><name>Particles</name>
+      <node f="40"><name></name></node>
+      <node f="10000062" dt="4"><name>ParticleSystem</name><data>
+       <node f="40"><name></name></node>
+       <node f="42"><name>classes</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="3"><name>Particles::ParticleSystem</name><data><coupling>/installdata/add_library/Particles/data/Particles/ParticleSystem</coupling></data></node>
+       </node>
+       <node f="42"><name>superclasses</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="3"><name>FlexSimEventHandler</name><data><coupling>null</coupling></data></node>
+       </node>
+       <node f="42"><name>variables</name>
+        <node f="80000040"><name></name></node>
+        <node f="42"><name>emitters</name></node>
+       </node>
+       <node f="42"><name>behaviour</name>
+        <node f="40"><name></name></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>flexScriptInterface</name><data></data></node>
+        </node>
+       </node>
+       <node f="42"><name>visual</name>
+        <node f="40"><name></name></node>
+        <node f="42"><name>color</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="1"><name>red</name><data>9999999a3fd99999</data></node>
+         <node f="42" dt="1"><name>green</name><data>9999999a3fe99999</data></node>
+         <node f="42" dt="1"><name>blue</name><data>00000000400c0000</data></node>
+        </node>
+        <node f="42" dt="2"><name>shape</name><data></data></node>
+        <node f="42" dt="1"><name>shapeindex</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+        <node f="42" dt="2"><name>imageobject</name><data>***</data></node>
+        <node f="42" dt="1"><name>imageindexobject</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>imagebase</name><data>***</data></node>
+        <node f="42" dt="1"><name>imageindexbase</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>drawflags</name><data>0000000000000000</data></node>
+       </node>
+       <node f="42"><name>special</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>title</name><data>Particle System</data></node>
+        <node f="42" dt="2"><name>description</name><data>Manages and batch-draws all particle emitters in the model.</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/standardviews/modelingutilities/QuickerProperties</data></node>
+       </node>
+       <node f="42"><name>spatial</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000c0140000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialz</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>spatialsz</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>spatialrx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialry</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialrz</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>centroid</name><data>000000003ff00000</data></node>
+       </node>
+       <node f="42" dt="2"><name>windowtitle</name><data>ParticleSystem</data></node>
+      </data></node>
+      <node f="10000042" dt="4"><name>ParticleEmitter</name><data>
+       <node f="40"><name></name></node>
+       <node f="42"><name>classes</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="3"><name>Particles::ParticleEmitter</name><data><coupling>/installdata/add_library/Particles/data/Particles/ParticleEmitter</coupling></data></node>
+       </node>
+       <node f="42"><name>superclasses</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="3"><name>FlexSimObject</name><data><coupling>null</coupling></data></node>
+       </node>
+       <node f="42"><name>variables</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="3"><name>system</name><data><coupling>null</coupling></data></node>
+       </node>
+       <node f="42"><name>behaviour</name>
+        <node f="40"><name></name></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>flexScriptInterface</name><data></data></node>
+        </node>
+       </node>
+       <node f="42"><name>visual</name>
+        <node f="40"><name></name></node>
+        <node f="42"><name>color</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="1"><name>red</name><data>9999999a3fb99999</data></node>
+         <node f="42" dt="1"><name>green</name><data>6666666666e63f66</data></node>
+         <node f="42" dt="1"><name>blue</name><data>000000003ff00000</data></node>
+        </node>
+        <node f="42" dt="2"><name>shape</name><data></data></node>
+        <node f="42" dt="1"><name>shapeindex</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+        <node f="42" dt="2"><name>imageobject</name><data>***</data></node>
+        <node f="42" dt="1"><name>imageindexobject</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>imagebase</name><data>***</data></node>
+        <node f="42" dt="1"><name>imageindexbase</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>drawflags</name><data>0000000000000000</data></node>
+       </node>
+       <node f="42"><name>special</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>title</name><data>Particle Emitter</data></node>
+        <node f="42" dt="2"><name>description</name><data>Emits particles at draw time as an analytic function of model time. Drop one or more; the Particle System is created automatically.</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/standardviews/modelingutilities/QuickerProperties</data></node>
+       </node>
+       <node f="42"><name>spatial</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialz</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000003fd00000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>000000003fd00000</data></node>
+        <node f="42" dt="1"><name>spatialsz</name><data>000000003fd00000</data></node>
+        <node f="42" dt="1"><name>spatialrx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialry</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialrz</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>centroid</name><data>000000003ff00000</data></node>
+       </node>
+       <node f="42" dt="2"><name>windowtitle</name><data>ParticleEmitter</data></node>
+      </data></node>
+     </node>
+    </node>
+   </node>
+  </node>
+ </node>
+</node></flexsim-tree>

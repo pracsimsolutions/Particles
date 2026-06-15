@@ -20,3 +20,24 @@ inline rgba lerp(const rgba& a, const rgba& b, float t) {
 }
 inline float lerpf(float a, float b, float t) { return a + (b - a) * t; }
 inline float clampf(float v, float lo, float hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+// Rotate v by Euler angles (degrees), applied X then Y then Z (R = Rz*Ry*Rx).
+// Used to bake an emitter's world orientation into particle positions so the
+// whole system can draw in one batch.
+inline pvec3 rotateEulerZYX(const pvec3& v, float rxDeg, float ryDeg, float rzDeg) {
+    const float d2r = 3.14159265358979f / 180.0f;
+    float cx = std::cos(rxDeg*d2r), sx = std::sin(rxDeg*d2r);
+    float cy = std::cos(ryDeg*d2r), sy = std::sin(ryDeg*d2r);
+    float cz = std::cos(rzDeg*d2r), sz = std::sin(rzDeg*d2r);
+    // Rx
+    pvec3 a{ v.x, v.y*cx - v.z*sx, v.y*sx + v.z*cx };
+    // Ry
+    pvec3 b{ a.x*cy + a.z*sy, a.y, -a.x*sy + a.z*cy };
+    // Rz
+    return { b.x*cz - b.y*sz, b.x*sz + b.y*cz, b.z };
+}
+
+// Transform a particle position from emitter-local space to world space.
+inline pvec3 localToWorld(const pvec3& local, const pvec3& worldPos, const pvec3& rotDeg) {
+    return rotateEulerZYX(local, rotDeg.x, rotDeg.y, rotDeg.z) + worldPos;
+}

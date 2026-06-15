@@ -110,6 +110,7 @@
   <ItemGroup>
     <ClCompile Include="module.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="ParticleEvaluator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +119,7 @@
     <ClInclude Include="EmitterSpec.h" />
     <ClInclude Include="ParticleEvaluator.h" />
     <ClInclude Include="ParticleEmitter.h" />
-    <ClInclude Include="Instrumentation.h" />
+    <ClInclude Include="ParticleSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

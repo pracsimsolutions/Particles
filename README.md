@@ -18,28 +18,36 @@ This makes the visuals essentially free for the simulation: the only cost is per
 
 ## What it does
 
-- Standalone `ParticleEmitter` 3D object (attach-to-other-objects is a future
-  addition; the data model is ready for it).
-- Emitter shapes: point, cone, sphere, disk, line.
+- Placeable `ParticleEmitter` objects. Drop one or many; a singleton
+  `ParticleSystem` is created automatically and **batch-draws all of them**.
+- Emitter shapes: point, cone, sphere, disk, line. Each emitter's world
+  position + rotation is baked into the batch.
 - Closed-form motion: ballistic, gravity, exponential drag, wind, swirl.
 - Appearance over life: color gradient, alpha fade, size curve.
 - Two render paths: cheap `GL_POINTS` (sparks/dust) and textured **billboard
   sprites** (smoke/steam/glow). Default textures included in `bitmaps/`.
-- Built-in instrumentation: per-emitter live count + build/draw timing
-  (`statLiveCount`/`statBuildMs`/`statDrawMs`), a `Particles_stressTest`
-  benchmark, and a graceful per-emitter live-particle cap (`Particles_setCap`).
+- Built-in instrumentation: per-emitter live count (`statLiveCount`) and
+  system aggregates (`statEmitterCount`/`statTotalLive`/`statBuildMs`/
+  `statDrawMs`), a `Particles_stressTest` benchmark, and a graceful
+  per-emitter live cap (`Particles_setCap`).
 
 ## Architecture
 
-A FlexSim-free analytic core (unit-tested standalone) plus a thin FlexSim object:
+A FlexSim-free analytic core (unit-tested standalone) plus a thin FlexSim layer
+split into a **System (draws) + Emitters (data)** so that N emitters cost only a
+handful of draw calls — one `GL_POINTS` batch for all point emitters plus one
+`GL_TRIANGLES` batch per sprite texture — instead of one draw per emitter.
 
-- `pmath.h`, `prng.h` — math + deterministic per-particle RNG.
+- `pmath.h`, `prng.h` — math, deterministic per-particle RNG, and the
+  local→world transform used to bake each emitter into the shared batch.
 - `EmitterSpec.h` — declarative emitter parameters.
 - `ParticleEvaluator.{h,cpp}` — pure math: live-range, initial conditions,
   motion, appearance, `evaluate()`. No FlexSim, no OpenGL.
-- `ParticleEmitter.{h,cpp}` — `FlexSimEventHandler` object; `onDraw` calls the
-  evaluator at `time()` and renders one reused `Mesh`.
-- `module.cpp` — DLL entry, object factory, FlexScript commands.
+- `ParticleEmitter.{h,cpp}` — `FlexSimObject`; a placeable handle that holds the
+  spec and registers with the system on create. Does not draw.
+- `ParticleSystem.{h,cpp}` — `FlexSimEventHandler` singleton; `onDraw` evaluates
+  every emitter at `time()`, bakes transforms, and issues the batched draws.
+- `module.cpp` — DLL entry, object factory (both classes), FlexScript commands.
 
 ## Build
 

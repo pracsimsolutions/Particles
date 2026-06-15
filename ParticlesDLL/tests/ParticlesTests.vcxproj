@@ -23,6 +23,7 @@
   <ItemGroup>
     <ClCompile Include="test_main.cpp" />
     <ClCompile Include="test_pmath.cpp" />
+    <ClCompile Include="test_transform.cpp" />
     <ClCompile Include="test_prng.cpp" />
     <ClCompile Include="test_spec.cpp" />
     <ClCompile Include="test_liverange.cpp" />

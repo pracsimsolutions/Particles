@@ -1,24 +1,24 @@
 #pragma once
 #include "FlexsimDefs.h"
 #include "allobjects.h"
-#include "Mesh.h"
 #include "EmitterSpec.h"
-#include "ParticleEvaluator.h"
-#include <vector>
 
 namespace Particles {
 
-// A standalone FlexSim 3D object that emits particles purely at draw time,
-// as an analytic function of model time. Adds zero events to the sim queue.
-class ParticleEmitter : public FlexSimEventHandler
+// A lightweight, placeable particle-emitter handle. Holds the emitter's
+// declarative spec; it does NOT draw. All drawing is done in one batched pass
+// by the ParticleSystem this emitter registers with on create.
+class ParticleEmitter : public FlexSimObject
 {
 public:
     ParticleEmitter() {}
 
     virtual double onCreate(double dropx, double dropy, double dropz, int iscopy) override;
     virtual double onReset() override;
-    virtual double onDraw(treenode view) override;
+    virtual double onDestroy(treenode view) override;
     virtual void   bindVariables() override;
+
+    treenode system = nullptr;   // coupling back to the owning ParticleSystem
 
     // --- Config fields (bound -> persist with the model, GUI-editable) ---
     double rate = 50, lifetime = 2, lifetimeJitter = 0.3;
@@ -32,21 +32,14 @@ public:
     double sizeStart = 0.1, sizeEnd = 0.1, alphaStart = 1, alphaEnd = 0;
     double colorStartR = 1, colorStartG = 1, colorStartB = 1;
     double colorEndR = 1, colorEndG = 1, colorEndB = 1;
-    double styleField = (double)RenderStyle::Points;
-    double pointSize = 3, luminous = 1, seedField = 12345;
-    double textureIndex = 0;                           // 0 = untextured
+    double styleField = (double)RenderStyle::Points;   // 0=Points, 1=Sprite
+    double textureIndex = 0;                            // sprite texture (0 = untextured quad)
+    double seedField = 12345;
 
-    // --- Live stats (bound so the GUI can read them; updated each draw) ---
-    double statLiveCount = 0, statBuildMs = 0, statDrawMs = 0;
+    // Live stat (written by the system each draw; bound so the GUI can read it)
+    double statLiveCount = 0;
 
     EmitterSpec buildSpec() const;                     // marshal fields -> spec
-
-private:
-    Mesh mesh;
-    std::vector<Particle> scratch;
-
-    void drawPoints(int n, const EmitterSpec& s);
-    void drawSprites(treenode view, int n, const EmitterSpec& s);
 };
 
 }  // namespace Particles
