@@ -9,10 +9,12 @@
 
 namespace Particles {
 
-// Singleton system that owns all ParticleEmitters and draws them in one batched
-// pass: a single GL_POINTS draw for every point-style emitter, plus one
-// GL_TRIANGLES draw per distinct sprite texture. This keeps the per-frame draw
-// cost a handful of calls regardless of how many emitters exist.
+// Singleton manager that draws every ParticleEmitter in one batched pass: a
+// single GL_POINTS draw for all point-style emitters plus one GL_TRIANGLES draw
+// per sprite texture. Emitters are discovered by scanning the model (no per-
+// emitter registration needed), so an emitter can be a pure data ObjectDataType.
+// The system object itself is never selectable, and particles are never drawn
+// during the pick pass.
 class ParticleSystem : public FlexSimEventHandler
 {
 public:
@@ -26,13 +28,7 @@ public:
     virtual double onReset() override;
     virtual double onDraw(treenode view) override;
 
-    typedef NodeListArray<ParticleEmitter, nullptr, nullptr, OneBased::rankOffset>::ObjStoredAttCouplingType EmitterArray;
-    EmitterArray emitterMembers;
-    TreeNode* emitters = nullptr;
-    EmitterArray& getEmitters() { return emitterMembers; }
-
-    // System-wide controls (bound, GUI-editable). Defaults must match the
-    // <variables> block in Particles.fsx (FlexSim uses the stored value).
+    // System-wide controls (bound, GUI-editable). Defaults must match Particles.fsx.
     double pointSize = 5;        // uniform size for the batched points draw
     double liveCap = 200000;     // max live particles per emitter
 

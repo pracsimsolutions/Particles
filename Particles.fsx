@@ -27,7 +27,6 @@
        </node>
        <node f="42"><name>variables</name>
         <node f="80000040"><name></name></node>
-        <node f="42"><name>emitters</name></node>
         <node f="42" dt="1"><name>pointSize</name><data>0000000040140000</data></node>
         <node f="42" dt="1"><name>liveCap</name><data>0000000041086a00</data></node>
         <node f="42" dt="1"><name>statEmitterCount</name><data>0000000000000000</data></node>
@@ -88,11 +87,10 @@
        </node>
        <node f="42"><name>superclasses</name>
         <node f="40"><name></name></node>
-        <node f="42" dt="3"><name>FlexSimObject</name><data><coupling>null</coupling></data></node>
+        <node f="42" dt="3"><name>ObjectDataType</name><data><coupling>null</coupling></data></node>
        </node>
        <node f="42"><name>variables</name>
         <node f="40"><name></name></node>
-        <node f="42" dt="3"><name>system</name><data><coupling>null</coupling></data></node>
         <node f="42" dt="1"><name>rate</name><data>0000000040690000</data></node>
         <node f="42" dt="1"><name>lifetime</name><data>0000000040000000</data></node>
         <node f="42" dt="1"><name>lifetimeJitter</name><data>9999999a3fd99999</data></node>
@@ -132,6 +130,11 @@
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node>
          <node f="42" dt="2"><name>flexScriptInterface</name><data></data></node>
+         <node f="442" dt="2"><name>OnCreate</name><data>// Auto-create the singleton ParticleSystem on first emitter drop.
+if (model().find("ParticleSystem") == NULL) {
+	treenode sys = createinstance(library().find("?ParticleSystem"), model());
+	sys.name = "ParticleSystem";
+}</data></node>
         </node>
        </node>
        <node f="42"><name>visual</name>
@@ -169,6 +172,85 @@
         <node f="42" dt="1"><name>spatialry</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>spatialrz</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>centroid</name><data>000000003ff00000</data></node>
+       </node>
+       <node f="42"><name>configs</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="4"><name>Smoke</name><data>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+         <node f="4000000042" dt="2"><name>windowtitle</name><data>Smoke</data></node>
+        </data>
+         <node f="40"><name></name></node>
+         <node f="42"><name>variables</name>
+          <node f="40"><name></name></node>
+          <node f="42" dt="1"><name>styleField</name><data>000000003ff00000</data></node>
+          <node f="42" dt="1"><name>rate</name><data>00000000404e0000</data></node>
+          <node f="42" dt="1"><name>lifetime</name><data>0000000040080000</data></node>
+          <node f="42" dt="1"><name>speed</name><data>9999999a3fe99999</data></node>
+          <node f="42" dt="1"><name>speedJitter</name><data>333333333fd33333</data></node>
+          <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040320000</data></node>
+          <node f="42" dt="1"><name>gravZ</name><data>9999999a3fd99999</data></node>
+          <node f="42" dt="1"><name>drag</name><data>333333333fe33333</data></node>
+          <node f="42" dt="1"><name>sizeStart</name><data>333333333fd33333</data></node>
+          <node f="42" dt="1"><name>sizeEnd</name><data>333333333ff33333</data></node>
+          <node f="42" dt="1"><name>alphaStart</name><data>000000003fe00000</data></node>
+          <node f="42" dt="1"><name>colorStartR</name><data>000000003fe80000</data></node>
+          <node f="42" dt="1"><name>colorStartG</name><data>000000003fe80000</data></node>
+          <node f="42" dt="1"><name>colorStartB</name><data>8f5c28f63fe8f5c2</data></node>
+          <node f="42" dt="1"><name>colorEndR</name><data>000000003fe00000</data></node>
+          <node f="42" dt="1"><name>colorEndG</name><data>000000003fe00000</data></node>
+          <node f="42" dt="1"><name>colorEndB</name><data>9999999a3fe19999</data></node>
+         </node>
+        </node>
+        <node f="42" dt="4"><name>Sparks</name><data>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+         <node f="4000000042" dt="2"><name>windowtitle</name><data>Sparks</data></node>
+        </data>
+         <node f="40"><name></name></node>
+         <node f="42"><name>variables</name>
+          <node f="40"><name></name></node>
+          <node f="42" dt="1"><name>styleField</name><data>0000000000000000</data></node>
+          <node f="42" dt="1"><name>rate</name><data>000000004062c000</data></node>
+          <node f="42" dt="1"><name>lifetime</name><data>000000003ff00000</data></node>
+          <node f="42" dt="1"><name>speed</name><data>0000000040100000</data></node>
+          <node f="42" dt="1"><name>speedJitter</name><data>0000000040000000</data></node>
+          <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040418000</data></node>
+          <node f="42" dt="1"><name>gravZ</name><data>00000000c0180000</data></node>
+          <node f="42" dt="1"><name>sizeStart</name><data>9999999a3fa99999</data></node>
+          <node f="42" dt="1"><name>sizeEnd</name><data>47ae147b3f947ae1</data></node>
+          <node f="42" dt="1"><name>colorStartR</name><data>000000003ff00000</data></node>
+          <node f="42" dt="1"><name>colorStartG</name><data>cccccccd3feccccc</data></node>
+          <node f="42" dt="1"><name>colorStartB</name><data>9999999a3fd99999</data></node>
+          <node f="42" dt="1"><name>colorEndR</name><data>000000003ff00000</data></node>
+          <node f="42" dt="1"><name>colorEndG</name><data>333333333fd33333</data></node>
+          <node f="42" dt="1"><name>colorEndB</name><data>9999999a3fa99999</data></node>
+         </node>
+        </node>
+        <node f="42" dt="4"><name>Fountain</name><data>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+         <node f="4000000042" dt="2"><name>windowtitle</name><data>Fountain</data></node>
+        </data>
+         <node f="40"><name></name></node>
+         <node f="42"><name>variables</name>
+          <node f="40"><name></name></node>
+          <node f="42" dt="1"><name>styleField</name><data>0000000000000000</data></node>
+          <node f="42" dt="1"><name>rate</name><data>000000004072c000</data></node>
+          <node f="42" dt="1"><name>lifetime</name><data>0000000040040000</data></node>
+          <node f="42" dt="1"><name>speed</name><data>0000000040100000</data></node>
+          <node f="42" dt="1"><name>speedJitter</name><data>333333333fe33333</data></node>
+          <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040280000</data></node>
+          <node f="42" dt="1"><name>gravZ</name><data>00000000c0080000</data></node>
+          <node f="42" dt="1"><name>sizeStart</name><data>47ae147b3fb47ae1</data></node>
+          <node f="42" dt="1"><name>colorStartR</name><data>9999999a3fd99999</data></node>
+          <node f="42" dt="1"><name>colorStartG</name><data>666666663fe66666</data></node>
+          <node f="42" dt="1"><name>colorStartB</name><data>000000003ff00000</data></node>
+          <node f="42" dt="1"><name>colorEndR</name><data>9999999a3fb99999</data></node>
+          <node f="42" dt="1"><name>colorEndG</name><data>333333333fd33333</data></node>
+          <node f="42" dt="1"><name>colorEndB</name><data>cccccccd3feccccc</data></node>
+         </node>
+        </node>
        </node>
        <node f="42" dt="2"><name>windowtitle</name><data>ParticleEmitter</data></node>
       </data></node>

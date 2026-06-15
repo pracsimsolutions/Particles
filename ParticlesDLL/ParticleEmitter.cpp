@@ -1,11 +1,9 @@
 #include "ParticleEmitter.h"
-#include "ParticleSystem.h"
 #include <algorithm>
 
 namespace Particles {
 
 void ParticleEmitter::bindVariables() {
-    bindVariable(system);
     bindVariable(rate); bindVariable(lifetime); bindVariable(lifetimeJitter);
     bindVariable(startTime); bindVariable(stopTimeField);
     bindVariable(shapeField); bindVariable(coneHalfAngleDeg); bindVariable(shapeSize);
@@ -18,37 +16,6 @@ void ParticleEmitter::bindVariables() {
     bindVariable(colorEndR); bindVariable(colorEndG); bindVariable(colorEndB);
     bindVariable(styleField); bindVariable(textureIndex); bindVariable(seedField);
     bindVariable(statLiveCount);
-}
-
-// Dropping an emitter auto-creates the singleton ParticleSystem if needed, then
-// registers this emitter with it (mirrors the TemplateModule pattern).
-double ParticleEmitter::onCreate(double, double, double, int) {
-    startTime = time();
-    TreeNode* sysNode = model()->find("ParticleSystem");
-    if (!sysNode) {
-        sysNode = createinstance(library()->find("?Particles/ParticleSystem"), model());
-        sysNode->setName("ParticleSystem");
-        sysNode->__setRank(holder->__getRank());
-    }
-    sysNode->objectAs(ParticleSystem)->emitterMembers.add(this);
-    system->value = sysNode;
-    return 0;
-}
-
-double ParticleEmitter::onReset() {
-    startTime = time();   // anchor the emission clock at run/reset start
-    return 0;
-}
-
-double ParticleEmitter::onDestroy(treenode /*view*/) {
-    if (system && system->value) {
-        ParticleSystem* sys = system->value->objectAs(ParticleSystem);
-        if (sys) {
-            int idx = sys->emitterMembers.find(this);
-            if (idx >= 1) sys->emitterMembers.remove(idx);
-        }
-    }
-    return 0;
 }
 
 EmitterSpec ParticleEmitter::buildSpec() const {

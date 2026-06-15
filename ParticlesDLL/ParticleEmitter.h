@@ -5,28 +5,22 @@
 
 namespace Particles {
 
-// A lightweight, placeable particle-emitter handle. Holds the emitter's
-// declarative spec; it does NOT draw. All drawing is done in one batched pass
-// by the ParticleSystem this emitter registers with on create.
-class ParticleEmitter : public FlexSimObject
+// A lightweight, placeable emitter. Inherits ObjectDataType directly (like the
+// FlexSim Light object) so it carries NONE of the FlexSimObject item-flow
+// variables -- just its own clean variable list. It holds only the declarative
+// spec and does not draw; the ParticleSystem reads every emitter and batch-draws
+// them. The system is created on drag via this object's OnCreate tree trigger
+// in Particles.fsx (ObjectDataType objects don't auto-dispatch onCreate).
+class ParticleEmitter : public ObjectDataType
 {
 public:
-    ParticleEmitter() {}
+    virtual void bindVariables() override;
 
-    virtual double onCreate(double dropx, double dropy, double dropz, int iscopy) override;
-    virtual double onReset() override;
-    virtual double onDestroy(treenode view) override;
-    virtual void   bindVariables() override;
-
-    treenode system = nullptr;   // coupling back to the owning ParticleSystem
-
-    // --- Config fields (bound -> persist with the model, GUI-editable) ---
-    // NOTE: these initializers are the source-of-truth defaults, but FlexSim
-    // takes the value stored in Particles.fsx when an object is instantiated.
-    // Keep the two in sync (see the <variables> block in Particles.fsx).
+    // --- Config fields (bound -> persist + GUI-editable). Defaults must match
+    //     the <variables> block in Particles.fsx (FlexSim uses the stored value). ---
     double rate = 200, lifetime = 2, lifetimeJitter = 0.4;
     double startTime = 0, stopTimeField = 0;          // stopTimeField<=0 means "never"
-    double shapeField = (double)EmitShape::Cone;
+    double shapeField = (double)EmitShape::Cone;       // 0=Point,1=Cone,2=Sphere,3=Disk,4=Line
     double coneHalfAngleDeg = 25, shapeSize = 0;
     double speed = 2, speedJitter = 0.5;
     double gravX = 0, gravY = 0, gravZ = -2;
@@ -36,7 +30,7 @@ public:
     double colorStartR = 1, colorStartG = 1, colorStartB = 1;
     double colorEndR = 1, colorEndG = 1, colorEndB = 1;
     double styleField = (double)RenderStyle::Points;   // 0=Points, 1=Sprite
-    double textureIndex = 0;                            // sprite texture (0 = untextured quad)
+    double textureIndex = 0;                            // sprite texture (0 = untextured)
     double seedField = 12345;
 
     // Live stat (written by the system each draw; bound so the GUI can read it)

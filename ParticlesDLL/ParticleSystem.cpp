@@ -13,8 +13,6 @@ ParticleSystem::~ParticleSystem() {
 
 void ParticleSystem::bindVariables() {
     ParticleSystem::instance = this;
-    bindVariable(emitters);
-    emitterMembers.init(emitters);
     bindVariable(pointSize);
     bindVariable(liveCap);
     bindVariable(statEmitterCount); bindVariable(statTotalLive);
@@ -27,20 +25,21 @@ double ParticleSystem::onCreate(double, double, double, int) {
 }
 
 double ParticleSystem::onReset() {
-    switch_noselect(holder, 1);   // idempotent safety (also covers loaded models)
-    // Rebuild the membership list from the model tree (handles load/copy).
-    emitterMembers.clear();
+    switch_noselect(holder, 1);
+    // Anchor each emitter's emission clock to the run start.
+    double now = time();
     forobjecttreeunder(model()) {
-        if (isclasstype(a, "Particles::ParticleEmitter"))
-            emitterMembers.add(a->objectAs(ParticleEmitter));
+        if (isclasstype(a, "Particles::ParticleEmitter")) {
+            ParticleEmitter* e = a->objectAs(ParticleEmitter);
+            if (e) e->startTime = now;
+        }
     }
     return 0;
 }
 
 double ParticleSystem::onDraw(treenode view) {
     // Never draw particles during the hit-test pass, so clicking a particle
-    // selects nothing (the particles are pure visuals). The emitter objects
-    // draw their own shapes and remain pickable/draggable as normal.
+    // selects nothing. Emitter objects draw their own shapes and stay pickable.
     if (getpickingmode(view))
         return (double)__super::onDraw(view);
 
@@ -48,16 +47,18 @@ double ParticleSystem::onDraw(treenode view) {
     long cap = std::max(0L, (long)liveCap);
     if ((long)scratch.size() < cap) scratch.resize(cap);
 
-    // --- Collect: evaluate each emitter, bake its world transform, bin by material ---
+    // --- Collect: evaluate every emitter, bake its world transform, bin by material ---
     std::vector<Particle> points;
     std::map<int, std::vector<Particle>> spritesByTex;
     long totalLive = 0;
-    int count = emitterMembers.size();
+    int count = 0;
 
     auto t0 = std::chrono::high_resolution_clock::now();
-    for (int i = 1; i <= count; ++i) {
-        ParticleEmitter* e = emitterMembers[i];
+    forobjecttreeunder(model()) {
+        if (!isclasstype(a, "Particles::ParticleEmitter")) continue;
+        ParticleEmitter* e = a->objectAs(ParticleEmitter);
         if (!e) continue;
+        ++count;
         EmitterSpec s = e->buildSpec();
         Vec3 loc = e->getLocation(0, 0, 0);
         Vec3 rot = e->rotation;
