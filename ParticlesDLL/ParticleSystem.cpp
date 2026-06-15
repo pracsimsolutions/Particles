@@ -81,10 +81,17 @@ double ParticleSystem::onDraw(treenode view) {
     statBuildMs = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
     // --- Draw: one points batch + one batch per sprite texture ---
+    // FlexSim invokes onDraw in a frame that is rotated relative to the model's
+    // Z-up coordinates. Our particle positions come from getLocation() (model
+    // space), so bracket the draw in the same -90 deg X rotation RouteGraph uses
+    // and restore it afterward. The sprite billboard basis is read from the
+    // modelview *inside* this bracket, so quads still face the camera correctly.
     auto d0 = std::chrono::high_resolution_clock::now();
+    fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);
     if (!points.empty()) drawPointsBatch(points);
     for (auto& kv : spritesByTex)
         if (!kv.second.empty()) drawSpriteBatch(kv.first, kv.second);
+    fglRotate(90.0f, 1.0f, 0.0f, 0.0f);
     auto d1 = std::chrono::high_resolution_clock::now();
     statDrawMs = std::chrono::duration<double, std::milli>(d1 - d0).count();
 
