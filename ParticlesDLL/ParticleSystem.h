@@ -22,6 +22,7 @@ public:
     static ParticleSystem* getInstance() { return instance; }
 
     virtual void   bindVariables() override;
+    virtual double onCreate(double dropx, double dropy, double dropz, int iscopy) override;
     virtual double onReset() override;
     virtual double onDraw(treenode view) override;
 

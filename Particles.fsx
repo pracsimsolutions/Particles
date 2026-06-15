@@ -176,5 +176,50 @@
     </node>
    </node>
   </node>
+  <node f="42" dt="2"><name>add_modules</name><data>VIEW:/modules</data>
+   <node f="40"><name></name></node>
+   <node f="42" dt="3"><name>Particles</name><data><coupling>null</coupling></data>
+    <node f="40"><name></name></node>
+    <node f="42" dt="1"><name>rank</name><data>0000000000000000</data></node>
+    <node f="42"><name>after</name></node>
+    <node f="42" dt="1"><name>into object</name><data>0000000000000000</data></node>
+    <node f="42"><name>data</name>
+     <node f="40"><name></name></node>
+     <node f="42"><name>Particles</name>
+      <node f="40"><name></name></node>
+      <node f="42"><name>LibraryGroup</name>
+       <node f="40"><name></name></node>
+       <node f="42" dt="4"><name>Emitter</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>droppath</name><data>MAIN:/project/library/Particles/ParticleEmitter</data></node>
+        <node f="4000000042" dt="2"><name>tooltip</name><data></data></node>
+        <node f="42" dt="2"><name>picture</name><data></data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Emitter</data></node>
+       </data></node>
+      </node>
+     </node>
+    </node>
+   </node>
+  </node>
+  <node f="42" dt="2"><name>add_list</name><data>VIEW:/standardviews/modelingutilities/LibraryIconGrid/GroupIconGrid&gt;variables/visibilityLists/base/list</data>
+   <node f="40"><name></name></node>
+   <node f="42" dt="3"><name>Particles</name><data><coupling>null</coupling></data>
+    <node f="40"><name></name></node>
+    <node f="42" dt="1"><name>rank</name><data>0000000000000000</data></node>
+    <node f="42" dt="2"><name>after</name><data>Fluid</data></node>
+    <node f="42" dt="1"><name>into object</name><data>0000000000000000</data></node>
+    <node f="42"><name>data</name>
+     <node f="40"><name></name></node>
+     <node f="42" dt="4"><name>Particles</name><data>
+      <node f="40"><name></name></node>
+      <node f="42" dt="2"><name>viewfocus</name><data>VIEW:/modules/Particles/LibraryGroup</data></node>
+      <node f="42" dt="1"><name>picturealignleft</name><data>0000000040360000</data></node>
+      <node f="42" dt="1"><name>expanded</name><data>000000003ff00000</data></node>
+      <node f="4000000042" dt="2"><name>windowtitle</name><data>Particles</data></node>
+     </data>
+      <node f="40"><name></name></node></node>
+    </node>
+   </node>
+  </node>
  </node>
 </node></flexsim-tree>

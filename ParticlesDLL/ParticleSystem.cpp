@@ -21,7 +21,13 @@ void ParticleSystem::bindVariables() {
     bindVariable(statBuildMs); bindVariable(statDrawMs);
 }
 
+double ParticleSystem::onCreate(double, double, double, int) {
+    switch_noselect(holder, 1);   // the system itself is never selectable
+    return 0;
+}
+
 double ParticleSystem::onReset() {
+    switch_noselect(holder, 1);   // idempotent safety (also covers loaded models)
     // Rebuild the membership list from the model tree (handles load/copy).
     emitterMembers.clear();
     forobjecttreeunder(model()) {
@@ -32,6 +38,12 @@ double ParticleSystem::onReset() {
 }
 
 double ParticleSystem::onDraw(treenode view) {
+    // Never draw particles during the hit-test pass, so clicking a particle
+    // selects nothing (the particles are pure visuals). The emitter objects
+    // draw their own shapes and remain pickable/draggable as normal.
+    if (getpickingmode(view))
+        return (double)__super::onDraw(view);
+
     float T = (float)time();
     long cap = std::max(0L, (long)liveCap);
     if ((long)scratch.size() < cap) scratch.resize(cap);
