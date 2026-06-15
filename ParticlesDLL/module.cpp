@@ -8,6 +8,7 @@
 #include <vector>
 #include <chrono>
 #include <cstring>
+#include <string>
 
 visible void dllinitialize() {
 }
@@ -32,6 +33,16 @@ __declspec(dllexport) Variant Particles_setCap(FLEXSIMINTERFACE)
 {
     GlobalParticleStats::get().liveCap = (long)param(1);
     return 1;
+}
+
+// Load a particle texture into FlexSim's media list and return its index.
+// Args: param(1)=file path (relative to model/module), param(2)=a unique name.
+// Assign the returned index to an emitter's textureIndex field + set style=Sprite.
+__declspec(dllexport) Variant Particles_loadTexture(FLEXSIMINTERFACE)
+{
+    std::string file = param(1);
+    std::string name = param(2);
+    return loadimage(file.c_str(), name.c_str());
 }
 
 // Benchmark: run `numEmitters` evaluate() passes of `particlesEach` particles.
