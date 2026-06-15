@@ -20,6 +20,18 @@ void ParticleSystem::bindVariables() {
     bindVariable(statBuildMs); bindVariable(statDrawMs);
 }
 
+void ParticleSystem::bindInterface() {
+    // Register the static "Particles" namespace so FlexScript can reach the
+    // singleton via Particles.system (then .liveCap, .statTotalLive, .setCap(n), ...).
+    bindClassByName<Statics>("Particles", true);
+    bindMethod(setCap, ParticleSystem, "double setCap(double maxLivePerEmitter)");
+}
+
+void ParticleSystem::Statics::bindInterface() {
+    bindStaticTypedPropertyByName<ParticleSystem*>("system", "Particles.System",
+        force_cast<void*>(&ParticleSystem::Statics::getSystem), nullptr);
+}
+
 double ParticleSystem::onCreate(double, double, double, int) {
     switch_noselect(holder, 1);   // the system itself is never selectable
     return 0;

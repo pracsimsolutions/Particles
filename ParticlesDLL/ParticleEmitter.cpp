@@ -22,6 +22,13 @@ void ParticleEmitter::bindVariables() {
     bindVariable(statLiveCount);
 }
 
+void ParticleEmitter::bindInterface() {
+    // Every bound variable (rate, lifetime, shapeField, ...) is already reachable
+    // from FlexScript as emitter.<name>. These add convenience methods.
+    bindMethod(setColorStart, ParticleEmitter, "void setColorStart(double r, double g, double b)");
+    bindMethod(setColorEnd, ParticleEmitter, "void setColorEnd(double r, double g, double b)");
+}
+
 EmitterSpec ParticleEmitter::buildSpec() {
     EmitterSpec s;
     s.rate = (float)std::max(1e-4, rate);

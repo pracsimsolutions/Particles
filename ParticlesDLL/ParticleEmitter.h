@@ -16,7 +16,13 @@ class ParticleEmitter : public ObjectDataType
 {
 public:
     virtual void bindVariables() override;
+    virtual void bindInterface() override;   // FlexScript API (all fields are also
+                                             // reachable as bound variables, e.g. emitter.rate)
     double onDraw(treenode view);
+
+    // FlexScript convenience methods.
+    void setColorStart(double r, double g, double b) { colorStartR = r; colorStartG = g; colorStartB = b; }
+    void setColorEnd(double r, double g, double b)   { colorEndR = r;   colorEndG = g;   colorEndB = b; }
 
     // --- Config fields (bound -> persist + GUI-editable). Match Particles.fsx. ---
     double rate = 200, lifetime = 2, lifetimeJitter = 0.4;

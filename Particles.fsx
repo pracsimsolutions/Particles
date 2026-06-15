@@ -41,7 +41,7 @@
         <node f="40"><name></name></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node>
-         <node f="42" dt="2"><name>flexScriptInterface</name><data>Particle.Emitter</data></node>
+         <node f="42" dt="2"><name>flexScriptInterface</name><data>Particles.System</data></node>
         </node>
        </node>
        <node f="42"><name>visual</name>
@@ -128,7 +128,7 @@
         <node f="40"><name></name></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node>
-         <node f="42" dt="2"><name>flexScriptInterface</name><data>Particle.Emitter</data></node>
+         <node f="42" dt="2"><name>flexScriptInterface</name><data>Particles.Emitter</data></node>
          <node f="442" dt="2"><name>OnCreate</name><data>// Auto-create the singleton ParticleSystem on first emitter drop.
 if (model().find("ParticleSystem") == NULL) {
 	treenode sys = createinstance(library().find("?ParticleSystem"), model());
