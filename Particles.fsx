@@ -51,7 +51,7 @@
         </node>
         <node f="42" dt="2"><name>shape</name><data></data></node>
         <node f="42" dt="1"><name>shapeindex</name><data>0000000000000000</data></node>
-        <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+        <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleSystem.png</data></node>
         <node f="42" dt="2"><name>imageobject</name><data>***</data></node>
         <node f="42" dt="1"><name>imageindexobject</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>imagebase</name><data>***</data></node>
