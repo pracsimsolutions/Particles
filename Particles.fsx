@@ -177,7 +177,7 @@ if (model().find("ParticleSystem") == NULL) {
         <node f="40"><name></name></node>
         <node f="42" dt="4"><name>Smoke</name><data>
          <node f="40"><name></name></node>
-         <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+         <node f="42" dt="2"><name>picture</name><data>bitmaps\Smoke.png</data></node>
          <node f="4000000042" dt="2"><name>windowtitle</name><data>Smoke</data></node>
         </data>
          <node f="40"><name></name></node>
@@ -204,7 +204,7 @@ if (model().find("ParticleSystem") == NULL) {
         </node>
         <node f="42" dt="4"><name>Sparks</name><data>
          <node f="40"><name></name></node>
-         <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+         <node f="42" dt="2"><name>picture</name><data>bitmaps\Sparks.png</data></node>
          <node f="4000000042" dt="2"><name>windowtitle</name><data>Sparks</data></node>
         </data>
          <node f="40"><name></name></node>
@@ -229,7 +229,7 @@ if (model().find("ParticleSystem") == NULL) {
         </node>
         <node f="42" dt="4"><name>Fountain</name><data>
          <node f="40"><name></name></node>
-         <node f="42" dt="2"><name>picture</name><data>bitmaps\ParticleEmitter.png</data></node>
+         <node f="42" dt="2"><name>picture</name><data>bitmaps\Fountain.png</data></node>
          <node f="4000000042" dt="2"><name>windowtitle</name><data>Fountain</data></node>
         </data>
          <node f="40"><name></name></node>
