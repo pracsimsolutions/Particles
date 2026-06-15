@@ -50,6 +50,15 @@ public:
     // Aggregate stats (bound, read-only)
     double statEmitterCount = 0, statTotalLive = 0, statBuildMs = 0, statDrawMs = 0;
 
+    // FlexScript property accessors (system.pointSize, Particles.system.liveCap, ...).
+    #define PS_ACC(n) double pget_##n() { return n; } void pset_##n(double v) { n = v; }
+    PS_ACC(pointSize) PS_ACC(liveCap) PS_ACC(showPlanes) PS_ACC(showArrows) PS_ACC(arrowSize)
+    #undef PS_ACC
+    double pget_statEmitterCount() { return statEmitterCount; }
+    double pget_statTotalLive() { return statTotalLive; }
+    double pget_statBuildMs() { return statBuildMs; }
+    double pget_statDrawMs() { return statDrawMs; }
+
 private:
     Mesh pointsMesh;
     std::map<int, Mesh> spriteMeshes;            // one mesh per texture index

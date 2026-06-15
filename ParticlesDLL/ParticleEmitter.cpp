@@ -23,8 +23,20 @@ void ParticleEmitter::bindVariables() {
 }
 
 void ParticleEmitter::bindInterface() {
-    // Every bound variable (rate, lifetime, shapeField, ...) is already reachable
-    // from FlexScript as emitter.<name>. These add convenience methods.
+    // Expose every field as a FlexScript property (emitter.rate, emitter.shapeField, ...).
+    #define PE_BIND(n) bindTypedProperty(n, double, &ParticleEmitter::pget_##n, &ParticleEmitter::pset_##n)
+    PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField);
+    PE_BIND(shapeField); PE_BIND(directionField); PE_BIND(coneHalfAngleDeg);
+    PE_BIND(speed); PE_BIND(speedJitter);
+    PE_BIND(gravX); PE_BIND(gravY); PE_BIND(gravZ);
+    PE_BIND(drag); PE_BIND(windX); PE_BIND(windY); PE_BIND(windZ);
+    PE_BIND(swirlAmp); PE_BIND(swirlFreq);
+    PE_BIND(sizeStart); PE_BIND(sizeEnd); PE_BIND(alphaStart); PE_BIND(alphaEnd);
+    PE_BIND(colorStartR); PE_BIND(colorStartG); PE_BIND(colorStartB);
+    PE_BIND(colorEndR); PE_BIND(colorEndG); PE_BIND(colorEndB);
+    PE_BIND(styleField); PE_BIND(textureIndex); PE_BIND(seedField);
+    #undef PE_BIND
+    bindTypedProperty(statLiveCount, double, &ParticleEmitter::pget_statLiveCount, nullptr);  // read-only
     bindMethod(setColorStart, ParticleEmitter, "void setColorStart(double r, double g, double b)");
     bindMethod(setColorEnd, ParticleEmitter, "void setColorEnd(double r, double g, double b)");
 }

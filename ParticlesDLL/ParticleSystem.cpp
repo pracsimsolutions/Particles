@@ -24,6 +24,13 @@ void ParticleSystem::bindInterface() {
     // Register the static "Particles" namespace so FlexScript can reach the
     // singleton via Particles.system (then .liveCap, .statTotalLive, .setCap(n), ...).
     bindClassByName<Statics>("Particles", true);
+    #define PS_BIND(n) bindTypedProperty(n, double, &ParticleSystem::pget_##n, &ParticleSystem::pset_##n)
+    PS_BIND(pointSize); PS_BIND(liveCap); PS_BIND(showPlanes); PS_BIND(showArrows); PS_BIND(arrowSize);
+    #undef PS_BIND
+    bindTypedProperty(statEmitterCount, double, &ParticleSystem::pget_statEmitterCount, nullptr);
+    bindTypedProperty(statTotalLive, double, &ParticleSystem::pget_statTotalLive, nullptr);
+    bindTypedProperty(statBuildMs, double, &ParticleSystem::pget_statBuildMs, nullptr);
+    bindTypedProperty(statDrawMs, double, &ParticleSystem::pget_statDrawMs, nullptr);
     bindMethod(setCap, ParticleSystem, "double setCap(double maxLivePerEmitter)");
 }
 

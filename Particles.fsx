@@ -69,8 +69,8 @@
        </node>
        <node f="42"><name>spatial</name>
         <node f="40"><name></name></node>
-        <node f="42" dt="1"><name>spatialx</name><data>00000000c0140000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>spatialz</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>000000003ff00000</data></node>
@@ -134,7 +134,7 @@ if (model().find("ParticleSystem") == NULL) {
 	treenode sys = createinstance(library().find("?ParticleSystem"), model());
 	sys.name = "ParticleSystem";
 }</data></node>
-         <node f="442" dt="2"><name>OnDraw</name><data>return c->objectAs(ParticleEmitter)->onDraw(tonode(eventdata));</data></node>
+         <node f="1000042" dt="2"><name>OnDraw</name><data>dll:"module:Particles" func:"ParticleEmitter_OnDraw"</data></node>
          <node f="42"><name>configs</name>
           <node f="40"><name></name></node>
           <node f="42" dt="4"><name>Emitter</name><data>

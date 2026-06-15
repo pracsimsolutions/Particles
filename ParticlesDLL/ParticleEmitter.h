@@ -42,6 +42,22 @@ public:
     double seedField = 12345;
     double statLiveCount = 0;
 
+    // FlexScript property accessors: one get/set per field so emitter.<name>
+    // works (bound variables alone are not exposed as object properties).
+    #define PE_ACC(n) double pget_##n() { return n; } void pset_##n(double v) { n = v; }
+    PE_ACC(rate) PE_ACC(lifetime) PE_ACC(lifetimeJitter) PE_ACC(startTime) PE_ACC(stopTimeField)
+    PE_ACC(shapeField) PE_ACC(directionField) PE_ACC(coneHalfAngleDeg)
+    PE_ACC(speed) PE_ACC(speedJitter)
+    PE_ACC(gravX) PE_ACC(gravY) PE_ACC(gravZ)
+    PE_ACC(drag) PE_ACC(windX) PE_ACC(windY) PE_ACC(windZ)
+    PE_ACC(swirlAmp) PE_ACC(swirlFreq)
+    PE_ACC(sizeStart) PE_ACC(sizeEnd) PE_ACC(alphaStart) PE_ACC(alphaEnd)
+    PE_ACC(colorStartR) PE_ACC(colorStartG) PE_ACC(colorStartB)
+    PE_ACC(colorEndR) PE_ACC(colorEndG) PE_ACC(colorEndB)
+    PE_ACC(styleField) PE_ACC(textureIndex) PE_ACC(seedField)
+    double pget_statLiveCount() { return statLiveCount; }
+    #undef PE_ACC
+
     EmitterSpec buildSpec();        // reads object size -> region; not const
 
 private:

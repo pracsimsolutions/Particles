@@ -24,6 +24,16 @@ visible ObjectDataType* createodtderivative(char* classname)
     return nullptr;
 }
 
+// Emitter draw event, called directly as a DLL function from the object's OnDraw
+// (dll:"module:Particles" func:"ParticleEmitter_OnDraw"). c = the emitter object,
+// eventdatanode = the view. Draws the handle (region outline + aim arrow).
+__declspec(dllexport) Variant ParticleEmitter_OnDraw(FLEXSIMINTERFACE)
+{
+    ParticleEmitter* e = c->objectAs(ParticleEmitter);
+    if (e) e->onDraw(eventdatanode);
+    return 0;
+}
+
 // Smoke-test export — confirms the DLL loads and FlexScript can reach it.
 __declspec(dllexport) Variant Particles_ping(FLEXSIMINTERFACE)
 {
