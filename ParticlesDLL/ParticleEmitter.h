@@ -21,15 +21,18 @@ public:
     treenode system = nullptr;   // coupling back to the owning ParticleSystem
 
     // --- Config fields (bound -> persist with the model, GUI-editable) ---
-    double rate = 50, lifetime = 2, lifetimeJitter = 0.3;
+    // NOTE: these initializers are the source-of-truth defaults, but FlexSim
+    // takes the value stored in Particles.fsx when an object is instantiated.
+    // Keep the two in sync (see the <variables> block in Particles.fsx).
+    double rate = 200, lifetime = 2, lifetimeJitter = 0.4;
     double startTime = 0, stopTimeField = 0;          // stopTimeField<=0 means "never"
     double shapeField = (double)EmitShape::Cone;
-    double coneHalfAngleDeg = 20, shapeSize = 0;
-    double speed = 1, speedJitter = 0.2;
-    double gravX = 0, gravY = 0, gravZ = -1;
+    double coneHalfAngleDeg = 25, shapeSize = 0;
+    double speed = 2, speedJitter = 0.5;
+    double gravX = 0, gravY = 0, gravZ = -2;
     double drag = 0, windX = 0, windY = 0, windZ = 0;
     double swirlAmp = 0, swirlFreq = 1;
-    double sizeStart = 0.1, sizeEnd = 0.1, alphaStart = 1, alphaEnd = 0;
+    double sizeStart = 0.2, sizeEnd = 0.05, alphaStart = 1, alphaEnd = 0;
     double colorStartR = 1, colorStartG = 1, colorStartB = 1;
     double colorEndR = 1, colorEndG = 1, colorEndB = 1;
     double styleField = (double)RenderStyle::Points;   // 0=Points, 1=Sprite

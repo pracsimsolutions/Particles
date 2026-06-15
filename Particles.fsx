@@ -28,6 +28,12 @@
        <node f="42"><name>variables</name>
         <node f="80000040"><name></name></node>
         <node f="42"><name>emitters</name></node>
+        <node f="42" dt="1"><name>pointSize</name><data>0000000040140000</data></node>
+        <node f="42" dt="1"><name>liveCap</name><data>0000000041086a00</data></node>
+        <node f="42" dt="1"><name>statEmitterCount</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>statTotalLive</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>statBuildMs</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>statDrawMs</name><data>0000000000000000</data></node>
        </node>
        <node f="42"><name>behaviour</name>
         <node f="40"><name></name></node>
@@ -87,6 +93,39 @@
        <node f="42"><name>variables</name>
         <node f="40"><name></name></node>
         <node f="42" dt="3"><name>system</name><data><coupling>null</coupling></data></node>
+        <node f="42" dt="1"><name>rate</name><data>0000000040690000</data></node>
+        <node f="42" dt="1"><name>lifetime</name><data>0000000040000000</data></node>
+        <node f="42" dt="1"><name>lifetimeJitter</name><data>9999999a3fd99999</data></node>
+        <node f="42" dt="1"><name>startTime</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>stopTimeField</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>shapeField</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040390000</data></node>
+        <node f="42" dt="1"><name>shapeSize</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>speed</name><data>0000000040000000</data></node>
+        <node f="42" dt="1"><name>speedJitter</name><data>000000003fe00000</data></node>
+        <node f="42" dt="1"><name>gravX</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>gravY</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>gravZ</name><data>00000000c0000000</data></node>
+        <node f="42" dt="1"><name>drag</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>windX</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>windY</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>windZ</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>swirlAmp</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>swirlFreq</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>sizeStart</name><data>9999999a3fc99999</data></node>
+        <node f="42" dt="1"><name>sizeEnd</name><data>9999999a3fa99999</data></node>
+        <node f="42" dt="1"><name>alphaStart</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>alphaEnd</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>colorStartR</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>colorStartG</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>colorStartB</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>colorEndR</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>colorEndG</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>colorEndB</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>styleField</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>textureIndex</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>seedField</name><data>0000000040c81c80</data></node>
+        <node f="42" dt="1"><name>statLiveCount</name><data>0000000000000000</data></node>
        </node>
        <node f="42"><name>behaviour</name>
         <node f="40"><name></name></node>

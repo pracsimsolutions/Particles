@@ -30,8 +30,9 @@ public:
     TreeNode* emitters = nullptr;
     EmitterArray& getEmitters() { return emitterMembers; }
 
-    // System-wide controls (bound, GUI-editable)
-    double pointSize = 3;        // uniform size for the batched points draw
+    // System-wide controls (bound, GUI-editable). Defaults must match the
+    // <variables> block in Particles.fsx (FlexSim uses the stored value).
+    double pointSize = 5;        // uniform size for the batched points draw
     double liveCap = 200000;     // max live particles per emitter
 
     // Aggregate stats (bound, read-only)
