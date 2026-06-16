@@ -154,7 +154,14 @@ void ParticleEmitter::drawArrow(double arrowSize, const Vec3& objSize, const flo
 }
 
 double ParticleEmitter::onDraw(treenode view) {
-    setManipulationHandleDraw(0);   // hide the default object box (user request)
+    // Keep the resize/move/rotate handles (needed to size + aim the emitter); drop the
+    // port-connector handles, which an emitter doesn't use. (0 would hide everything,
+    // including the resizers.) These constants are ObjectDataType static flags.
+    setManipulationHandleDraw(DRAW_SIZER_ALL | DRAW_MOVE_AXIS_ALL | DRAW_MOVE_XY
+                              | DRAW_ROTATOR_ALL | DRAW_ORB);
+    // The emitter has no 3D shape, so FlexSim would draw a placeholder body box.
+    // Hide it (our region outline is the visual); the custom onDraw handle still draws.
+    switch_hideshape(holder, 1);
 
     ParticleSystem* sys = ParticleSystem::getInstance();
     bool showPlanes = !sys || sys->showPlanes != 0;
