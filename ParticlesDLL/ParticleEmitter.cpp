@@ -23,6 +23,8 @@ void ParticleEmitter::bindVariables() {
 }
 
 void ParticleEmitter::bindInterface() {
+    bindParentClass("Object");   // REQUIRED before bindTypedProperty, or the whole
+                                 // interface fails to register (no props or methods show).
     // Expose every field as a FlexScript property (emitter.rate, emitter.shapeField, ...).
     #define PE_BIND(n) bindTypedProperty(n, double, &ParticleEmitter::pget_##n, &ParticleEmitter::pset_##n)
     PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField);
@@ -89,6 +91,19 @@ static void circle(std::vector<float>& v, int axis, float r) {
     }
 }
 
+// Draw positions with an explicit per-vertex color (self-contained: doesn't depend
+// on leftover GL color/material state, so it never picks up another object's color).
+static void drawColored(Mesh& m, const std::vector<float>& pos, const float* col, int mode) {
+    int n = (int)pos.size() / 3;
+    if (n <= 0) return;
+    std::vector<float> cols((size_t)n * 4);
+    for (int k = 0; k < n; ++k) { cols[k*4]=col[0]; cols[k*4+1]=col[1]; cols[k*4+2]=col[2]; cols[k*4+3]=col[3]; }
+    m.init(n, MESH_POSITION | MESH_AMBIENT_AND_DIFFUSE4, MESH_DYNAMIC_DRAW);
+    m.defineVertexAttribs(MESH_POSITION, (float*)pos.data());
+    m.defineVertexAttribs(MESH_AMBIENT_AND_DIFFUSE4, cols.data());
+    m.draw(mode);
+}
+
 void ParticleEmitter::drawRegionOutline(EmitShape shape, const float* col) {
     std::vector<float> v;
     const float h = 0.5f;  // unit region (object scale makes it the real size)
@@ -109,13 +124,8 @@ void ParticleEmitter::drawRegionOutline(EmitShape shape, const float* col) {
         case EmitShape::Sphere:
             circle(v,0,h); circle(v,1,h); circle(v,2,h); break;
     }
-    int n = (int)v.size() / 3;
-    if (n <= 0) return;
-    handleMesh.init(n, MESH_POSITION, MESH_DYNAMIC_DRAW);
-    handleMesh.setMeshAttrib(MESH_AMBIENT_AND_DIFFUSE4, (float*)col);
-    handleMesh.defineVertexAttribs(MESH_POSITION, v.data());
     glLineWidth(1.6f);
-    handleMesh.draw(GL_LINES);
+    drawColored(handleMesh, v, col, GL_LINES);
     glLineWidth(1.0f);
 }
 
@@ -140,29 +150,36 @@ void ParticleEmitter::drawArrow(double arrowSize, const Vec3& objSize, const flo
     pvec3 p0{-twx,-twy,shaftH}, p1{twx,-twy,shaftH}, p2{twx,twy,shaftH}, p3{-twx,twy,shaftH};
     tri(v,p0,p1,ap); tri(v,p1,p2,ap); tri(v,p2,p3,ap); tri(v,p3,p0,ap);
     tri(v,p0,p2,p1); tri(v,p0,p3,p2);                      // base
-
-    int n = (int)v.size() / 3;
-    handleMesh.init(n, MESH_POSITION, MESH_DYNAMIC_DRAW);
-    handleMesh.setMeshAttrib(MESH_AMBIENT_AND_DIFFUSE4, (float*)col);
-    handleMesh.defineVertexAttribs(MESH_POSITION, v.data());
-    handleMesh.draw(GL_TRIANGLES);
+    drawColored(handleMesh, v, col, GL_TRIANGLES);
 }
 
 double ParticleEmitter::onDraw(treenode view) {
+    setManipulationHandleDraw(0);   // hide the default object box (user request)
+
     ParticleSystem* sys = ParticleSystem::getInstance();
     bool showPlanes = !sys || sys->showPlanes != 0;
     bool showArrows = !sys || sys->showArrows != 0;
     double arrowSize = sys ? sys->arrowSize : 1.0;
     EmitShape shape = (EmitShape)(int)shapeField;
     bool aimed = (DirectionMode)(int)directionField == DirectionMode::Aimed;
-
     float col[4] = { 0.35f, 0.58f, 1.0f, 0.9f };
+
     fglDisable(GL_LIGHTING);
     fglEnable(GL_BLEND);
-    drawtoobjectscale(holder);
+
+    fglPushMatrix();
+    drawtoobjectscale(holder);            // 1 unit = object size, origin at the corner
+    fglTranslate(0.5f, 0.5f, 0.5f);       // move origin to the object's center
+    fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);  // align local +Z with model up (matches the system)
     if (showPlanes) drawRegionOutline(shape, col);
     if (showArrows && aimed) { Vec3 sz = size; drawArrow(arrowSize, sz, col); }
+    fglPopMatrix();
+
+    // restore default GL state so the next object isn't affected
+    fglDisable(GL_BLEND);
     fglEnable(GL_LIGHTING);
+    fglColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glLineWidth(1.0f);
     return 0;
 }
 

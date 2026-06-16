@@ -21,6 +21,7 @@ void ParticleSystem::bindVariables() {
 }
 
 void ParticleSystem::bindInterface() {
+    bindParentClass("Object");   // REQUIRED before bindTypedProperty (or nothing registers).
     // Register the static "Particles" namespace so FlexScript can reach the
     // singleton via Particles.system (then .liveCap, .statTotalLive, .setCap(n), ...).
     bindClassByName<Statics>("Particles", true);
@@ -80,7 +81,7 @@ double ParticleSystem::onDraw(treenode view) {
         if (!e) continue;
         ++count;
         EmitterSpec s = e->buildSpec();
-        Vec3 loc = e->getLocation(0, 0, 0);
+        Vec3 loc = e->getLocation(0.5, 0.5, 0.5);   // emit from the object's center
         Vec3 rot = e->rotation;
         pvec3 wp{ (float)loc.x, (float)loc.y, (float)loc.z };
         pvec3 rd{ (float)rot.x, (float)rot.y, (float)rot.z };
