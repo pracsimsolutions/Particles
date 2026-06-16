@@ -86,6 +86,15 @@ static void addArrowToMesh(Mesh& m, float A, const pvec3& base, const pvec3& rot
 }
 
 double ParticleSystem::onDraw(treenode view) {
+    // TEMPORARILY DISABLED. The emitters now draw their own region outline + aim
+    // arrow in ParticleEmitter::onDraw so they are individually selectable. The
+    // system's batched particle/arrow draw is parked here until we revisit why it
+    // was leaking GL state / not self-containing. Re-enable by removing this early
+    // return. (Stats are zeroed so the GUI doesn't show stale counts.)
+    statEmitterCount = statTotalLive = statBuildMs = statDrawMs = 0;
+    return (double)__super::onDraw(view);
+
+#if 0
     bool picking = getpickingmode(view) != 0;
     float T = (float)time();
     long cap = std::max(0L, (long)liveCap);
@@ -181,6 +190,7 @@ double ParticleSystem::onDraw(treenode view) {
     statEmitterCount = count;
     statTotalLive = (double)totalLive;
     return (double)__super::onDraw(view);
+#endif
 }
 
 void ParticleSystem::drawPointsBatch(const std::vector<Particle>& pts) {

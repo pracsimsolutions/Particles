@@ -129,12 +129,16 @@ void ParticleEmitter::drawRegionOutline(EmitShape shape, const float* col) {
     glLineWidth(1.0f);
 }
 
-void ParticleEmitter::drawArrow(double arrowSize, const float* col) {
-    // Built at world size along +Z (drawn in model scale by the caller, so it's a
-    // constant world size and never deforms). Per-face normals so it shades under
-    // the scene lighting (lighting is left enabled by the caller).
+void ParticleEmitter::drawArrow(double arrowSize, const Vec3& objSize, const float* col) {
+    // Drawn in object scale; divide the world arrowSize by the object size so it stays
+    // roughly a constant world size as the emitter is resized. Per-face normals so it
+    // shades under the scene lighting (caller leaves lighting on).
+    float ox = (float)std::max(1e-3, std::fabs(objSize.x));
+    float oy = (float)std::max(1e-3, std::fabs(objSize.y));
+    float oz = (float)std::max(1e-3, std::fabs(objSize.z));
     float A = (float)arrowSize;
-    float shaftH = 0.62f*A, tipH = 0.42f*A, hw = 0.05f*A, tw = 0.12f*A;
+    float shaftH = 0.62f*A/oz, tipH = 0.42f*A/oz;
+    float hwx = 0.05f*A/ox, hwy = 0.05f*A/oy, twx = 0.12f*A/ox, twy = 0.12f*A/oy;
     std::vector<float> pos, nrm;
     auto addTri = [&](pvec3 a, pvec3 b, pvec3 c) {
         pvec3 e1{b.x-a.x, b.y-a.y, b.z-a.z}, e2{c.x-a.x, c.y-a.y, c.z-a.z};
@@ -144,10 +148,10 @@ void ParticleEmitter::drawArrow(double arrowSize, const float* col) {
         for (auto& p : ps) { pos.push_back(p.x);pos.push_back(p.y);pos.push_back(p.z);
                              nrm.push_back(nn.x);nrm.push_back(nn.y);nrm.push_back(nn.z); }
     };
-    pvec3 c8[8] = {{-hw,-hw,0},{hw,-hw,0},{hw,hw,0},{-hw,hw,0},{-hw,-hw,shaftH},{hw,-hw,shaftH},{hw,hw,shaftH},{-hw,hw,shaftH}};
+    pvec3 c8[8] = {{-hwx,-hwy,0},{hwx,-hwy,0},{hwx,hwy,0},{-hwx,hwy,0},{-hwx,-hwy,shaftH},{hwx,-hwy,shaftH},{hwx,hwy,shaftH},{-hwx,hwy,shaftH}};
     int f[12][3]={{0,1,2},{0,2,3},{4,6,5},{4,7,6},{0,4,5},{0,5,1},{1,5,6},{1,6,2},{2,6,7},{2,7,3},{3,7,4},{3,4,0}};
     for (auto& t : f) addTri(c8[t[0]], c8[t[1]], c8[t[2]]);
-    pvec3 ap{0,0,shaftH+tipH}, p0{-tw,-tw,shaftH}, p1{tw,-tw,shaftH}, p2{tw,tw,shaftH}, p3{-tw,tw,shaftH};
+    pvec3 ap{0,0,shaftH+tipH}, p0{-twx,-twy,shaftH}, p1{twx,-twy,shaftH}, p2{twx,twy,shaftH}, p3{-twx,twy,shaftH};
     addTri(p0,p1,ap); addTri(p1,p2,ap); addTri(p2,p3,ap); addTri(p3,p0,ap);
     addTri(p0,p2,p1); addTri(p0,p3,p2);
 
@@ -162,38 +166,44 @@ void ParticleEmitter::drawArrow(double arrowSize, const float* col) {
 }
 
 double ParticleEmitter::onDraw(treenode view) {
-    // Keep the resize/move/rotate handles (needed to size + aim the emitter); drop the
-    // port-connector handles, which an emitter doesn't use. (0 would hide everything,
-    // including the resizers.) These constants are ObjectDataType static flags.
+    // Keep resize/move/rotate handles; drop the port connectors an emitter never uses.
     setManipulationHandleDraw(DRAW_SIZER_ALL | DRAW_MOVE_AXIS_ALL | DRAW_MOVE_XY
                               | DRAW_ROTATOR_ALL | DRAW_ORB);
-    // The emitter has no 3D shape, so FlexSim would draw a placeholder body box.
-    // Hide it (our region outline is the visual); the custom onDraw handle still draws.
+    // No 3D shape -> hide FlexSim's placeholder body box (our handle is the visual).
     switch_hideshape(holder, 1);
 
     ParticleSystem* sys = ParticleSystem::getInstance();
     bool showPlanes = !sys || sys->showPlanes != 0;
+    bool showArrows = !sys || sys->showArrows != 0;
+    double arrowSize = sys ? sys->arrowSize : 1.0;
     EmitShape shape = (EmitShape)(int)shapeField;
-    float col[4] = { 0.35f, 0.58f, 1.0f, 0.9f };
+    bool aimed = (DirectionMode)(int)directionField == DirectionMode::Aimed;
+    float col[4] = { 0.30f, 0.46f, 0.95f, 1.0f };
 
-    // The emitter only draws its region outline (the emission area; scales with the
-    // object). Skip Point -- no area, and its cross marker is just clutter. The aim
-    // arrow (and its selectable pick range) is drawn by the ParticleSystem in world
-    // coordinates, so it can't drift or deform.
+    // The emitter draws its own handle -- region outline (the shape/area) + the aim
+    // arrow -- so the geometry is the object's own pickable surface (click it to select).
+    fglEnable(GL_BLEND);
+    fglPushMatrix();
+    drawtoobjectscale(holder);
+    fglTranslate(0.5f, 0.5f, 0.0f);           // object base center (z=0)
+    fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);      // align local +Z with model up
+
     if (showPlanes && shape != EmitShape::Point) {
         fglDisable(GL_LIGHTING);
-        fglEnable(GL_BLEND);
-        fglPushMatrix();
-        drawtoobjectscale(holder);
-        fglTranslate(0.5f, 0.5f, 0.0f);       // object base center (z=0) -- matches emission
-        fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);  // align local +Z with model up
         drawRegionOutline(shape, col);
-        fglPopMatrix();
-        fglDisable(GL_BLEND);
-        fglEnable(GL_LIGHTING);
-        glLineWidth(1.0f);
-        fglColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
+    if (showArrows && aimed) {
+        fglEnable(GL_LIGHTING);
+        Vec3 sz = size;
+        drawArrow(arrowSize, sz, col);
+    }
+    fglPopMatrix();
+
+    // restore default GL state so the next object isn't affected
+    fglDisable(GL_BLEND);
+    fglEnable(GL_LIGHTING);
+    fglColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glLineWidth(1.0f);
     return 0;
 }
 
