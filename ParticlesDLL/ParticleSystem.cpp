@@ -58,17 +58,46 @@ double ParticleSystem::onReset() {
     return 0;
 }
 
-double ParticleSystem::onDraw(treenode view) {
-    // Never draw particles during the hit-test pass, so clicking a particle
-    // selects nothing. Emitter objects draw their own shapes and stay pickable.
-    if (getpickingmode(view))
-        return (double)__super::onDraw(view);
+// Add one aim arrow (box shaft + pyramid tip) to the mesh, transformed to world
+// coordinates by the emitter's base+rotation (the same transform the particles use),
+// at world size A. Per-face normals so it shades under the scene lighting.
+static void addArrowToMesh(Mesh& m, float A, const pvec3& base, const pvec3& rot, const float* col) {
+    float shaftH = 0.62f*A, tipH = 0.42f*A, hw = 0.05f*A, tw = 0.12f*A;
+    auto addTri = [&](pvec3 a, pvec3 b, pvec3 c) {
+        pvec3 wa = localToWorld(a, base, rot), wb = localToWorld(b, base, rot), wc = localToWorld(c, base, rot);
+        pvec3 e1{wb.x-wa.x,wb.y-wa.y,wb.z-wa.z}, e2{wc.x-wa.x,wc.y-wa.y,wc.z-wa.z};
+        pvec3 nn{ e1.y*e2.z-e1.z*e2.y, e1.z*e2.x-e1.x*e2.z, e1.x*e2.y-e1.y*e2.x };
+        float l = std::sqrt(nn.x*nn.x+nn.y*nn.y+nn.z*nn.z); if (l>1e-6f){nn.x/=l;nn.y/=l;nn.z/=l;}
+        pvec3 ws[3]={wa,wb,wc};
+        for (auto& w : ws) {
+            int vi = m.addVertex();
+            float p[3]={w.x,w.y,w.z}, nr[3]={nn.x,nn.y,nn.z};
+            m.setVertexAttrib(vi, MESH_POSITION, p);
+            m.setVertexAttrib(vi, MESH_NORMAL, nr);
+            m.setVertexAttrib(vi, MESH_AMBIENT_AND_DIFFUSE4, (float*)col);
+        }
+    };
+    pvec3 c8[8]={{-hw,-hw,0},{hw,-hw,0},{hw,hw,0},{-hw,hw,0},{-hw,-hw,shaftH},{hw,-hw,shaftH},{hw,hw,shaftH},{-hw,hw,shaftH}};
+    int f[12][3]={{0,1,2},{0,2,3},{4,6,5},{4,7,6},{0,4,5},{0,5,1},{1,5,6},{1,6,2},{2,6,7},{2,7,3},{3,7,4},{3,4,0}};
+    for (auto& t : f) addTri(c8[t[0]],c8[t[1]],c8[t[2]]);
+    pvec3 ap{0,0,shaftH+tipH}, p0{-tw,-tw,shaftH}, p1{tw,-tw,shaftH}, p2{tw,tw,shaftH}, p3{-tw,tw,shaftH};
+    addTri(p0,p1,ap); addTri(p1,p2,ap); addTri(p2,p3,ap); addTri(p3,p0,ap);
+    addTri(p0,p2,p1); addTri(p0,p3,p2);
+}
 
+double ParticleSystem::onDraw(treenode view) {
+    bool picking = getpickingmode(view) != 0;
     float T = (float)time();
     long cap = std::max(0L, (long)liveCap);
-    if ((long)scratch.size() < cap) scratch.resize(cap);
+    if (!picking && (long)scratch.size() < cap) scratch.resize(cap);
 
-    // --- Collect: evaluate every emitter, bake its world transform, bin by material ---
+    // The aim arrows are the emitters' selectable handles: built in world coordinates
+    // (so they can't drift/deform) with a per-emitter pick range (so clicking one
+    // selects that emitter). Built in BOTH passes; particles only in the normal pass.
+    const float arrowCol[4] = { 0.30f, 0.46f, 0.95f, 1.0f };
+    arrowMesh.init(0, MESH_POSITION | MESH_NORMAL | MESH_AMBIENT_AND_DIFFUSE4, MESH_DYNAMIC_DRAW);
+    bool anyArrows = false;
+
     std::vector<Particle> points;
     std::map<int, std::vector<Particle>> spritesByTex;
     long totalLive = 0;
@@ -81,15 +110,23 @@ double ParticleSystem::onDraw(treenode view) {
         if (!e) continue;
         ++count;
         EmitterSpec s = e->buildSpec();
-        Vec3 loc = e->getLocation(0.5, 0.5, 0);   // emit from the object's base center (z=0)
+        Vec3 loc = e->getLocation(0.5, 0.5, 0);   // base center (z=0)
         Vec3 rot = e->rotation;
         pvec3 wp{ (float)loc.x, (float)loc.y, (float)loc.z };
         pvec3 rd{ (float)rot.x, (float)rot.y, (float)rot.z };
 
+        if (showArrows != 0 && s.direction == DirectionMode::Aimed) {
+            arrowMesh.beginPickRange(GL_TRIANGLES, a, PICK_OBJECT, 0, 0);
+            addArrowToMesh(arrowMesh, (float)arrowSize, wp, rd, arrowCol);
+            arrowMesh.endPickRange();
+            anyArrows = true;
+        }
+
+        if (picking) continue;   // particles are never pickable -- skip the heavy eval
+
         int n = cap > 0 ? ::evaluate(s, T, scratch.data(), (int)cap) : 0;
         e->statLiveCount = n;
         totalLive += n;
-
         std::vector<Particle>& dst = (s.style == RenderStyle::Sprite)
             ? spritesByTex[(int)e->textureIndex] : points;
         for (int k = 0; k < n; ++k) {
@@ -99,26 +136,37 @@ double ParticleSystem::onDraw(treenode view) {
         }
     }
     auto t1 = std::chrono::high_resolution_clock::now();
+
+    // FlexSim's onDraw frame is rotated vs the model's Z-up; our positions come from
+    // getLocation() (model space), so bracket every draw in the same -90deg X rotation.
+    // --- PICK pass: only the arrows' pick ranges (so a click selects the emitter) ---
+    if (picking) {
+        fglDisable(GL_TEXTURE_2D);
+        fglDisable(GL_LIGHTING);
+        fglPushMatrix();
+        fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);
+        if (anyArrows) arrowMesh.drawPickRanges(view);
+        fglPopMatrix();
+        setpickingdrawfocus(view, 0, 0, 0, OVERRIDE_DRAW_ALL);
+        fglEnable(GL_LIGHTING);
+        fglEnable(GL_TEXTURE_2D);
+        return (double)__super::onDraw(view);
+    }
     statBuildMs = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
-    // --- Draw: one points batch + one batch per sprite texture ---
-    // FlexSim invokes onDraw in a frame that is rotated relative to the model's
-    // Z-up coordinates. Our particle positions come from getLocation() (model
-    // space), so bracket the draw in the same -90 deg X rotation RouteGraph uses
-    // and restore it afterward. The sprite billboard basis is read from the
-    // modelview *inside* this bracket, so quads still face the camera correctly.
+    // --- NORMAL pass: particles + lit arrows, with a single state set/restore ---
     auto d0 = std::chrono::high_resolution_clock::now();
-    // Set the GL state our draws need ONCE and restore it ONCE, so an emitter never
-    // leaks state onto other objects (lighting/texture/blend/depth/color/sizes).
-    fglDisable(GL_LIGHTING);
     fglDisable(GL_TEXTURE_2D);
+    fglDisable(GL_LIGHTING);
     fglEnable(GL_BLEND);
     fglPushMatrix();
     fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);
     if (!points.empty()) drawPointsBatch(points);
     for (auto& kv : spritesByTex)
         if (!kv.second.empty()) drawSpriteBatch(kv.first, kv.second);
+    if (anyArrows) { fglEnable(GL_LIGHTING); arrowMesh.draw(GL_TRIANGLES); }   // lit
     fglPopMatrix();
+    // restore FlexSim defaults + reset the pick draw focus, so the draw is self-contained
     fglDisable(GL_BLEND);
     fglEnable(GL_TEXTURE_2D);
     fglEnable(GL_LIGHTING);
@@ -126,6 +174,7 @@ double ParticleSystem::onDraw(treenode view) {
     glPointSize(1.0f);
     glLineWidth(1.0f);
     fglColor(1.0f, 1.0f, 1.0f, 1.0f);
+    setpickingdrawfocus(view, 0, 0, 0, OVERRIDE_DRAW_ALL);
     auto d1 = std::chrono::high_resolution_clock::now();
     statDrawMs = std::chrono::duration<double, std::milli>(d1 - d0).count();
 

@@ -173,14 +173,13 @@ double ParticleEmitter::onDraw(treenode view) {
 
     ParticleSystem* sys = ParticleSystem::getInstance();
     bool showPlanes = !sys || sys->showPlanes != 0;
-    bool showArrows = !sys || sys->showArrows != 0;
-    double arrowSize = sys ? sys->arrowSize : 1.0;
     EmitShape shape = (EmitShape)(int)shapeField;
-    bool aimed = (DirectionMode)(int)directionField == DirectionMode::Aimed;
     float col[4] = { 0.35f, 0.58f, 1.0f, 0.9f };
 
-    // Region outline = the emission area; scales with the object. Skip for Point
-    // (no area -- its cross marker is just clutter; the arrow marks the spot). Flat lines.
+    // The emitter only draws its region outline (the emission area; scales with the
+    // object). Skip Point -- no area, and its cross marker is just clutter. The aim
+    // arrow (and its selectable pick range) is drawn by the ParticleSystem in world
+    // coordinates, so it can't drift or deform.
     if (showPlanes && shape != EmitShape::Point) {
         fglDisable(GL_LIGHTING);
         fglEnable(GL_BLEND);
@@ -193,21 +192,8 @@ double ParticleEmitter::onDraw(treenode view) {
         fglDisable(GL_BLEND);
         fglEnable(GL_LIGHTING);
         glLineWidth(1.0f);
+        fglColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
-
-    // Aim arrow = the pickable selection handle. Drawn in MODEL scale so it stays a
-    // constant world size and never deforms when the emitter is resized. Lighting is
-    // left ON (lit solid geometry). Clicking it selects the emitter.
-    if (showArrows && aimed) {
-        Vec3 sz = size;
-        fglPushMatrix();
-        drawtomodelscale(holder);
-        fglTranslate((float)sz.x * 0.5f, (float)sz.y * 0.5f, 0.0f);  // object base center
-        fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);
-        drawArrow(arrowSize, col);
-        fglPopMatrix();
-    }
-    fglColor(1.0f, 1.0f, 1.0f, 1.0f);
     return 0;
 }
 

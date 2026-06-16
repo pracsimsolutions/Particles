@@ -62,6 +62,7 @@ public:
 private:
     Mesh pointsMesh;
     std::map<int, Mesh> spriteMeshes;            // one mesh per texture index
+    Mesh arrowMesh;                              // all aim arrows; carries per-emitter pick ranges
     std::vector<Particle> scratch;               // per-emitter evaluation buffer
 
     void drawPointsBatch(const std::vector<Particle>& pts);
