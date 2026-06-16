@@ -63,7 +63,7 @@ public:
 private:
     Mesh handleMesh;
     void drawRegionOutline(EmitShape shape, const float* col);
-    void drawArrow(double arrowSize, const Vec3& objSize, const float* col);
+    void drawArrow(double arrowSize, const float* col);   // world size; drawn in model scale
 };
 
 }  // namespace Particles

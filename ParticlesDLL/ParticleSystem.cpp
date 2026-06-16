@@ -58,27 +58,6 @@ double ParticleSystem::onReset() {
     return 0;
 }
 
-// Append one aim-arrow (box shaft + pyramid tip) to a world-space triangle buffer,
-// built at world size A (so it never deforms with the object) and oriented by the
-// emitter's rotation about its base -- the exact transform the particles use.
-static void appendTriW(std::vector<float>& v, const pvec3& base, const pvec3& rot, pvec3 a, pvec3 b, pvec3 c) {
-    pvec3 wa = localToWorld(a, base, rot), wb = localToWorld(b, base, rot), wc = localToWorld(c, base, rot);
-    v.push_back(wa.x); v.push_back(wa.y); v.push_back(wa.z);
-    v.push_back(wb.x); v.push_back(wb.y); v.push_back(wb.z);
-    v.push_back(wc.x); v.push_back(wc.y); v.push_back(wc.z);
-}
-static void appendArrow(std::vector<float>& v, float A, const pvec3& base, const pvec3& rot) {
-    float shaftH = 0.62f*A, tipH = 0.42f*A, hw = 0.05f*A, tw = 0.12f*A;
-    pvec3 c[8] = {{-hw,-hw,0},{hw,-hw,0},{hw,hw,0},{-hw,hw,0},{-hw,-hw,shaftH},{hw,-hw,shaftH},{hw,hw,shaftH},{-hw,hw,shaftH}};
-    int f[12][3]={{0,1,2},{0,2,3},{4,6,5},{4,7,6},{0,4,5},{0,5,1},{1,5,6},{1,6,2},{2,6,7},{2,7,3},{3,7,4},{3,4,0}};
-    for (auto& t : f) appendTriW(v, base, rot, c[t[0]], c[t[1]], c[t[2]]);
-    pvec3 ap{0,0,shaftH+tipH};
-    pvec3 p0{-tw,-tw,shaftH}, p1{tw,-tw,shaftH}, p2{tw,tw,shaftH}, p3{-tw,tw,shaftH};
-    appendTriW(v,base,rot,p0,p1,ap); appendTriW(v,base,rot,p1,p2,ap);
-    appendTriW(v,base,rot,p2,p3,ap); appendTriW(v,base,rot,p3,p0,ap);
-    appendTriW(v,base,rot,p0,p2,p1); appendTriW(v,base,rot,p0,p3,p2);
-}
-
 double ParticleSystem::onDraw(treenode view) {
     // Never draw particles during the hit-test pass, so clicking a particle
     // selects nothing. Emitter objects draw their own shapes and stay pickable.
@@ -92,7 +71,6 @@ double ParticleSystem::onDraw(treenode view) {
     // --- Collect: evaluate every emitter, bake its world transform, bin by material ---
     std::vector<Particle> points;
     std::map<int, std::vector<Particle>> spritesByTex;
-    std::vector<float> arrowVerts;
     long totalLive = 0;
     int count = 0;
 
@@ -107,10 +85,6 @@ double ParticleSystem::onDraw(treenode view) {
         Vec3 rot = e->rotation;
         pvec3 wp{ (float)loc.x, (float)loc.y, (float)loc.z };
         pvec3 rd{ (float)rot.x, (float)rot.y, (float)rot.z };
-
-        // Aim arrow: drawn in model units => constant world size, never deforms.
-        if (showArrows != 0 && s.direction == DirectionMode::Aimed)
-            appendArrow(arrowVerts, (float)arrowSize, wp, rd);
 
         int n = cap > 0 ? ::evaluate(s, T, scratch.data(), (int)cap) : 0;
         e->statLiveCount = n;
@@ -139,12 +113,12 @@ double ParticleSystem::onDraw(treenode view) {
     fglDisable(GL_LIGHTING);
     fglDisable(GL_TEXTURE_2D);
     fglEnable(GL_BLEND);
+    fglPushMatrix();
     fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);
     if (!points.empty()) drawPointsBatch(points);
     for (auto& kv : spritesByTex)
         if (!kv.second.empty()) drawSpriteBatch(kv.first, kv.second);
-    if (!arrowVerts.empty()) drawArrowBatch(arrowVerts);
-    fglRotate(90.0f, 1.0f, 0.0f, 0.0f);
+    fglPopMatrix();
     fglDisable(GL_BLEND);
     fglEnable(GL_TEXTURE_2D);
     fglEnable(GL_LIGHTING);
@@ -208,18 +182,6 @@ void ParticleSystem::drawSpriteBatch(int texIndex, const std::vector<Particle>& 
     mesh.draw(GL_TRIANGLES);
     if (texIndex > 0) { bindtexture(0); fglDisable(GL_TEXTURE_2D); }
     glDepthMask(GL_TRUE);
-}
-
-void ParticleSystem::drawArrowBatch(const std::vector<float>& verts) {
-    int n = (int)verts.size() / 3;
-    if (n <= 0) return;
-    const float col[4] = { 0.30f, 0.42f, 0.78f, 1.0f };   // handle blue
-    std::vector<float> cols((size_t)n * 4);
-    for (int k = 0; k < n; ++k) { cols[k*4]=col[0]; cols[k*4+1]=col[1]; cols[k*4+2]=col[2]; cols[k*4+3]=col[3]; }
-    arrowMesh.init(n, MESH_POSITION | MESH_AMBIENT_AND_DIFFUSE4, MESH_DYNAMIC_DRAW);
-    arrowMesh.defineVertexAttribs(MESH_POSITION, (float*)verts.data());
-    arrowMesh.defineVertexAttribs(MESH_AMBIENT_AND_DIFFUSE4, cols.data());
-    arrowMesh.draw(GL_TRIANGLES);
 }
 
 }  // namespace Particles

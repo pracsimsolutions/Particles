@@ -129,28 +129,36 @@ void ParticleEmitter::drawRegionOutline(EmitShape shape, const float* col) {
     glLineWidth(1.0f);
 }
 
-void ParticleEmitter::drawArrow(double arrowSize, const Vec3& objSize, const float* col) {
-    // World-constant arrow along +Z: convert the world arrowSize to object-local
-    // units by dividing by the object scale (so resizing the object doesn't grow it).
-    float ox = (float)std::max(1e-3, std::fabs(objSize.x));
-    float oy = (float)std::max(1e-3, std::fabs(objSize.y));
-    float oz = (float)std::max(1e-3, std::fabs(objSize.z));
+void ParticleEmitter::drawArrow(double arrowSize, const float* col) {
+    // Built at world size along +Z (drawn in model scale by the caller, so it's a
+    // constant world size and never deforms). Per-face normals so it shades under
+    // the scene lighting (lighting is left enabled by the caller).
     float A = (float)arrowSize;
-    float shaftH = 0.62f*A/oz, tipH = 0.42f*A/oz;
-    float hwx = 0.05f*A/ox, hwy = 0.05f*A/oy, twx = 0.12f*A/ox, twy = 0.12f*A/oy;
-
-    std::vector<float> v;
-    auto box = [&](float x0,float x1,float y0,float y1,float z0,float z1){
-        pvec3 c[8] = {{x0,y0,z0},{x1,y0,z0},{x1,y1,z0},{x0,y1,z0},{x0,y0,z1},{x1,y0,z1},{x1,y1,z1},{x0,y1,z1}};
-        int f[12][3]={{0,1,2},{0,2,3},{4,6,5},{4,7,6},{0,4,5},{0,5,1},{1,5,6},{1,6,2},{2,6,7},{2,7,3},{3,7,4},{3,4,0}};
-        for (auto& t : f) tri(v, c[t[0]], c[t[1]], c[t[2]]);
+    float shaftH = 0.62f*A, tipH = 0.42f*A, hw = 0.05f*A, tw = 0.12f*A;
+    std::vector<float> pos, nrm;
+    auto addTri = [&](pvec3 a, pvec3 b, pvec3 c) {
+        pvec3 e1{b.x-a.x, b.y-a.y, b.z-a.z}, e2{c.x-a.x, c.y-a.y, c.z-a.z};
+        pvec3 nn{ e1.y*e2.z-e1.z*e2.y, e1.z*e2.x-e1.x*e2.z, e1.x*e2.y-e1.y*e2.x };
+        float l = std::sqrt(nn.x*nn.x+nn.y*nn.y+nn.z*nn.z); if (l>1e-6f){nn.x/=l;nn.y/=l;nn.z/=l;}
+        pvec3 ps[3]={a,b,c};
+        for (auto& p : ps) { pos.push_back(p.x);pos.push_back(p.y);pos.push_back(p.z);
+                             nrm.push_back(nn.x);nrm.push_back(nn.y);nrm.push_back(nn.z); }
     };
-    box(-hwx,hwx,-hwy,hwy,0,shaftH);                       // shaft
-    pvec3 ap{0,0,shaftH+tipH};                             // pyramid tip
-    pvec3 p0{-twx,-twy,shaftH}, p1{twx,-twy,shaftH}, p2{twx,twy,shaftH}, p3{-twx,twy,shaftH};
-    tri(v,p0,p1,ap); tri(v,p1,p2,ap); tri(v,p2,p3,ap); tri(v,p3,p0,ap);
-    tri(v,p0,p2,p1); tri(v,p0,p3,p2);                      // base
-    drawColored(handleMesh, v, col, GL_TRIANGLES);
+    pvec3 c8[8] = {{-hw,-hw,0},{hw,-hw,0},{hw,hw,0},{-hw,hw,0},{-hw,-hw,shaftH},{hw,-hw,shaftH},{hw,hw,shaftH},{-hw,hw,shaftH}};
+    int f[12][3]={{0,1,2},{0,2,3},{4,6,5},{4,7,6},{0,4,5},{0,5,1},{1,5,6},{1,6,2},{2,6,7},{2,7,3},{3,7,4},{3,4,0}};
+    for (auto& t : f) addTri(c8[t[0]], c8[t[1]], c8[t[2]]);
+    pvec3 ap{0,0,shaftH+tipH}, p0{-tw,-tw,shaftH}, p1{tw,-tw,shaftH}, p2{tw,tw,shaftH}, p3{-tw,tw,shaftH};
+    addTri(p0,p1,ap); addTri(p1,p2,ap); addTri(p2,p3,ap); addTri(p3,p0,ap);
+    addTri(p0,p2,p1); addTri(p0,p3,p2);
+
+    int n = (int)pos.size() / 3;
+    std::vector<float> cols((size_t)n * 4);
+    for (int k = 0; k < n; ++k) { cols[k*4]=col[0]; cols[k*4+1]=col[1]; cols[k*4+2]=col[2]; cols[k*4+3]=col[3]; }
+    handleMesh.init(n, MESH_POSITION | MESH_NORMAL | MESH_AMBIENT_AND_DIFFUSE4, MESH_DYNAMIC_DRAW);
+    handleMesh.defineVertexAttribs(MESH_POSITION, pos.data());
+    handleMesh.defineVertexAttribs(MESH_NORMAL, nrm.data());
+    handleMesh.defineVertexAttribs(MESH_AMBIENT_AND_DIFFUSE4, cols.data());
+    handleMesh.draw(GL_TRIANGLES);
 }
 
 double ParticleEmitter::onDraw(treenode view) {
@@ -165,27 +173,41 @@ double ParticleEmitter::onDraw(treenode view) {
 
     ParticleSystem* sys = ParticleSystem::getInstance();
     bool showPlanes = !sys || sys->showPlanes != 0;
-    if (!showPlanes) return 0;
+    bool showArrows = !sys || sys->showArrows != 0;
+    double arrowSize = sys ? sys->arrowSize : 1.0;
     EmitShape shape = (EmitShape)(int)shapeField;
+    bool aimed = (DirectionMode)(int)directionField == DirectionMode::Aimed;
     float col[4] = { 0.35f, 0.58f, 1.0f, 0.9f };
 
-    // The region outline scales with the object (it IS the emission area). The aim
-    // arrow is drawn by the ParticleSystem in model units, so it stays a constant
-    // world size and never deforms when the emitter is resized.
-    fglDisable(GL_LIGHTING);
-    fglEnable(GL_BLEND);
-    fglPushMatrix();
-    drawtoobjectscale(holder);            // 1 unit = object size, origin at the corner
-    fglTranslate(0.5f, 0.5f, 0.0f);       // object base center (z=0) -- matches the emission origin
-    fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);  // align local +Z with model up
-    drawRegionOutline(shape, col);
-    fglPopMatrix();
+    // Region outline = the emission area; scales with the object. Skip for Point
+    // (no area -- its cross marker is just clutter; the arrow marks the spot). Flat lines.
+    if (showPlanes && shape != EmitShape::Point) {
+        fglDisable(GL_LIGHTING);
+        fglEnable(GL_BLEND);
+        fglPushMatrix();
+        drawtoobjectscale(holder);
+        fglTranslate(0.5f, 0.5f, 0.0f);       // object base center (z=0) -- matches emission
+        fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);  // align local +Z with model up
+        drawRegionOutline(shape, col);
+        fglPopMatrix();
+        fglDisable(GL_BLEND);
+        fglEnable(GL_LIGHTING);
+        glLineWidth(1.0f);
+    }
 
-    // restore default GL state so the next object isn't affected
-    fglDisable(GL_BLEND);
-    fglEnable(GL_LIGHTING);
+    // Aim arrow = the pickable selection handle. Drawn in MODEL scale so it stays a
+    // constant world size and never deforms when the emitter is resized. Lighting is
+    // left ON (lit solid geometry). Clicking it selects the emitter.
+    if (showArrows && aimed) {
+        Vec3 sz = size;
+        fglPushMatrix();
+        drawtomodelscale(holder);
+        fglTranslate((float)sz.x * 0.5f, (float)sz.y * 0.5f, 0.0f);  // object base center
+        fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);
+        drawArrow(arrowSize, col);
+        fglPopMatrix();
+    }
     fglColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glLineWidth(1.0f);
     return 0;
 }
 
