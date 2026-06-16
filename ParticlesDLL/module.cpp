@@ -5,6 +5,7 @@
 #include "ParticleEmitter.h"
 #include "ParticleSystem.h"
 #include "ParticleEvaluator.h"
+#include "PropertyTypes.h"
 #include <vector>
 #include <chrono>
 #include <cstring>
@@ -21,6 +22,15 @@ visible ObjectDataType* createodtderivative(char* classname)
 {
     if (strcmp(classname, "ParticleEmitter") == 0) return new ParticleEmitter;
     if (strcmp(classname, "ParticleSystem") == 0)  return new ParticleSystem;
+    return nullptr;
+}
+
+// SimpleDataType factory: instantiates the node-backed property wrappers (a node whose
+// sdt::attributetree names one of these is created as that class). Module prefix stripped.
+visible SimpleDataType* createsdtderivative(char* classname)
+{
+    if (strcmp(classname, "ColorProperty") == 0) return new ColorProperty;
+    if (strcmp(classname, "Vec3Property") == 0)  return new Vec3Property;
     return nullptr;
 }
 

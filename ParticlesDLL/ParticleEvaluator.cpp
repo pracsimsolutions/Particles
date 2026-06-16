@@ -82,10 +82,8 @@ pvec3 positionAt(const EmitterSpec& s, long i, const pvec3& p0, const pvec3& v0,
 }
 
 rgba colorAt(const EmitterSpec& s, float u) {
-    u = clampf(u, 0.0f, 1.0f);
-    rgba c = s.colorStops.sample(u);
-    c.a *= lerpf(s.alphaStart, s.alphaEnd, u);   // alpha curve modulates gradient alpha
-    return c;
+    // Alpha is part of the gradient (rgba stops), so sample() interpolates it directly.
+    return s.colorStops.sample(clampf(u, 0.0f, 1.0f));
 }
 
 float sizeAt(const EmitterSpec& s, float u) {

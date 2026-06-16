@@ -12,12 +12,11 @@ void ParticleEmitter::bindVariables() {
     bindVariable(startTime); bindVariable(stopTimeField);
     bindVariable(shapeField); bindVariable(directionField); bindVariable(coneHalfAngleDeg);
     bindVariable(speed); bindVariable(speedJitter);
-    bindVariable(gravX); bindVariable(gravY); bindVariable(gravZ);
-    bindVariable(drag); bindVariable(windX); bindVariable(windY); bindVariable(windZ);
+    bindVariable(drag);
+    // gravity/wind are node-backed Vec3Property SDTs in the tree (read in buildSpec); not bound here.
     bindVariable(swirlAmp); bindVariable(swirlFreq);
-    bindVariable(sizeStart); bindVariable(sizeEnd); bindVariable(alphaStart); bindVariable(alphaEnd);
-    bindVariable(colorStartR); bindVariable(colorStartG); bindVariable(colorStartB);
-    bindVariable(colorEndR); bindVariable(colorEndG); bindVariable(colorEndB);
+    bindVariable(sizeStart); bindVariable(sizeEnd);
+    // colorStart/colorEnd are structured rgba nodes in the tree (read in buildSpec); not bound here.
     bindVariable(styleField); bindVariable(textureIndex); bindVariable(seedField);
     bindVariable(statLiveCount);
 }
@@ -28,17 +27,47 @@ void ParticleEmitter::bindInterface() {
     PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField);
     PE_BIND(shapeField); PE_BIND(directionField); PE_BIND(coneHalfAngleDeg);
     PE_BIND(speed); PE_BIND(speedJitter);
-    PE_BIND(gravX); PE_BIND(gravY); PE_BIND(gravZ);
-    PE_BIND(drag); PE_BIND(windX); PE_BIND(windY); PE_BIND(windZ);
+    PE_BIND(drag);
     PE_BIND(swirlAmp); PE_BIND(swirlFreq);
-    PE_BIND(sizeStart); PE_BIND(sizeEnd); PE_BIND(alphaStart); PE_BIND(alphaEnd);
-    PE_BIND(colorStartR); PE_BIND(colorStartG); PE_BIND(colorStartB);
-    PE_BIND(colorEndR); PE_BIND(colorEndG); PE_BIND(colorEndB);
+    PE_BIND(sizeStart); PE_BIND(sizeEnd);
     PE_BIND(styleField); PE_BIND(textureIndex); PE_BIND(seedField);
     #undef PE_BIND
     bindTypedProperty(statLiveCount, double, &ParticleEmitter::pget_statLiveCount, nullptr);  // read-only
-    bindMethod(setColorStart, ParticleEmitter, "void setColorStart(double r, double g, double b)");
-    bindMethod(setColorEnd, ParticleEmitter, "void setColorEnd(double r, double g, double b)");
+    // Node-backed wrappers: persistent component read+write (emitter.startColor.r = 0.5,
+    // emitter.gravity.y = 5). The "&" in the typeName marks the property as an l-value
+    // reference (so component writes are allowed); `false` keeps the helper type out of
+    // the visible class list.
+    bindClassByName<ColorProperty>("Particles.Color", false);
+    bindTypedPropertyByName<ColorProperty>("startColor", "Particles.Color&",
+        force_cast<void*>(&ParticleEmitter::__getStartColor), nullptr);
+    bindTypedPropertyByName<ColorProperty>("endColor", "Particles.Color&",
+        force_cast<void*>(&ParticleEmitter::__getEndColor), nullptr);
+    bindClassByName<Vec3Property>("Particles.Vec3", false);
+    bindTypedPropertyByName<Vec3Property>("gravity", "Particles.Vec3&",
+        force_cast<void*>(&ParticleEmitter::__getGravity), nullptr);
+    bindTypedPropertyByName<Vec3Property>("wind", "Particles.Vec3&",
+        force_cast<void*>(&ParticleEmitter::__getWind), nullptr);
+    // Enum namespaces (visible) so scripts use names, e.g. emitter.shapeField = Particles.Shape.Sphere.
+    bindClassByName<Shape>("Particles.Shape", true);
+    bindClassByName<Direction>("Particles.Direction", true);
+    bindClassByName<Style>("Particles.Style", true);
+    bindMethod(setColorStart, ParticleEmitter, "void setColorStart(double r, double g, double b, double a = 1)");
+    bindMethod(setColorEnd, ParticleEmitter, "void setColorEnd(double r, double g, double b, double a = 1)");
+}
+
+// colorStart/colorEnd and gravity/wind are node-backed SDTs; read their live members.
+static rgba readColor(ColorProperty* c) {
+    return c ? rgba{ (float)c->r, (float)c->g, (float)c->b, (float)c->a } : rgba{ 1, 1, 1, 1 };
+}
+static pvec3 readVec3(Vec3Property* v, float dz) {
+    return v ? pvec3{ (float)v->x, (float)v->y, (float)v->z } : pvec3{ 0, 0, dz };
+}
+
+void ParticleEmitter::setColorStart(double r, double g, double b, double a) {
+    if (ColorProperty* c = __getStartColor()) { c->r = r; c->g = g; c->b = b; c->a = a; }
+}
+void ParticleEmitter::setColorEnd(double r, double g, double b, double a) {
+    if (ColorProperty* c = __getEndColor()) { c->r = r; c->g = g; c->b = b; c->a = a; }
 }
 
 EmitterSpec ParticleEmitter::buildSpec() {
@@ -54,14 +83,14 @@ EmitterSpec ParticleEmitter::buildSpec() {
     Vec3 sz = size;
     s.regionX = (float)sz.x; s.regionY = (float)sz.y; s.regionZ = (float)sz.z;
     s.speed = (float)speed; s.speedJitter = (float)speedJitter;
-    s.gravity = { (float)gravX, (float)gravY, (float)gravZ };
-    s.drag = (float)drag; s.wind = { (float)windX, (float)windY, (float)windZ };
+    s.gravity = readVec3(__getGravity(), -2.0f);
+    s.drag = (float)drag; s.wind = readVec3(__getWind(), 0.0f);
     s.swirlAmp = (float)swirlAmp; s.swirlFreq = (float)swirlFreq;
     s.sizeStart = (float)sizeStart; s.sizeEnd = (float)sizeEnd;
-    s.alphaStart = (float)alphaStart; s.alphaEnd = (float)alphaEnd;
+    // colorStart/colorEnd are rgba (alpha folded in) -> the gradient carries alpha directly.
     s.colorStops.count = 2;
-    s.colorStops.stops[0] = { 0.0f, rgba{(float)colorStartR,(float)colorStartG,(float)colorStartB,1} };
-    s.colorStops.stops[1] = { 1.0f, rgba{(float)colorEndR,(float)colorEndG,(float)colorEndB,1} };
+    s.colorStops.stops[0] = { 0.0f, readColor(__getStartColor()) };
+    s.colorStops.stops[1] = { 1.0f, readColor(__getEndColor()) };
     s.style = (RenderStyle)(int)styleField;
     s.seed = (uint32_t)seedField;
     return s;

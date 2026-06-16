@@ -100,29 +100,49 @@
         <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040390000</data></node>
         <node f="42" dt="1"><name>speed</name><data>0000000040000000</data></node>
         <node f="42" dt="1"><name>speedJitter</name><data>000000003fe00000</data></node>
-        <node f="42" dt="1"><name>gravX</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>gravY</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>gravZ</name><data>00000000c0000000</data></node>
         <node f="42" dt="1"><name>drag</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>windX</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>windY</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>windZ</name><data>0000000000000000</data></node>
+        <node f="42" dt="7"><name>gravity</name><data/>
+         <node f="40"><name></name></node>
+         <node f="42" dt="1"><name>x</name><data>0000000000000000</data></node>
+         <node f="42" dt="1"><name>y</name><data>0000000000000000</data></node>
+         <node f="42" dt="1"><name>z</name><data>00000000c0000000</data></node>
+         <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::Vec3Property</data>
+          <node f="40"><name></name></node></node>
+        </node>
+        <node f="42" dt="7"><name>wind</name><data/>
+         <node f="40"><name></name></node>
+         <node f="42" dt="1"><name>x</name><data>0000000000000000</data></node>
+         <node f="42" dt="1"><name>y</name><data>0000000000000000</data></node>
+         <node f="42" dt="1"><name>z</name><data>0000000000000000</data></node>
+         <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::Vec3Property</data>
+          <node f="40"><name></name></node></node>
+        </node>
         <node f="42" dt="1"><name>swirlAmp</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>swirlFreq</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>sizeStart</name><data>9999999a3fc99999</data></node>
         <node f="42" dt="1"><name>sizeEnd</name><data>9999999a3fa99999</data></node>
-        <node f="42" dt="1"><name>alphaStart</name><data>000000003ff00000</data></node>
-        <node f="42" dt="1"><name>alphaEnd</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>colorStartR</name><data>000000003ff00000</data></node>
-        <node f="42" dt="1"><name>colorStartG</name><data>000000003ff00000</data></node>
-        <node f="42" dt="1"><name>colorStartB</name><data>000000003ff00000</data></node>
-        <node f="42" dt="1"><name>colorEndR</name><data>000000003ff00000</data></node>
-        <node f="42" dt="1"><name>colorEndG</name><data>000000003ff00000</data></node>
-        <node f="42" dt="1"><name>colorEndB</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>styleField</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>textureIndex</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>seedField</name><data>0000000040c81c80</data></node>
         <node f="42" dt="1"><name>statLiveCount</name><data>0000000000000000</data></node>
+        <node f="42" dt="7"><name>colorStart</name><data/>
+         <node f="40"><name></name></node>
+         <node f="42" dt="1"><name>r</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>g</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>b</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>a</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+          <node f="40"><name></name></node></node>
+        </node>
+        <node f="42" dt="7"><name>colorEnd</name><data/>
+         <node f="40"><name></name></node>
+         <node f="42" dt="1"><name>r</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>g</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>b</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>a</name><data>0000000000000000</data></node>
+         <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+          <node f="40"><name></name></node></node>
+        </node>
        </node>
        <node f="42"><name>behaviour</name>
         <node f="40"><name></name></node>
@@ -153,18 +173,35 @@ if (model().find("ParticleSystem") == NULL) {
             <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040390000</data></node>
             <node f="42" dt="1"><name>speed</name><data>0000000040000000</data></node>
             <node f="42" dt="1"><name>speedJitter</name><data>000000003fe00000</data></node>
-            <node f="42" dt="1"><name>gravZ</name><data>00000000c0000000</data></node>
+            <node f="42" dt="7"><name>gravity</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>x</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>y</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>z</name><data>00000000c0000000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::Vec3Property</data>
+              <node f="40"><name></name></node></node>
+            </node>
             <node f="42" dt="1"><name>drag</name><data>0000000000000000</data></node>
             <node f="42" dt="1"><name>sizeStart</name><data>9999999a3fc99999</data></node>
             <node f="42" dt="1"><name>sizeEnd</name><data>9999999a3fa99999</data></node>
-            <node f="42" dt="1"><name>alphaStart</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>alphaEnd</name><data>0000000000000000</data></node>
-            <node f="42" dt="1"><name>colorStartR</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorStartG</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorStartB</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorEndR</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorEndG</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorEndB</name><data>000000003ff00000</data></node>
+            <node f="42" dt="7"><name>colorStart</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>g</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>b</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>a</name><data>000000003ff00000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
+            <node f="42" dt="7"><name>colorEnd</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>g</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>b</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>a</name><data>0000000000000000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
            </node>
           </node>
           <node f="42" dt="4"><name>Smoke</name><data>
@@ -181,17 +218,35 @@ if (model().find("ParticleSystem") == NULL) {
             <node f="42" dt="1"><name>speed</name><data>9999999a3fe99999</data></node>
             <node f="42" dt="1"><name>speedJitter</name><data>333333333fd33333</data></node>
             <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040320000</data></node>
-            <node f="42" dt="1"><name>gravZ</name><data>9999999a3fd99999</data></node>
+            <node f="42" dt="7"><name>gravity</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>x</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>y</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>z</name><data>9999999a3fd99999</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::Vec3Property</data>
+              <node f="40"><name></name></node></node>
+            </node>
             <node f="42" dt="1"><name>drag</name><data>333333333fe33333</data></node>
             <node f="42" dt="1"><name>sizeStart</name><data>333333333fd33333</data></node>
             <node f="42" dt="1"><name>sizeEnd</name><data>333333333ff33333</data></node>
-            <node f="42" dt="1"><name>alphaStart</name><data>000000003fe00000</data></node>
-            <node f="42" dt="1"><name>colorStartR</name><data>000000003fe80000</data></node>
-            <node f="42" dt="1"><name>colorStartG</name><data>000000003fe80000</data></node>
-            <node f="42" dt="1"><name>colorStartB</name><data>8f5c28f63fe8f5c2</data></node>
-            <node f="42" dt="1"><name>colorEndR</name><data>000000003fe00000</data></node>
-            <node f="42" dt="1"><name>colorEndG</name><data>000000003fe00000</data></node>
-            <node f="42" dt="1"><name>colorEndB</name><data>9999999a3fe19999</data></node>
+            <node f="42" dt="7"><name>colorStart</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>000000003fe80000</data></node>
+             <node f="42" dt="1"><name>g</name><data>000000003fe80000</data></node>
+             <node f="42" dt="1"><name>b</name><data>8f5c28f63fe8f5c2</data></node>
+             <node f="42" dt="1"><name>a</name><data>000000003fe00000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
+            <node f="42" dt="7"><name>colorEnd</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>000000003fe00000</data></node>
+             <node f="42" dt="1"><name>g</name><data>000000003fe00000</data></node>
+             <node f="42" dt="1"><name>b</name><data>9999999a3fe19999</data></node>
+             <node f="42" dt="1"><name>a</name><data>0000000000000000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
            </node>
           </node>
           <node f="42" dt="4"><name>Sparks</name><data>
@@ -208,15 +263,34 @@ if (model().find("ParticleSystem") == NULL) {
             <node f="42" dt="1"><name>speed</name><data>0000000040100000</data></node>
             <node f="42" dt="1"><name>speedJitter</name><data>0000000040000000</data></node>
             <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040418000</data></node>
-            <node f="42" dt="1"><name>gravZ</name><data>00000000c0180000</data></node>
+            <node f="42" dt="7"><name>gravity</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>x</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>y</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>z</name><data>00000000c0180000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::Vec3Property</data>
+              <node f="40"><name></name></node></node>
+            </node>
             <node f="42" dt="1"><name>sizeStart</name><data>9999999a3fa99999</data></node>
             <node f="42" dt="1"><name>sizeEnd</name><data>47ae147b3f947ae1</data></node>
-            <node f="42" dt="1"><name>colorStartR</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorStartG</name><data>cccccccd3feccccc</data></node>
-            <node f="42" dt="1"><name>colorStartB</name><data>9999999a3fd99999</data></node>
-            <node f="42" dt="1"><name>colorEndR</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorEndG</name><data>333333333fd33333</data></node>
-            <node f="42" dt="1"><name>colorEndB</name><data>9999999a3fa99999</data></node>
+            <node f="42" dt="7"><name>colorStart</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>g</name><data>cccccccd3feccccc</data></node>
+             <node f="42" dt="1"><name>b</name><data>9999999a3fd99999</data></node>
+             <node f="42" dt="1"><name>a</name><data>000000003ff00000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
+            <node f="42" dt="7"><name>colorEnd</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>g</name><data>333333333fd33333</data></node>
+             <node f="42" dt="1"><name>b</name><data>9999999a3fa99999</data></node>
+             <node f="42" dt="1"><name>a</name><data>0000000000000000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
            </node>
           </node>
           <node f="42" dt="4"><name>Fountain</name><data>
@@ -233,17 +307,67 @@ if (model().find("ParticleSystem") == NULL) {
             <node f="42" dt="1"><name>speed</name><data>0000000040100000</data></node>
             <node f="42" dt="1"><name>speedJitter</name><data>333333333fe33333</data></node>
             <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040280000</data></node>
-            <node f="42" dt="1"><name>gravZ</name><data>00000000c0080000</data></node>
+            <node f="42" dt="7"><name>gravity</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>x</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>y</name><data>0000000000000000</data></node>
+             <node f="42" dt="1"><name>z</name><data>00000000c0080000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::Vec3Property</data>
+              <node f="40"><name></name></node></node>
+            </node>
             <node f="42" dt="1"><name>sizeStart</name><data>47ae147b3fb47ae1</data></node>
-            <node f="42" dt="1"><name>colorStartR</name><data>9999999a3fd99999</data></node>
-            <node f="42" dt="1"><name>colorStartG</name><data>666666663fe66666</data></node>
-            <node f="42" dt="1"><name>colorStartB</name><data>000000003ff00000</data></node>
-            <node f="42" dt="1"><name>colorEndR</name><data>9999999a3fb99999</data></node>
-            <node f="42" dt="1"><name>colorEndG</name><data>333333333fd33333</data></node>
-            <node f="42" dt="1"><name>colorEndB</name><data>cccccccd3feccccc</data></node>
+            <node f="42" dt="7"><name>colorStart</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>9999999a3fd99999</data></node>
+             <node f="42" dt="1"><name>g</name><data>666666663fe66666</data></node>
+             <node f="42" dt="1"><name>b</name><data>000000003ff00000</data></node>
+             <node f="42" dt="1"><name>a</name><data>000000003ff00000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
+            <node f="42" dt="7"><name>colorEnd</name><data/>
+             <node f="40"><name></name></node>
+             <node f="42" dt="1"><name>r</name><data>9999999a3fb99999</data></node>
+             <node f="42" dt="1"><name>g</name><data>333333333fd33333</data></node>
+             <node f="42" dt="1"><name>b</name><data>cccccccd3feccccc</data></node>
+             <node f="42" dt="1"><name>a</name><data>0000000000000000</data></node>
+             <node f="42" dt="2"><name>sdt::attributetree</name><data>Particles::ColorProperty</data>
+              <node f="40"><name></name></node></node>
+            </node>
            </node>
           </node>
          </node>
+        </node>
+        <node f="42"><name>properties</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="4"><name>EndColor</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>MAIN:/project/library/FlexSimEventHandler&gt;behaviour/ColorProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="1"><name>noFilter</name><data>000000003ff00000</data></node>
+           <node f="42" dt="2"><name>category</name><data>ParticleEmitter&gt;Visual</data></node>
+           <node f="42" dt="1"><name>namespaceType</name><data>0000000040000000</data></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/colorEnd</data></node>
+          </node>
+         </data></node>
+         <node f="42" dt="4"><name>StartColor</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>MAIN:/project/library/FlexSimEventHandler&gt;behaviour/ColorProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="1"><name>noFilter</name><data>000000003ff00000</data></node>
+           <node f="42" dt="2"><name>category</name><data>ParticleEmitter&gt;Visual</data></node>
+           <node f="42" dt="1"><name>namespaceType</name><data>0000000040000000</data></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/colorStart</data></node>
+          </node>
+         </data></node>
         </node>
        </node>
        <node f="42"><name>visual</name>

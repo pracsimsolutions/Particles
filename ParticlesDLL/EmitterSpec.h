@@ -55,10 +55,9 @@ struct EmitterSpec {
     pvec3 wind{0, 0, 0};
     float swirlAmp = 0.0f, swirlFreq = 1.0f;
 
-    // Appearance
+    // Appearance -- alpha is folded into the color gradient stops (rgba), no separate curve.
     Gradient colorStops;           // initialized in ctor below
     float sizeStart = 0.1f, sizeEnd = 0.1f;   // size over life (sizeCurve)
-    float alphaStart = 1.0f, alphaEnd = 0.0f; // alpha over life
 
     // Render
     RenderStyle style = RenderStyle::Points;
