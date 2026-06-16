@@ -23,7 +23,7 @@ void ParticleEmitter::bindVariables() {
 }
 
 void ParticleEmitter::bindInterface() {
-    bindParentClass("Object");   // REQUIRED before bindTypedProperty, or the whole
+    //bindParentClass("Object");   // REQUIRED before bindTypedProperty, or the whole
                                  // interface fails to register (no props or methods show).
     // Expose every field as a FlexScript property (emitter.rate, emitter.shapeField, ...).
     #define PE_BIND(n) bindTypedProperty(n, double, &ParticleEmitter::pget_##n, &ParticleEmitter::pset_##n)
@@ -165,21 +165,20 @@ double ParticleEmitter::onDraw(treenode view) {
 
     ParticleSystem* sys = ParticleSystem::getInstance();
     bool showPlanes = !sys || sys->showPlanes != 0;
-    bool showArrows = !sys || sys->showArrows != 0;
-    double arrowSize = sys ? sys->arrowSize : 1.0;
+    if (!showPlanes) return 0;
     EmitShape shape = (EmitShape)(int)shapeField;
-    bool aimed = (DirectionMode)(int)directionField == DirectionMode::Aimed;
     float col[4] = { 0.35f, 0.58f, 1.0f, 0.9f };
 
+    // The region outline scales with the object (it IS the emission area). The aim
+    // arrow is drawn by the ParticleSystem in model units, so it stays a constant
+    // world size and never deforms when the emitter is resized.
     fglDisable(GL_LIGHTING);
     fglEnable(GL_BLEND);
-
     fglPushMatrix();
     drawtoobjectscale(holder);            // 1 unit = object size, origin at the corner
-    fglTranslate(0.5f, 0.5f, 0.5f);       // move origin to the object's center
-    fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);  // align local +Z with model up (matches the system)
-    if (showPlanes) drawRegionOutline(shape, col);
-    if (showArrows && aimed) { Vec3 sz = size; drawArrow(arrowSize, sz, col); }
+    fglTranslate(0.5f, 0.5f, 0.0f);       // object base center (z=0) -- matches the emission origin
+    fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);  // align local +Z with model up
+    drawRegionOutline(shape, col);
     fglPopMatrix();
 
     // restore default GL state so the next object isn't affected

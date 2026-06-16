@@ -62,10 +62,12 @@ public:
 private:
     Mesh pointsMesh;
     std::map<int, Mesh> spriteMeshes;            // one mesh per texture index
+    Mesh arrowMesh;                              // all emitters' aim arrows, batched
     std::vector<Particle> scratch;               // per-emitter evaluation buffer
 
     void drawPointsBatch(const std::vector<Particle>& pts);
     void drawSpriteBatch(int texIndex, const std::vector<Particle>& sprites);
+    void drawArrowBatch(const std::vector<float>& verts);
 };
 
 }  // namespace Particles
