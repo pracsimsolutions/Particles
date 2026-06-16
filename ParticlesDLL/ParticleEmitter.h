@@ -60,10 +60,12 @@ public:
 
     EmitterSpec buildSpec();        // reads object size -> region; not const
 
-private:
     Mesh handleMesh;
     void drawRegionOutline(EmitShape shape, const float* col);
-    void drawArrow(double arrowSize, const Vec3& objSize, const float* col);  // object scale
+    // Arrow is built in WORLD coords at constant world size (no object scale) so it
+    // never deforms/explodes when the emitter is resized. base/rot are the emitter's
+    // base-center world position and Euler rotation; draw under an fglRotate(-90) bracket.
+    void drawArrow(double arrowSize, const pvec3& base, const pvec3& rot, const float* col);
 };
 
 }  // namespace Particles

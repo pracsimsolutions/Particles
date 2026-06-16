@@ -23,8 +23,6 @@ void ParticleEmitter::bindVariables() {
 }
 
 void ParticleEmitter::bindInterface() {
-    //bindParentClass("Object");   // REQUIRED before bindTypedProperty, or the whole
-                                 // interface fails to register (no props or methods show).
     // Expose every field as a FlexScript property (emitter.rate, emitter.shapeField, ...).
     #define PE_BIND(n) bindTypedProperty(n, double, &ParticleEmitter::pget_##n, &ParticleEmitter::pset_##n)
     PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField);
@@ -124,86 +122,112 @@ void ParticleEmitter::drawRegionOutline(EmitShape shape, const float* col) {
         case EmitShape::Sphere:
             circle(v,0,h); circle(v,1,h); circle(v,2,h); break;
     }
-    glLineWidth(1.6f);
-    drawColored(handleMesh, v, col, GL_LINES);
-    glLineWidth(1.0f);
+    drawColored(handleMesh, v, col, GL_LINES);   // line width is set by the caller
 }
 
-void ParticleEmitter::drawArrow(double arrowSize, const Vec3& objSize, const float* col) {
-    // Drawn in object scale; divide the world arrowSize by the object size so it stays
-    // roughly a constant world size as the emitter is resized. Per-face normals so it
-    // shades under the scene lighting (caller leaves lighting on).
-    float ox = (float)std::max(1e-3, std::fabs(objSize.x));
-    float oy = (float)std::max(1e-3, std::fabs(objSize.y));
-    float oz = (float)std::max(1e-3, std::fabs(objSize.z));
+void ParticleEmitter::drawArrow(double arrowSize, const pvec3& base, const pvec3& rot, const float* col) {
+    // Wireframe aim marker: a stem capped by a pyramid (local +Z is the aim direction).
+    // Stem runs 0 -> stemTop; the pyramid base sits on the stem top and rises by pyrH.
+    // Scaled by A (= system arrowSize). GL_LINES, no lighting.
     float A = (float)arrowSize;
-    float shaftH = 0.62f*A/oz, tipH = 0.42f*A/oz;
-    float hwx = 0.05f*A/ox, hwy = 0.05f*A/oy, twx = 0.12f*A/ox, twy = 0.12f*A/oy;
-    std::vector<float> pos, nrm;
-    auto addTri = [&](pvec3 a, pvec3 b, pvec3 c) {
-        pvec3 e1{b.x-a.x, b.y-a.y, b.z-a.z}, e2{c.x-a.x, c.y-a.y, c.z-a.z};
-        pvec3 nn{ e1.y*e2.z-e1.z*e2.y, e1.z*e2.x-e1.x*e2.z, e1.x*e2.y-e1.y*e2.x };
-        float l = std::sqrt(nn.x*nn.x+nn.y*nn.y+nn.z*nn.z); if (l>1e-6f){nn.x/=l;nn.y/=l;nn.z/=l;}
-        pvec3 ps[3]={a,b,c};
-        for (auto& p : ps) { pos.push_back(p.x);pos.push_back(p.y);pos.push_back(p.z);
-                             nrm.push_back(nn.x);nrm.push_back(nn.y);nrm.push_back(nn.z); }
+    float stemTop = 0.5f * A;          // stem height / pyramid base height
+    float pyrH    = 0.25f * A;         // pyramid height
+    float apexZ   = stemTop + pyrH;    // apex
+    float hw      = 0.125f * A;        // pyramid base half-width
+    std::vector<float> v;
+    auto L = [&](pvec3 a, pvec3 b) {
+        pvec3 wa = localToWorld(a, base, rot), wb = localToWorld(b, base, rot);
+        line(v, wa.x, wa.y, wa.z, wb.x, wb.y, wb.z);
     };
-    pvec3 c8[8] = {{-hwx,-hwy,0},{hwx,-hwy,0},{hwx,hwy,0},{-hwx,hwy,0},{-hwx,-hwy,shaftH},{hwx,-hwy,shaftH},{hwx,hwy,shaftH},{-hwx,hwy,shaftH}};
-    int f[12][3]={{0,1,2},{0,2,3},{4,6,5},{4,7,6},{0,4,5},{0,5,1},{1,5,6},{1,6,2},{2,6,7},{2,7,3},{3,7,4},{3,4,0}};
-    for (auto& t : f) addTri(c8[t[0]], c8[t[1]], c8[t[2]]);
-    pvec3 ap{0,0,shaftH+tipH}, p0{-twx,-twy,shaftH}, p1{twx,-twy,shaftH}, p2{twx,twy,shaftH}, p3{-twx,twy,shaftH};
-    addTri(p0,p1,ap); addTri(p1,p2,ap); addTri(p2,p3,ap); addTri(p3,p0,ap);
-    addTri(p0,p2,p1); addTri(p0,p3,p2);
-
-    int n = (int)pos.size() / 3;
-    std::vector<float> cols((size_t)n * 4);
-    for (int k = 0; k < n; ++k) { cols[k*4]=col[0]; cols[k*4+1]=col[1]; cols[k*4+2]=col[2]; cols[k*4+3]=col[3]; }
-    handleMesh.init(n, MESH_POSITION | MESH_NORMAL | MESH_AMBIENT_AND_DIFFUSE4, MESH_DYNAMIC_DRAW);
-    handleMesh.defineVertexAttribs(MESH_POSITION, pos.data());
-    handleMesh.defineVertexAttribs(MESH_NORMAL, nrm.data());
-    handleMesh.defineVertexAttribs(MESH_AMBIENT_AND_DIFFUSE4, cols.data());
-    handleMesh.draw(GL_TRIANGLES);
+    // stem: one line from the center up to the pyramid base
+    L(pvec3{0, 0, 0}, pvec3{0, 0, stemTop});
+    // pyramid: base square on the stem top + four edges to the apex
+    pvec3 ap{0, 0, apexZ};
+    pvec3 p0{-hw,-hw,stemTop}, p1{hw,-hw,stemTop}, p2{hw,hw,stemTop}, p3{-hw,hw,stemTop};
+    L(p0,p1); L(p1,p2); L(p2,p3); L(p3,p0);   // base square
+    L(p0,ap); L(p1,ap); L(p2,ap); L(p3,ap);   // edges to apex
+    drawColored(handleMesh, v, col, GL_LINES);
 }
 
-double ParticleEmitter::onDraw(treenode view) {
-    // Keep resize/move/rotate handles; drop the port connectors an emitter never uses.
-    setManipulationHandleDraw(DRAW_SIZER_ALL | DRAW_MOVE_AXIS_ALL | DRAW_MOVE_XY
-                              | DRAW_ROTATOR_ALL | DRAW_ORB);
-    // No 3D shape -> hide FlexSim's placeholder body box (our handle is the visual).
-    switch_hideshape(holder, 1);
+double ParticleEmitter::onDraw(treenode view)
+{
+    fglDisable(GL_LIGHTING);
+    fglDisable(GL_TEXTURE_2D);
 
+    // ---- selection state (AStar/Barrier pattern): hover = yellow, selected = red ----
+    int pickingMode = getpickingmode(view);
+    treenode selObj   = selectedobject(view);
+    treenode hoverObj = tonode(getpickingdrawfocus(view, PICK_OBJECT, PICK_HOVERED));
+    bool isSelected = (selObj == holder) || (switch_selected(holder, -1) != 0);
+    bool isHovered  = (hoverObj == holder);
+
+    const float blue[4]   = { 0.30f, 0.46f, 0.95f, 1.0f };   // idle handle (PracSim blue)
+    const float yellow[4] = { 1.00f, 0.85f, 0.10f, 1.0f };   // hovered
+    const float red[4]    = { 0.95f, 0.15f, 0.15f, 1.0f };   // selected
+    const float* col = isSelected ? red : (isHovered ? yellow : blue);
+
+    // Fat pick-line trick (from AStar): during the pick pass draw the wireframe ~3x
+    // thicker so the thin lines are easy to click; emphasize a bit when hovered/selected.
+    const float baseW = 2.0f;
+    if (pickingMode)                   fglLineWidth(baseW * 3.0f);
+    else if (isSelected || isHovered)  fglLineWidth(baseW * 1.5f);
+    else                               fglLineWidth(baseW);
+
+    // Route any click on our geometry to this emitter (whole object is one pick target).
+    setpickingdrawfocus(view, holder, 0, 0, OVERRIDE_DRAW_ALL);
+
+    // ============================ draw everything here ============================
+    // The onDraw entry frame already carries this object's position + rotation + size
+    // scale (verified against FlexSim's VisualTool: it divides by b_spatials at the top of
+    // onDraw and never calls drawtoobjectscale or fglRotate(-90)). So geometry drawn here
+    // scales with the object. Everything is centered on the object center (FlexSim box is
+    // local x[0,1], y[-1,0], z[0,1] -> center (0.5,-0.5,0.5)) and is wireframe GL_LINES.
     ParticleSystem* sys = ParticleSystem::getInstance();
     bool showPlanes = !sys || sys->showPlanes != 0;
     bool showArrows = !sys || sys->showArrows != 0;
-    double arrowSize = sys ? sys->arrowSize : 1.0;
+    double arrowLen = sys ? sys->arrowSize : 1.0;     // constant WORLD length of the arrow
     EmitShape shape = (EmitShape)(int)shapeField;
-    bool aimed = (DirectionMode)(int)directionField == DirectionMode::Aimed;
-    float col[4] = { 0.30f, 0.46f, 0.95f, 1.0f };
+    // The aim pyramid only means something for DIRECTIONAL emission: show it when Aimed,
+    // but never for a Sphere (it is inherently radial/omni -- an aim direction is meaningless).
+    bool aimed = (DirectionMode)(int)directionField == DirectionMode::Aimed
+                 && shape != EmitShape::Sphere;
+    const float cx = 0.5f, cy = -0.5f, cz = 0.5f;     // object center
 
-    // The emitter draws its own handle -- region outline (the shape/area) + the aim
-    // arrow -- so the geometry is the object's own pickable surface (click it to select).
-    fglEnable(GL_BLEND);
-    fglPushMatrix();
-    drawtoobjectscale(holder);
-    fglTranslate(0.5f, 0.5f, 0.0f);           // object base center (z=0)
-    fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);      // align local +Z with model up
+    Vec3 sz = size;
+    float sx  = (float)std::max(1e-4, std::fabs(sz.x));
+    float sy  = (float)std::max(1e-4, std::fabs(sz.y));
+    float szz = (float)std::max(1e-4, std::fabs(sz.z));
 
+    // The DLL OnDraw frame is FlexSim's draw convention -- rotated +90deg about X from the
+    // model's Z-up (the same convention Barrier handles). fglRotate(-90,1,0,0) FIRST cancels
+    // it, so afterwards we are in plain model-aligned, object-scaled coordinates: the object
+    // footprint is x[0,1], y[-1,0], z[0,1] (center 0.5,-0.5,0.5), +Z is up, XY is horizontal.
+
+    // region outline -- the emission area; scales with the object (intentional).
     if (showPlanes && shape != EmitShape::Point) {
-        fglDisable(GL_LIGHTING);
+        fglPushMatrix();
+        fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);        // -> model-aligned
+        fglTranslate(cx, cy, cz);                   // object center
         drawRegionOutline(shape, col);
+        fglPopMatrix();
     }
-    if (showArrows && aimed) {
-        fglEnable(GL_LIGHTING);
-        Vec3 sz = size;
-        drawArrow(arrowSize, sz, col);
-    }
-    fglPopMatrix();
 
-    // restore default GL state so the next object isn't affected
-    fglDisable(GL_BLEND);
+    // aim pyramid -- CONSTANT world size (undo the object scale with fglScale(1/S) so resizing
+    // never deforms it). Placed at the object BASE (z=0 footprint center); +Z is up in the
+    // model-aligned frame, so the pyramid (apex along +Z) points up with no further rotation.
+    if (showArrows && aimed) {
+        fglPushMatrix();
+        fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);        // -> model-aligned
+        fglTranslate(cx, cy, cz);                   // object center (pyramid base sits here)
+        fglScale(1.0f / sx, 1.0f / sy, 1.0f / szz); // -> constant world size
+        drawArrow(arrowLen, pvec3{ 0, 0, 0 }, pvec3{ 0, 0, 0 }, col);
+        fglPopMatrix();
+    }
+    // =============================================================================
+    setManipulationHandleDraw(DRAW_ORB | DRAW_SIZER_ALL | DRAW_ALL_AXIS_SIZER | DRAW_MOVE_X | DRAW_MOVE_Y | DRAW_MOVE_Z | DRAW_ROTATOR_Z);
     fglEnable(GL_LIGHTING);
-    fglColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glLineWidth(1.0f);
+    fglEnable(GL_TEXTURE_2D);
+    fglLineWidth(1.0f);
     return 0;
 }
 
