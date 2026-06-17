@@ -2068,6 +2068,11 @@ an object in the model or the library to define the conveyor's Texture.</data></
       <node f="4000000042" dt="2"><name>windowtitle</name><data>Particles</data></node>
      </data>
       <node f="40"><name> </name></node>
+      <node f="42" dt="4"><name>What's New</name><data>
+       <node f="40"><name></name></node>
+       <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/manual/WhatsNew.html</data></node>
+       <node f="42" dt="2"><name>uniqueid</name><data>Particles::WhatsNew</data></node>
+      </data></node>
       <node f="42" dt="4"><name>Property Panels</name><data>
        <node f="40"><name></name></node>
       </data>
