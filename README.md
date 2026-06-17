@@ -60,20 +60,6 @@ and libs are staged automatically from `../../program/system` by `copyheaders.ba
 MSBuild ParticlesDLL\ParticlesDLL.sln /p:Configuration=Release /p:Platform=x64
 ```
 
-## Tests
-
-The analytic core has a standalone test executable (no FlexSim needed):
-
-```
-MSBuild ParticlesDLL\tests\ParticlesTests.vcxproj /p:Configuration=Debug /p:Platform=x64
-ParticlesDLL\tests\x64\Debug\ParticlesTests.exe
-```
-
-Covers the deterministic RNG, closed-form live-range, per-shape initial
-conditions, motion formulas, appearance curves, capacity safety, a throughput
-benchmark, and the **frame-skip invariance** proof (the scene at time `T` is
-identical regardless of draw history).
-
 ## Using it in FlexSim
 
 No build is required to use it. The repo ships the prebuilt `Particles.dll`
