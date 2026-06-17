@@ -27,6 +27,15 @@ Particles.pdb
 Particles.iobj
 Particles.ipdb
 
+# Temp build target used to avoid locking the live Particles.dll while FlexSim runs
+# (build to Particles_lt, then copy over Particles.dll).
+Particles_lt.dll
+Particles_lt.lib
+Particles_lt.exp
+Particles_lt.pdb
+Particles_lt.iobj
+Particles_lt.ipdb
+
 # Superpowers brainstorming companion (mockups, session state)
 .superpowers/
 

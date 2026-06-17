@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles.Shape">
+    <Summary>An enumeration of the emission region shapes, for <PropertyRef class="Particles.Emitter">shapeField</PropertyRef>. The region is sized by the emitter object's resize handles.</Summary>
+    <Description><code>Model.find("ParticleEmitter1").as(Particles.Emitter).shapeField = Particles.Shape.Sphere;</code></Description>
+    <Property name="Point" readonly="true" static="true" return-type="int" default-value="0"><Summary>Emit from a single point.</Summary></Property>
+    <Property name="Line" readonly="true" static="true" return-type="int" default-value="1"><Summary>Emit along a line (the object's X extent).</Summary></Property>
+    <Property name="Disk" readonly="true" static="true" return-type="int" default-value="2"><Summary>Emit from a filled ellipse in the object's footprint.</Summary></Property>
+    <Property name="Plane" readonly="true" static="true" return-type="int" default-value="3"><Summary>Emit from a filled rectangle (the object's footprint).</Summary></Property>
+    <Property name="Box" readonly="true" static="true" return-type="int" default-value="4"><Summary>Emit from anywhere within the object's 3D volume.</Summary></Property>
+    <Property name="Sphere" readonly="true" static="true" return-type="int" default-value="5"><Summary>Emit from within an ellipsoid volume (naturally omnidirectional; the aim arrow is hidden).</Summary></Property>
+</FlexScriptClass>

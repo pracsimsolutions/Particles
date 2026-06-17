@@ -1,0 +1,290 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles.Emitter</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles.Emitter</h1></header>
+			<p>Inherits from <a href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptClassReference.html?Class=Object">Object</a></p>
+			<h3>Description</h3>
+			<p>A placeable particle emitter. Holds the declarative spec (shape, motion, appearance); the singleton <a href="Particles.System.html">Particles.System</a> reads every emitter and batch-draws its particles analytically at draw time, adding zero events to the simulation.</p>
+			<p>Particles are a closed-form function of model time T (like kinematics), evaluated only when the
+				scene is drawn --so emitters never slow the discrete-event simulation and are frame-skip
+				invariant and deterministic per <a href="#Property-seedField">seedField</a>.</p>
+			<p>The emission region is sized by the object's own resize handles; particle size is independent of
+				object scale. Drop an emitter and it auto-creates the <a href="Particles.System.html">Particles.System</a>.</p>
+			<pre><code>Particles.Emitter e = Model.find("ParticleEmitter1");
+e.shapeField = Particles.Shape.Sphere;
+e.gravity.z = -9.8;
+e.startColor = Color.orange;</code></pre>
+			<p>Units: length = the model length unit, time = the model time unit. Angles are degrees.</p>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-rate">rate</a></td>
+					<td>Emission rate, particles per time unit. Birth schedule: birth = startTime + i/rate.</td></tr>
+				<tr><td><a href="#Property-startTime">startTime</a></td>
+					<td>Model time at which emission begins (0 = from run start). May be a number OR a FlexScript expression in the property; evaluated each draw.</td></tr>
+				<tr><td><a href="#Property-stopTimeField">stopTimeField</a></td>
+					<td>Model time at which emission ends (0 = never). May be a number OR a FlexScript expression.</td></tr>
+				<tr><td><a href="#Property-prewarm">prewarm</a></td>
+					<td>Seconds of pre-simulated emission, so the cloud is already full at reset / T = 0 (evaluates at T + prewarm).</td></tr>
+				<tr><td><a href="#Property-lifetime">lifetime</a></td>
+					<td>Particle lifetime in time units.</td></tr>
+				<tr><td><a href="#Property-lifetimeJitter">lifetimeJitter</a></td>
+					<td>Random per-particle lifetime spread, added as [0, +jitter].</td></tr>
+				<tr><td><a href="#Property-shapeField">shapeField</a></td>
+					<td>Emission shape; use <a href="Particles.Shape.html">Particles.Shape</a> (Point/Line/Disk/Plane/Box/Sphere). The region fills the object's resized footprint.</td></tr>
+				<tr><td><a href="#Property-directionField">directionField</a></td>
+					<td>Launch direction mode; use <a href="Particles.Direction.html">Particles.Direction</a> (Aimed = cone around the aim arrow / local +Z, Omni = all directions).</td></tr>
+				<tr><td><a href="#Property-coneHalfAngleDeg">coneHalfAngleDeg</a></td>
+					<td>Spread: the half-angle (degrees) of the Aimed launch cone.</td></tr>
+				<tr><td><a href="#Property-speed">speed</a></td>
+					<td>Initial launch speed, length per time unit.</td></tr>
+				<tr><td><a href="#Property-speedJitter">speedJitter</a></td>
+					<td>Random launch-speed spread, applied as +/- jitter.</td></tr>
+				<tr><td><a href="#Property-gravity">gravity</a></td>
+					<td>Constant acceleration (length / time^2). Node-backed: read/write components, e.g. <code>e.gravity.z = -9.8;</code> or assign a whole Vec3.</td></tr>
+				<tr><td><a href="#Property-wind">wind</a></td>
+					<td>Additional constant acceleration (length / time^2), added to gravity. With drag &gt; 0 it acts as a steady drift toward (gravity+wind)/drag.</td></tr>
+				<tr><td><a href="#Property-drag">drag</a></td>
+					<td>Exponential velocity-decay rate (1 / time). 0 = none; velocity carries a factor e^(-drag*age).</td></tr>
+				<tr><td><a href="#Property-swirlAmp">swirlAmp</a></td>
+					<td>Radius (length) of a circular wobble added to each particle's path --gives a corkscrew/spiral look. 0 = off.</td></tr>
+				<tr><td><a href="#Property-swirlFreq">swirlFreq</a></td>
+					<td>Angular frequency of the swirl, radians per time unit (period = 2*pi/swirlFreq).</td></tr>
+				<tr><td><a href="#Property-startColor">startColor</a></td>
+					<td>Color (and alpha) at birth. Node-backed: <code>e.startColor.r = 0.5;</code> or <code>e.startColor = Color.red;</code></td></tr>
+				<tr><td><a href="#Property-endColor">endColor</a></td>
+					<td>Color (and alpha) at end of life. The particle color interpolates startColor -&gt; endColor over its life.</td></tr>
+				<tr><td><a href="#Property-sizeStart">sizeStart</a></td>
+					<td>Particle size (world diameter) at birth.</td></tr>
+				<tr><td><a href="#Property-sizeEnd">sizeEnd</a></td>
+					<td>Particle size (world diameter) at end of life.</td></tr>
+				<tr><td><a href="#Property-styleField">styleField</a></td>
+					<td>Render style; use <a href="Particles.Style.html">Particles.Style</a> (Points = built-in soft dot, Sprite = the object's own image). Every particle is a camera-facing billboard.</td></tr>
+				<tr><td><a href="#Property-seedField">seedField</a></td>
+					<td>Random seed for this emitter (determinism).</td></tr>
+				<tr><td><a href="#Property-statLiveCount">statLiveCount</a></td>
+					<td>Read-only: the number of live particles this emitter drew last frame.</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-rate">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.rate</h3>
+				<p>double rate</p>
+				<h3>Description</h3>
+				<p>Emission rate, particles per time unit. Birth schedule: birth = startTime + i/rate.</p>
+			</div>
+		</div>
+		<div id="Property-startTime">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.startTime</h3>
+				<p>double startTime</p>
+				<h3>Description</h3>
+				<p>Model time at which emission begins (0 = from run start). May be a number OR a FlexScript expression in the property; evaluated each draw.</p>
+			</div>
+		</div>
+		<div id="Property-stopTimeField">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.stopTimeField</h3>
+				<p>double stopTimeField</p>
+				<h3>Description</h3>
+				<p>Model time at which emission ends (0 = never). May be a number OR a FlexScript expression.</p>
+			</div>
+		</div>
+		<div id="Property-prewarm">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.prewarm</h3>
+				<p>double prewarm</p>
+				<h3>Description</h3>
+				<p>Seconds of pre-simulated emission, so the cloud is already full at reset / T = 0 (evaluates at T + prewarm).</p>
+			</div>
+		</div>
+		<div id="Property-lifetime">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.lifetime</h3>
+				<p>double lifetime</p>
+				<h3>Description</h3>
+				<p>Particle lifetime in time units.</p>
+			</div>
+		</div>
+		<div id="Property-lifetimeJitter">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.lifetimeJitter</h3>
+				<p>double lifetimeJitter</p>
+				<h3>Description</h3>
+				<p>Random per-particle lifetime spread, added as [0, +jitter].</p>
+			</div>
+		</div>
+		<div id="Property-shapeField">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.shapeField</h3>
+				<p>int shapeField</p>
+				<h3>Description</h3>
+				<p>Emission shape; use <a href="Particles.Shape.html">Particles.Shape</a> (Point/Line/Disk/Plane/Box/Sphere). The region fills the object's resized footprint.</p>
+			</div>
+		</div>
+		<div id="Property-directionField">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.directionField</h3>
+				<p>int directionField</p>
+				<h3>Description</h3>
+				<p>Launch direction mode; use <a href="Particles.Direction.html">Particles.Direction</a> (Aimed = cone around the aim arrow / local +Z, Omni = all directions).</p>
+			</div>
+		</div>
+		<div id="Property-coneHalfAngleDeg">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.coneHalfAngleDeg</h3>
+				<p>double coneHalfAngleDeg</p>
+				<h3>Description</h3>
+				<p>Spread: the half-angle (degrees) of the Aimed launch cone.</p>
+			</div>
+		</div>
+		<div id="Property-speed">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.speed</h3>
+				<p>double speed</p>
+				<h3>Description</h3>
+				<p>Initial launch speed, length per time unit.</p>
+			</div>
+		</div>
+		<div id="Property-speedJitter">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.speedJitter</h3>
+				<p>double speedJitter</p>
+				<h3>Description</h3>
+				<p>Random launch-speed spread, applied as +/- jitter.</p>
+			</div>
+		</div>
+		<div id="Property-gravity">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.gravity</h3>
+				<p><a href="Particles.Vec3.html">Particles.Vec3</a> gravity</p>
+				<h3>Description</h3>
+				<p>Constant acceleration (length / time^2). Node-backed: read/write components, e.g. <code>e.gravity.z = -9.8;</code> or assign a whole Vec3.</p>
+			</div>
+		</div>
+		<div id="Property-wind">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.wind</h3>
+				<p><a href="Particles.Vec3.html">Particles.Vec3</a> wind</p>
+				<h3>Description</h3>
+				<p>Additional constant acceleration (length / time^2), added to gravity. With drag &gt; 0 it acts as a steady drift toward (gravity+wind)/drag.</p>
+			</div>
+		</div>
+		<div id="Property-drag">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.drag</h3>
+				<p>double drag</p>
+				<h3>Description</h3>
+				<p>Exponential velocity-decay rate (1 / time). 0 = none; velocity carries a factor e^(-drag*age).</p>
+			</div>
+		</div>
+		<div id="Property-swirlAmp">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.swirlAmp</h3>
+				<p>double swirlAmp</p>
+				<h3>Description</h3>
+				<p>Radius (length) of a circular wobble added to each particle's path --gives a corkscrew/spiral look. 0 = off.</p>
+			</div>
+		</div>
+		<div id="Property-swirlFreq">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.swirlFreq</h3>
+				<p>double swirlFreq</p>
+				<h3>Description</h3>
+				<p>Angular frequency of the swirl, radians per time unit (period = 2*pi/swirlFreq).</p>
+			</div>
+		</div>
+		<div id="Property-startColor">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.startColor</h3>
+				<p><a href="Particles.Color.html">Particles.Color</a> startColor</p>
+				<h3>Description</h3>
+				<p>Color (and alpha) at birth. Node-backed: <code>e.startColor.r = 0.5;</code> or <code>e.startColor = Color.red;</code></p>
+			</div>
+		</div>
+		<div id="Property-endColor">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.endColor</h3>
+				<p><a href="Particles.Color.html">Particles.Color</a> endColor</p>
+				<h3>Description</h3>
+				<p>Color (and alpha) at end of life. The particle color interpolates startColor -&gt; endColor over its life.</p>
+			</div>
+		</div>
+		<div id="Property-sizeStart">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.sizeStart</h3>
+				<p>double sizeStart</p>
+				<h3>Description</h3>
+				<p>Particle size (world diameter) at birth.</p>
+			</div>
+		</div>
+		<div id="Property-sizeEnd">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.sizeEnd</h3>
+				<p>double sizeEnd</p>
+				<h3>Description</h3>
+				<p>Particle size (world diameter) at end of life.</p>
+			</div>
+		</div>
+		<div id="Property-styleField">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.styleField</h3>
+				<p>int styleField</p>
+				<h3>Description</h3>
+				<p>Render style; use <a href="Particles.Style.html">Particles.Style</a> (Points = built-in soft dot, Sprite = the object's own image). Every particle is a camera-facing billboard.</p>
+			</div>
+		</div>
+		<div id="Property-seedField">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.seedField</h3>
+				<p>int seedField</p>
+				<h3>Description</h3>
+				<p>Random seed for this emitter (determinism).</p>
+			</div>
+		</div>
+		<div id="Property-statLiveCount">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.statLiveCount</h3>
+				<p>readonly int statLiveCount</p>
+				<h3>Description</h3>
+				<p>Read-only: the number of live particles this emitter drew last frame.</p>
+			</div>
+		</div>
+	</body>
+</html>

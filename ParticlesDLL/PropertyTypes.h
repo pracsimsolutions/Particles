@@ -37,6 +37,7 @@ public:
     ColorProperty& operator = (const ColorProperty& o) { r = o.r; g = o.g; b = o.b; a = o.a; return *this; }
 
     static void bindInterface() {
+        SimpleDataType::bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.Color.xml");
         bindTypedProperty(r, double, &ColorProperty::pget_r, &ColorProperty::pset_r);
         bindTypedProperty(g, double, &ColorProperty::pget_g, &ColorProperty::pset_g);
         bindTypedProperty(b, double, &ColorProperty::pget_b, &ColorProperty::pset_b);
@@ -74,6 +75,7 @@ public:
     Vec3Property& operator = (const Vec3Property& o) { x = o.x; y = o.y; z = o.z; return *this; }
 
     static void bindInterface() {
+        SimpleDataType::bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.Vec3.xml");
         bindTypedProperty(x, double, &Vec3Property::pget_x, &Vec3Property::pset_x);
         bindTypedProperty(y, double, &Vec3Property::pget_y, &Vec3Property::pset_y);
         bindTypedProperty(z, double, &Vec3Property::pget_z, &Vec3Property::pset_z);
@@ -96,6 +98,7 @@ public:
 class Shape {  // Particles.Shape
 public:
     static void bindInterface() {
+        SimpleDataType::bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.Shape.xml");
         SimpleDataType::bindStaticConstIntProperty(Point,  (int)EmitShape::Point);
         SimpleDataType::bindStaticConstIntProperty(Line,   (int)EmitShape::Line);
         SimpleDataType::bindStaticConstIntProperty(Disk,   (int)EmitShape::Disk);
@@ -108,6 +111,7 @@ public:
 class Direction {  // Particles.Direction
 public:
     static void bindInterface() {
+        SimpleDataType::bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.Direction.xml");
         SimpleDataType::bindStaticConstIntProperty(Aimed, (int)DirectionMode::Aimed);
         SimpleDataType::bindStaticConstIntProperty(Omni,  (int)DirectionMode::Omni);
     }
@@ -116,6 +120,7 @@ public:
 class Style {  // Particles.Style
 public:
     static void bindInterface() {
+        SimpleDataType::bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.Style.xml");
         SimpleDataType::bindStaticConstIntProperty(Points, (int)RenderStyle::Points);
         SimpleDataType::bindStaticConstIntProperty(Sprite, (int)RenderStyle::Sprite);
     }

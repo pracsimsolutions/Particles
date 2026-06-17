@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles.Style</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles.Style</h1></header>
+			<h3>Description</h3>
+			<p>An enumeration of the particle render styles, for <a href="Particles.Emitter.html#Property-styleField">styleField</a>. Every particle is a camera-facing billboard regardless of style.</p>
+			<pre><code>Model.find("ParticleEmitter1").as(Particles.Emitter).styleField = Particles.Style.Sprite;</code></pre>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-Points">Points</a></td>
+					<td>Render with the built-in soft round dot.</td></tr>
+				<tr><td><a href="#Property-Sprite">Sprite</a></td>
+					<td>Render with the emitter object's own image (set it the normal way with the image picker). Falls back to the soft dot if no image is set.</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-Points">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Style</a>.Points</h3>
+				<p>static readonly int Points</p>
+				<h3>Description</h3>
+				<p>Render with the built-in soft round dot. Value: 0.</p>
+			</div>
+		</div>
+		<div id="Property-Sprite">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Style</a>.Sprite</h3>
+				<p>static readonly int Sprite</p>
+				<h3>Description</h3>
+				<p>Render with the emitter object's own image (set it the normal way with the image picker). Falls back to the soft dot if no image is set. Value: 1.</p>
+			</div>
+		</div>
+	</body>
+</html>

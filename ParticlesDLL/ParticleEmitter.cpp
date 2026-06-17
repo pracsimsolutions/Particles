@@ -24,6 +24,7 @@ void ParticleEmitter::bindVariables() {
 }
 
 void ParticleEmitter::bindInterface() {
+    bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.Emitter.xml");
     // Expose every field as a FlexScript property (emitter.rate, emitter.shapeField, ...).
     #define PE_BIND(n) bindTypedProperty(n, double, &ParticleEmitter::pget_##n, &ParticleEmitter::pset_##n)
     PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField); PE_BIND(prewarm);
@@ -53,8 +54,6 @@ void ParticleEmitter::bindInterface() {
     bindClassByName<Shape>("Particles.Shape", true);
     bindClassByName<Direction>("Particles.Direction", true);
     bindClassByName<Style>("Particles.Style", true);
-    bindMethod(setColorStart, ParticleEmitter, "void setColorStart(double r, double g, double b, double a = 1)");
-    bindMethod(setColorEnd, ParticleEmitter, "void setColorEnd(double r, double g, double b, double a = 1)");
 }
 
 // colorStart/colorEnd and gravity/wind are node-backed SDTs; read their live members.
@@ -63,13 +62,6 @@ static rgba readColor(ColorProperty* c) {
 }
 static pvec3 readVec3(Vec3Property* v, float dz) {
     return v ? pvec3{ (float)v->x, (float)v->y, (float)v->z } : pvec3{ 0, 0, dz };
-}
-
-void ParticleEmitter::setColorStart(double r, double g, double b, double a) {
-    if (ColorProperty* c = __getStartColor()) { c->r = r; c->g = g; c->b = b; c->a = a; }
-}
-void ParticleEmitter::setColorEnd(double r, double g, double b, double a) {
-    if (ColorProperty* c = __getEndColor()) { c->r = r; c->g = g; c->b = b; c->a = a; }
 }
 
 // A field that may be a plain number OR a FlexScript expression. treenode::evaluate() handles

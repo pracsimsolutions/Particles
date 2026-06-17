@@ -22,8 +22,9 @@ void ParticleSystem::bindVariables() {
 
 void ParticleSystem::bindInterface() {
     bindParentClass("Object");   // REQUIRED before bindTypedProperty (or nothing registers).
+    bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.System.xml");
     // Register the static "Particles" namespace so FlexScript can reach the
-    // singleton via Particles.system (then .liveCap, .statTotalLive, .setCap(n), ...).
+    // singleton via Particles.system (then .liveCap, .statTotalLive, ...).
     bindClassByName<Statics>("Particles", true);
     #define PS_BIND(n) bindTypedProperty(n, double, &ParticleSystem::pget_##n, &ParticleSystem::pset_##n)
     PS_BIND(liveCap); PS_BIND(showPlanes); PS_BIND(showArrows); PS_BIND(arrowSize);
@@ -33,10 +34,10 @@ void ParticleSystem::bindInterface() {
     bindTypedProperty(statTotalLive, double, &ParticleSystem::pget_statTotalLive, nullptr);
     bindTypedProperty(statBuildMs, double, &ParticleSystem::pget_statBuildMs, nullptr);
     bindTypedProperty(statDrawMs, double, &ParticleSystem::pget_statDrawMs, nullptr);
-    bindMethod(setCap, ParticleSystem, "double setCap(double maxLivePerEmitter)");
 }
 
 void ParticleSystem::Statics::bindInterface() {
+    SimpleDataType::bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.xml");
     bindStaticTypedPropertyByName<ParticleSystem*>("system", "Particles.System",
         force_cast<void*>(&ParticleSystem::Statics::getSystem), nullptr);
 }

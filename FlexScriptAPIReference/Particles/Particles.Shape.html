@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles.Shape</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles.Shape</h1></header>
+			<h3>Description</h3>
+			<p>An enumeration of the emission region shapes, for <a href="Particles.Emitter.html#Property-shapeField">shapeField</a>. The region is sized by the emitter object's resize handles.</p>
+			<pre><code>Model.find("ParticleEmitter1").as(Particles.Emitter).shapeField = Particles.Shape.Sphere;</code></pre>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-Point">Point</a></td>
+					<td>Emit from a single point.</td></tr>
+				<tr><td><a href="#Property-Line">Line</a></td>
+					<td>Emit along a line (the object's X extent).</td></tr>
+				<tr><td><a href="#Property-Disk">Disk</a></td>
+					<td>Emit from a filled ellipse in the object's footprint.</td></tr>
+				<tr><td><a href="#Property-Plane">Plane</a></td>
+					<td>Emit from a filled rectangle (the object's footprint).</td></tr>
+				<tr><td><a href="#Property-Box">Box</a></td>
+					<td>Emit from anywhere within the object's 3D volume.</td></tr>
+				<tr><td><a href="#Property-Sphere">Sphere</a></td>
+					<td>Emit from within an ellipsoid volume (naturally omnidirectional; the aim arrow is hidden).</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-Point">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Shape</a>.Point</h3>
+				<p>static readonly int Point</p>
+				<h3>Description</h3>
+				<p>Emit from a single point. Value: 0.</p>
+			</div>
+		</div>
+		<div id="Property-Line">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Shape</a>.Line</h3>
+				<p>static readonly int Line</p>
+				<h3>Description</h3>
+				<p>Emit along a line (the object's X extent). Value: 1.</p>
+			</div>
+		</div>
+		<div id="Property-Disk">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Shape</a>.Disk</h3>
+				<p>static readonly int Disk</p>
+				<h3>Description</h3>
+				<p>Emit from a filled ellipse in the object's footprint. Value: 2.</p>
+			</div>
+		</div>
+		<div id="Property-Plane">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Shape</a>.Plane</h3>
+				<p>static readonly int Plane</p>
+				<h3>Description</h3>
+				<p>Emit from a filled rectangle (the object's footprint). Value: 3.</p>
+			</div>
+		</div>
+		<div id="Property-Box">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Shape</a>.Box</h3>
+				<p>static readonly int Box</p>
+				<h3>Description</h3>
+				<p>Emit from anywhere within the object's 3D volume. Value: 4.</p>
+			</div>
+		</div>
+		<div id="Property-Sphere">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Shape</a>.Sphere</h3>
+				<p>static readonly int Sphere</p>
+				<h3>Description</h3>
+				<p>Emit from within an ellipsoid volume (naturally omnidirectional; the aim arrow is hidden). Value: 5.</p>
+			</div>
+		</div>
+	</body>
+</html>

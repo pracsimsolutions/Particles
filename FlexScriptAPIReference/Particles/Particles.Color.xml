@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles.Color">
+    <Summary>A node-backed RGBA color used for an emitter's <PropertyRef class="Particles.Emitter">startColor</PropertyRef> and <PropertyRef class="Particles.Emitter">endColor</PropertyRef>. Each channel is 0-1; the components can be read and written individually and persist in the tree.</Summary>
+    <Description>
+        <p>Because it is node-backed, component assignment writes through (unlike a plain value type):</p>
+        <code>Particles.Emitter e = Model.find("ParticleEmitter1");
+e.startColor.r = 0.5;          // component write, persists
+e.startColor = Color.red;      // whole-color assign from a FlexSim Color
+print(e.startColor);           // [r, g, b, a]</code>
+    </Description>
+
+    <Property name="r" return-type="double"><Summary>Red channel, 0-1.</Summary></Property>
+    <Property name="g" return-type="double"><Summary>Green channel, 0-1.</Summary></Property>
+    <Property name="b" return-type="double"><Summary>Blue channel, 0-1.</Summary></Property>
+    <Property name="a" return-type="double"><Summary>Alpha (opacity) channel, 0-1.</Summary></Property>
+</FlexScriptClass>

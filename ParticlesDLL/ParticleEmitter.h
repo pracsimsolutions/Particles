@@ -43,10 +43,6 @@ public:
         return objectexists(n) ? n->objectAs(Vec3Property) : nullptr;
     }
 
-    // FlexScript convenience methods (write all channels at once). Defined in the .cpp.
-    void setColorStart(double r, double g, double b, double a = 1.0);
-    void setColorEnd(double r, double g, double b, double a = 1.0);
-
     // --- Config fields (bound -> persist + GUI-editable). Match Particles.fsx. ---
     // colorStart/colorEnd are NOT here: they live in the tree as structured rgba nodes and
     // are read at draw time in buildSpec (see readColorNode). Alpha is the node's 'a' channel.

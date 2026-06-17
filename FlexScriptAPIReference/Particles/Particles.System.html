@@ -1,0 +1,155 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles.System</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles.System</h1></header>
+			<p>Inherits from <a href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptClassReference.html?Class=Object">Object</a></p>
+			<h3>Description</h3>
+			<p>The singleton manager for the Particles module. Discovers every <a href="Particles.Emitter.html">Particles.Emitter</a> in the model and batch-draws all of their particles in one pass at draw time.</p>
+			<p>Exactly one system exists per model (auto-created when the first emitter is dropped). Access it via
+				the static <code>Particles.system</code> accessor:</p>
+			<pre><code>Particles.System sys = Particles.system;
+sys.liveCap = 50000;
+print(sys.statTotalLive);</code></pre>
+			<p>Holds global render/visibility controls and read-only performance stats. The emitters own their
+				handles and per-emitter spec; the system only draws particles.</p>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-liveCap">liveCap</a></td>
+					<td>Hard cap on the number of live particles evaluated per emitter (graceful degradation for heavy scenes).</td></tr>
+				<tr><td><a href="#Property-showPlanes">showPlanes</a></td>
+					<td>1 = draw every emitter's region outline (the wireframe shape); 0 = hide.</td></tr>
+				<tr><td><a href="#Property-showArrows">showArrows</a></td>
+					<td>1 = draw every emitter's aim pyramid; 0 = hide.</td></tr>
+				<tr><td><a href="#Property-arrowSize">arrowSize</a></td>
+					<td>World-unit size of the aim pyramid handle (constant size, independent of emitter scale).</td></tr>
+				<tr><td><a href="#Property-lod">lod</a></td>
+					<td>1 = distance LOD on. Far emitters emit fewer particles (the emission rate is scaled by (lodStart/distance)^2 beyond lodStart), cutting draw cost.</td></tr>
+				<tr><td><a href="#Property-lodStart">lodStart</a></td>
+					<td>Distance (length units) within which an emitter keeps full detail; beyond it, the LOD rate falloff begins.</td></tr>
+				<tr><td><a href="#Property-lodMin">lodMin</a></td>
+					<td>Floor on the LOD multiplier (0-1): how sparse a far emitter is allowed to get. 1 = never thin.</td></tr>
+				<tr><td><a href="#Property-statEmitterCount">statEmitterCount</a></td>
+					<td>Read-only: number of emitters found this frame.</td></tr>
+				<tr><td><a href="#Property-statTotalLive">statTotalLive</a></td>
+					<td>Read-only: total live particles drawn this frame across all emitters.</td></tr>
+				<tr><td><a href="#Property-statBuildMs">statBuildMs</a></td>
+					<td>Read-only: milliseconds spent evaluating particles this frame.</td></tr>
+				<tr><td><a href="#Property-statDrawMs">statDrawMs</a></td>
+					<td>Read-only: milliseconds spent drawing particles this frame.</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-liveCap">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.liveCap</h3>
+				<p>double liveCap</p>
+				<h3>Description</h3>
+				<p>Hard cap on the number of live particles evaluated per emitter (graceful degradation for heavy scenes).</p>
+			</div>
+		</div>
+		<div id="Property-showPlanes">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.showPlanes</h3>
+				<p>double showPlanes</p>
+				<h3>Description</h3>
+				<p>1 = draw every emitter's region outline (the wireframe shape); 0 = hide.</p>
+			</div>
+		</div>
+		<div id="Property-showArrows">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.showArrows</h3>
+				<p>double showArrows</p>
+				<h3>Description</h3>
+				<p>1 = draw every emitter's aim pyramid; 0 = hide.</p>
+			</div>
+		</div>
+		<div id="Property-arrowSize">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.arrowSize</h3>
+				<p>double arrowSize</p>
+				<h3>Description</h3>
+				<p>World-unit size of the aim pyramid handle (constant size, independent of emitter scale).</p>
+			</div>
+		</div>
+		<div id="Property-lod">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.lod</h3>
+				<p>double lod</p>
+				<h3>Description</h3>
+				<p>1 = distance LOD on. Far emitters emit fewer particles (the emission rate is scaled by (lodStart/distance)^2 beyond lodStart), cutting draw cost.</p>
+			</div>
+		</div>
+		<div id="Property-lodStart">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.lodStart</h3>
+				<p>double lodStart</p>
+				<h3>Description</h3>
+				<p>Distance (length units) within which an emitter keeps full detail; beyond it, the LOD rate falloff begins.</p>
+			</div>
+		</div>
+		<div id="Property-lodMin">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.lodMin</h3>
+				<p>double lodMin</p>
+				<h3>Description</h3>
+				<p>Floor on the LOD multiplier (0-1): how sparse a far emitter is allowed to get. 1 = never thin.</p>
+			</div>
+		</div>
+		<div id="Property-statEmitterCount">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.statEmitterCount</h3>
+				<p>readonly double statEmitterCount</p>
+				<h3>Description</h3>
+				<p>Read-only: number of emitters found this frame.</p>
+			</div>
+		</div>
+		<div id="Property-statTotalLive">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.statTotalLive</h3>
+				<p>readonly double statTotalLive</p>
+				<h3>Description</h3>
+				<p>Read-only: total live particles drawn this frame across all emitters.</p>
+			</div>
+		</div>
+		<div id="Property-statBuildMs">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.statBuildMs</h3>
+				<p>readonly double statBuildMs</p>
+				<h3>Description</h3>
+				<p>Read-only: milliseconds spent evaluating particles this frame.</p>
+			</div>
+		</div>
+		<div id="Property-statDrawMs">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.System</a>.statDrawMs</h3>
+				<p>readonly double statDrawMs</p>
+				<h3>Description</h3>
+				<p>Read-only: milliseconds spent drawing particles this frame.</p>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles.Style">
+    <Summary>An enumeration of the particle render styles, for <PropertyRef class="Particles.Emitter">styleField</PropertyRef>. Every particle is a camera-facing billboard regardless of style.</Summary>
+    <Description><code>Model.find("ParticleEmitter1").as(Particles.Emitter).styleField = Particles.Style.Sprite;</code></Description>
+    <Property name="Points" readonly="true" static="true" return-type="int" default-value="0"><Summary>Render with the built-in soft round dot.</Summary></Property>
+    <Property name="Sprite" readonly="true" static="true" return-type="int" default-value="1"><Summary>Render with the emitter object's own image (set it the normal way with the image picker). Falls back to the soft dot if no image is set.</Summary></Property>
+</FlexScriptClass>

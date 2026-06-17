@@ -758,7 +758,7 @@ obj.as(Particles.Emitter).wind = toLoc;</data></node>
        <node f="42" dt="4"><name>Emitter</name><data>
         <node f="40"><name></name></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Emitter</data></node>
-        <node f="4000000042" dt="2"><name>tooltip</name><data>An object used to define locations in geographic coordinates</data></node>
+        <node f="4000000042" dt="2"><name>tooltip</name><data>An object that emits particles</data></node>
         <node f="42" dt="2"><name>picture</name><data>modules\Particles\bitmaps\ParticleEmitter.png</data>
          <node f="40"><name></name></node>
          <node f="42" dt="2"><name></name><data>bitmaps\popOut.png</data></node>
@@ -935,7 +935,7 @@ function_s(node("/RouteGraphNetwork", model()), "refreshMesh");
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
-        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Particle color and opacity at birth.</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
          <node f="42" dt="2"><name>propName</name><data>StartColor</data></node>
@@ -975,7 +975,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
-        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Color and opacity each particle fades to by the end of its life.</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
          <node f="42" dt="2"><name>propName</name><data>EndColor</data></node>
@@ -1026,7 +1026,7 @@ if (switch_selected(focus, -1)) {
           <node f="4000000042" dt="2"><name>plural</name><data>particles</data></node>
          </node>
         </node>
-        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Particles emitted per second.</data></node>
        </data></node>
        <node f="42" dt="4"><name>StartTime</name><data>
         <node f="40"><name>object</name></node>
@@ -1047,6 +1047,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/startTimeVal</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Model time emission begins (0 = at run start). Accepts a number or FlexScript.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1087,6 +1088,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/stopTimeFieldVal</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Model time emission ends (0 = never stops). Accepts a number or FlexScript.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1127,6 +1129,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/prewarm</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Seconds pre-simulated at reset so the cloud starts full instead of empty.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1166,6 +1169,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/speed</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Initial launch speed of each particle.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040380000</data></node>
         <node f="42"><name>variables</name>
@@ -1207,6 +1211,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/speedJitter</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Random +/- variation added to each particle's launch speed.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040380000</data></node>
         <node f="42"><name>variables</name>
@@ -1249,6 +1254,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/lifetime</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>How long each particle lives before disappearing.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1289,6 +1295,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/lifetimeJitter</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Random extra lifetime added per particle.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1334,6 +1341,7 @@ if (switch_selected(focus, -1)) {
          <node f="42" dt="2"><name>propName</name><data>ShapeField</data></node>
          <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../ShapeField</data></node>
         </node>
+        <node f="42" dt="2"><name>tooltip</name><data>Shape of the emission region (Point, Line, Disk, Plane, Box, Sphere).</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node></node>
@@ -1363,6 +1371,7 @@ if (switch_selected(focus, -1)) {
          <node f="42" dt="2"><name>propName</name><data>DirectionField</data></node>
          <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../DirectionField</data></node>
         </node>
+        <node f="42" dt="2"><name>tooltip</name><data>Aimed launches in a cone along the arrow; Omni launches in all directions.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node></node>
@@ -1392,6 +1401,7 @@ if (switch_selected(focus, -1)) {
          <node f="42" dt="2"><name>propName</name><data>StyleField</data></node>
          <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../StyleField</data></node>
         </node>
+        <node f="42" dt="2"><name>tooltip</name><data>Draw particles as soft dots or as the emitter's own image.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node></node>
@@ -1428,6 +1438,7 @@ if (switch_selected(focus, -1)) {
          <node f="42" dt="2"><name>propName</name><data>Gravity</data></node>
          <node f="4000000042" dt="2"><name>leftLabel</name><data>Gravity</data></node>
         </node>
+        <node f="42" dt="2"><name>tooltip</name><data>Constant acceleration on every particle (e.g. Z = -9.8 for gravity).</data></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node>
          <node f="442" dt="2"><name>onApply</name><data>applylinks(c.up, 1);</data></node>
@@ -1451,6 +1462,7 @@ if (switch_selected(focus, -1)) {
          <node f="42" dt="2"><name>propName</name><data>Wind</data></node>
          <node f="4000000042" dt="2"><name>leftLabel</name><data>Wind</data></node>
         </node>
+        <node f="42" dt="2"><name>tooltip</name><data>Extra constant acceleration added on top of gravity.</data></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node>
          <node f="442" dt="2"><name>onApply</name><data>applylinks(c.up, 1);</data></node>
@@ -1470,6 +1482,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/drag</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Slows particles over time; higher values decay velocity faster.</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
         <node f="42" dt="1"><name>spatialy</name><data>000000004077f000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
@@ -1507,6 +1520,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/swirlAmp</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Radius of a spiral wobble added to each particle's path (0 = none).</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1542,6 +1556,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/swirlFreq</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>How fast the swirl spins.</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
         <node f="42" dt="1"><name>spatialy</name><data>00000000407af000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
@@ -1579,6 +1594,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/sizeStart</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Particle diameter at birth.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1619,6 +1635,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/sizeEnd</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Particle diameter at the end of its life.</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1665,6 +1682,7 @@ if (switch_selected(focus, -1)) {
          <node f="42" dt="2"><name>propName</name><data>Seed</data></node>
          <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../Seed</data></node>
         </node>
+        <node f="42" dt="2"><name>tooltip</name><data>Random seed; change it to vary the random pattern.</data></node>
         <node f="42"><name>style</name>
          <node f="40"><name></name></node>
          <node f="42"><name>ES_NUMBER</name></node>
@@ -1833,6 +1851,69 @@ an object in the model or the library to define the conveyor's Texture.</data></
         </node>
        </data>
         <node f="40"><name></name></node></node>
+      </node>
+     </node>
+    </node>
+   </node>
+  </node>
+  <node f="42" dt="2"><name>add_Modules</name><data>MAIN:/project/exec/globals/helpmanual/TableOfContents/Modules</data>
+   <node f="40"><name></name></node>
+   <node f="42" dt="3"><name>Particles</name><data><coupling>null</coupling></data>
+    <node f="40"><name></name></node>
+    <node f="42" dt="1"><name>rank</name><data>0000000000000000</data></node>
+    <node f="42" dt="2"><name>after</name><data>FlexScript API Reference</data></node>
+    <node f="42" dt="1"><name>into object</name><data>0000000000000000</data></node>
+    <node f="42"><name>data</name>
+     <node f="40"><name></name></node>
+     <node f="42" dt="4"><name>Particles</name><data>
+      <node f="40"><name></name></node>
+      <node f="4000000042" dt="2"><name>windowtitle</name><data>Particles</data></node>
+     </data>
+      <node f="40"><name> </name></node>
+      <node f="42" dt="4"><name>FlexScript API Reference</name><data>
+       <node f="40"><name></name></node>
+      </data>
+       <node f="40"><name></name></node>
+       <node f="42" dt="4"><name>Particles</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::Particles</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particles.System</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.System.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::System</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particles.Emitter</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.Emitter.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::Emitter</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particles.Color</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.Color.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::Color</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particles.Vec3</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.Vec3.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::Vec3</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particles.Shape</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.Shape.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::Shape</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particles.Direction</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.Direction.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::Direction</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particles.Style</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.Style.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::API::Style</data></node>
+       </data></node>
       </node>
      </node>
     </node>

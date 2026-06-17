@@ -50,14 +50,6 @@ __declspec(dllexport) Variant Particles_ping(FLEXSIMINTERFACE)
     return 1;
 }
 
-// Set the per-emitter live-particle cap (graceful degradation for heavy scenes).
-__declspec(dllexport) Variant Particles_setCap(FLEXSIMINTERFACE)
-{
-    if (ParticleSystem::instance)
-        ParticleSystem::instance->liveCap = (double)param(1);
-    return 1;
-}
-
 // Load a particle texture into FlexSim's media list and return its index.
 // Args: param(1)=file path (relative to model/module), param(2)=a unique name.
 // Set the returned index as the emitter object's image (image picker / setobjectimageindex)

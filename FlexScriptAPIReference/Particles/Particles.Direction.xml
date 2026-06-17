@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles.Direction">
+    <Summary>An enumeration of the launch-direction modes, for <PropertyRef class="Particles.Emitter">directionField</PropertyRef>.</Summary>
+    <Description><code>Model.find("ParticleEmitter1").as(Particles.Emitter).directionField = Particles.Direction.Omni;</code></Description>
+    <Property name="Aimed" readonly="true" static="true" return-type="int" default-value="0"><Summary>Launch in a cone around the aim arrow (local +Z), with the half-angle set by coneHalfAngleDeg.</Summary></Property>
+    <Property name="Omni" readonly="true" static="true" return-type="int" default-value="1"><Summary>Launch uniformly in all directions (the aim arrow is hidden).</Summary></Property>
+</FlexScriptClass>

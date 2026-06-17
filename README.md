@@ -29,7 +29,7 @@ This makes the visuals essentially free for the simulation: the only cost is per
 - Built-in instrumentation: per-emitter live count (`statLiveCount`) and
   system aggregates (`statEmitterCount`/`statTotalLive`/`statBuildMs`/
   `statDrawMs`), a `Particles_stressTest` benchmark, and a graceful
-  per-emitter live cap (`Particles_setCap`).
+  per-emitter live cap (`Particles.system.liveCap`).
 
 ## Architecture
 

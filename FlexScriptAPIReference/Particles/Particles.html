@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles</h1></header>
+			<h3>Description</h3>
+			<p>Visual particle emitters (smoke, sparks, fountains, ...) drawn analytically at draw time so they
+				add zero events to the simulation. Drop a <a href="Particles.Emitter.html">Particles.Emitter</a> from the library;
+				the <a href="Particles.System.html">Particles.System</a> is created automatically.</p>
+			<pre><code>Particles.System sys = Particles.system;
+Particles.Emitter e = Model.find("ParticleEmitter1");</code></pre>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-system">system</a></td>
+					<td>The model's single <a href="Particles.System.html">Particles.System</a> (NULL if no emitter has been created yet).</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-system">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles</a>.system</h3>
+				<p>static readonly <a href="Particles.System.html">Particles.System</a> system</p>
+				<h3>Description</h3>
+				<p>The model's single <a href="Particles.System.html">Particles.System</a> (NULL if no emitter has been created yet).</p>
+			</div>
+		</div>
+	</body>
+</html>

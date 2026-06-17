@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles.Vec3">
+    <Summary>A node-backed 3-component vector used for an emitter's <PropertyRef class="Particles.Emitter">gravity</PropertyRef> and <PropertyRef class="Particles.Emitter">wind</PropertyRef> (both accelerations, length / time^2). Components can be read and written individually and persist in the tree.</Summary>
+    <Description>
+        <p>Because it is node-backed, component assignment writes through:</p>
+        <code>Particles.Emitter e = Model.find("ParticleEmitter1");
+e.gravity.z = -9.8;            // component write, persists
+e.wind = Vec3(1, 0, 0);       // whole-vector assign from a FlexSim Vec3
+print(e.gravity);             // [x, y, z]</code>
+    </Description>
+
+    <Property name="x" return-type="double"><Summary>X component.</Summary></Property>
+    <Property name="y" return-type="double"><Summary>Y component.</Summary></Property>
+    <Property name="z" return-type="double"><Summary>Z component.</Summary></Property>
+</FlexScriptClass>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles.Emitter">
+    <ParentClass>Object</ParentClass>
+    <Summary>A placeable particle emitter. Holds the declarative spec (shape, motion, appearance); the singleton <ClassRef>Particles.System</ClassRef> reads every emitter and batch-draws its particles analytically at draw time, adding zero events to the simulation.</Summary>
+    <Description>
+        <p>Particles are a closed-form function of model time T (like kinematics), evaluated only when the
+            scene is drawn --so emitters never slow the discrete-event simulation and are frame-skip
+            invariant and deterministic per <PropertyRef class="Particles.Emitter">seedField</PropertyRef>.</p>
+        <p>The emission region is sized by the object's own resize handles; particle size is independent of
+            object scale. Drop an emitter and it auto-creates the <ClassRef>Particles.System</ClassRef>.</p>
+        <code>Particles.Emitter e = Model.find("ParticleEmitter1");
+e.shapeField = Particles.Shape.Sphere;
+e.gravity.z = -9.8;
+e.startColor = Color.orange;</code>
+        <p>Units: length = the model length unit, time = the model time unit. Angles are degrees.</p>
+    </Description>
+
+    <Property name="rate" return-type="double"><Summary>Emission rate, particles per time unit. Birth schedule: birth = startTime + i/rate.</Summary></Property>
+    <Property name="startTime" return-type="double"><Summary>Model time at which emission begins (0 = from run start). May be a number OR a FlexScript expression in the property; evaluated each draw.</Summary></Property>
+    <Property name="stopTimeField" return-type="double"><Summary>Model time at which emission ends (0 = never). May be a number OR a FlexScript expression.</Summary></Property>
+    <Property name="prewarm" return-type="double"><Summary>Seconds of pre-simulated emission, so the cloud is already full at reset / T = 0 (evaluates at T + prewarm).</Summary></Property>
+    <Property name="lifetime" return-type="double"><Summary>Particle lifetime in time units.</Summary></Property>
+    <Property name="lifetimeJitter" return-type="double"><Summary>Random per-particle lifetime spread, added as [0, +jitter].</Summary></Property>
+
+    <Property name="shapeField" return-type="int"><Summary>Emission shape; use <ClassRef>Particles.Shape</ClassRef> (Point/Line/Disk/Plane/Box/Sphere). The region fills the object's resized footprint.</Summary></Property>
+    <Property name="directionField" return-type="int"><Summary>Launch direction mode; use <ClassRef>Particles.Direction</ClassRef> (Aimed = cone around the aim arrow / local +Z, Omni = all directions).</Summary></Property>
+    <Property name="coneHalfAngleDeg" return-type="double"><Summary>Spread: the half-angle (degrees) of the Aimed launch cone.</Summary></Property>
+    <Property name="speed" return-type="double"><Summary>Initial launch speed, length per time unit.</Summary></Property>
+    <Property name="speedJitter" return-type="double"><Summary>Random launch-speed spread, applied as +/- jitter.</Summary></Property>
+
+    <Property name="gravity" return-type="Particles.Vec3"><Summary>Constant acceleration (length / time^2). Node-backed: read/write components, e.g. <code>e.gravity.z = -9.8;</code> or assign a whole Vec3.</Summary></Property>
+    <Property name="wind" return-type="Particles.Vec3"><Summary>Additional constant acceleration (length / time^2), added to gravity. With drag &gt; 0 it acts as a steady drift toward (gravity+wind)/drag.</Summary></Property>
+    <Property name="drag" return-type="double"><Summary>Exponential velocity-decay rate (1 / time). 0 = none; velocity carries a factor e^(-drag*age).</Summary></Property>
+    <Property name="swirlAmp" return-type="double"><Summary>Radius (length) of a circular wobble added to each particle's path --gives a corkscrew/spiral look. 0 = off.</Summary></Property>
+    <Property name="swirlFreq" return-type="double"><Summary>Angular frequency of the swirl, radians per time unit (period = 2*pi/swirlFreq).</Summary></Property>
+
+    <Property name="startColor" return-type="Particles.Color"><Summary>Color (and alpha) at birth. Node-backed: <code>e.startColor.r = 0.5;</code> or <code>e.startColor = Color.red;</code></Summary></Property>
+    <Property name="endColor" return-type="Particles.Color"><Summary>Color (and alpha) at end of life. The particle color interpolates startColor -&gt; endColor over its life.</Summary></Property>
+    <Property name="sizeStart" return-type="double"><Summary>Particle size (world diameter) at birth.</Summary></Property>
+    <Property name="sizeEnd" return-type="double"><Summary>Particle size (world diameter) at end of life.</Summary></Property>
+
+    <Property name="styleField" return-type="int"><Summary>Render style; use <ClassRef>Particles.Style</ClassRef> (Points = built-in soft dot, Sprite = the object's own image). Every particle is a camera-facing billboard.</Summary></Property>
+    <Property name="seedField" return-type="int"><Summary>Random seed for this emitter (determinism).</Summary></Property>
+    <Property name="statLiveCount" readonly="true" return-type="int"><Summary>Read-only: the number of live particles this emitter drew last frame.</Summary></Property>
+</FlexScriptClass>

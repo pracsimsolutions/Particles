@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles.System">
+    <ParentClass>Object</ParentClass>
+    <Summary>The singleton manager for the Particles module. Discovers every <ClassRef>Particles.Emitter</ClassRef> in the model and batch-draws all of their particles in one pass at draw time.</Summary>
+    <Description>
+        <p>Exactly one system exists per model (auto-created when the first emitter is dropped). Access it via
+            the static <code>Particles.system</code> accessor:</p>
+        <code>Particles.System sys = Particles.system;
+sys.liveCap = 50000;
+print(sys.statTotalLive);</code>
+        <p>Holds global render/visibility controls and read-only performance stats. The emitters own their
+            handles and per-emitter spec; the system only draws particles.</p>
+    </Description>
+
+    <Property name="liveCap" return-type="double"><Summary>Hard cap on the number of live particles evaluated per emitter (graceful degradation for heavy scenes).</Summary></Property>
+    <Property name="showPlanes" return-type="double"><Summary>1 = draw every emitter's region outline (the wireframe shape); 0 = hide.</Summary></Property>
+    <Property name="showArrows" return-type="double"><Summary>1 = draw every emitter's aim pyramid; 0 = hide.</Summary></Property>
+    <Property name="arrowSize" return-type="double"><Summary>World-unit size of the aim pyramid handle (constant size, independent of emitter scale).</Summary></Property>
+
+    <Property name="lod" return-type="double"><Summary>1 = distance LOD on. Far emitters emit fewer particles (the emission rate is scaled by (lodStart/distance)^2 beyond lodStart), cutting draw cost.</Summary></Property>
+    <Property name="lodStart" return-type="double"><Summary>Distance (length units) within which an emitter keeps full detail; beyond it, the LOD rate falloff begins.</Summary></Property>
+    <Property name="lodMin" return-type="double"><Summary>Floor on the LOD multiplier (0-1): how sparse a far emitter is allowed to get. 1 = never thin.</Summary></Property>
+
+    <Property name="statEmitterCount" readonly="true" return-type="double"><Summary>Read-only: number of emitters found this frame.</Summary></Property>
+    <Property name="statTotalLive" readonly="true" return-type="double"><Summary>Read-only: total live particles drawn this frame across all emitters.</Summary></Property>
+    <Property name="statBuildMs" readonly="true" return-type="double"><Summary>Read-only: milliseconds spent evaluating particles this frame.</Summary></Property>
+    <Property name="statDrawMs" readonly="true" return-type="double"><Summary>Read-only: milliseconds spent drawing particles this frame.</Summary></Property>
+</FlexScriptClass>

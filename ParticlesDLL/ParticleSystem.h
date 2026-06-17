@@ -29,9 +29,6 @@ public:
     virtual double onReset() override;
     virtual double onDraw(treenode view) override;
 
-    // FlexScript method (bound vars cover the properties; e.g. Particles.system.liveCap).
-    double setCap(double maxLivePerEmitter) { liveCap = maxLivePerEmitter; return 1; }
-
     // Static FlexScript namespace: exposes the global accessor `Particles.system`.
     class Statics {
     public:

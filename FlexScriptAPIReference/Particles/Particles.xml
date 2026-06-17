@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexScriptClass name="Particles">
+    <Summary>The Particles module namespace. Provides the global accessor to the one <ClassRef>Particles.System</ClassRef> per model.</Summary>
+    <Description>
+        <p>Visual particle emitters (smoke, sparks, fountains, ...) drawn analytically at draw time so they
+            add zero events to the simulation. Drop a <ClassRef>Particles.Emitter</ClassRef> from the library;
+            the <ClassRef>Particles.System</ClassRef> is created automatically.</p>
+        <code>Particles.System sys = Particles.system;
+Particles.Emitter e = Model.find("ParticleEmitter1");</code>
+    </Description>
+
+    <Property name="system" readonly="true" static="true" return-type="Particles.System">
+        <Summary>The model's single <ClassRef>Particles.System</ClassRef> (NULL if no emitter has been created yet).</Summary>
+    </Property>
+</FlexScriptClass>

@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles.Vec3</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles.Vec3</h1></header>
+			<h3>Description</h3>
+			<p>A node-backed 3-component vector used for an emitter's <a href="Particles.Emitter.html#Property-gravity">gravity</a> and <a href="Particles.Emitter.html#Property-wind">wind</a> (both accelerations, length / time^2). Components can be read and written individually and persist in the tree.</p>
+			<p>Because it is node-backed, component assignment writes through:</p>
+			<pre><code>Particles.Emitter e = Model.find("ParticleEmitter1");
+e.gravity.z = -9.8;            // component write, persists
+e.wind = Vec3(1, 0, 0);       // whole-vector assign from a FlexSim Vec3
+print(e.gravity);             // [x, y, z]</code></pre>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-x">x</a></td>
+					<td>X component.</td></tr>
+				<tr><td><a href="#Property-y">y</a></td>
+					<td>Y component.</td></tr>
+				<tr><td><a href="#Property-z">z</a></td>
+					<td>Z component.</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-x">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Vec3</a>.x</h3>
+				<p>double x</p>
+				<h3>Description</h3>
+				<p>X component.</p>
+			</div>
+		</div>
+		<div id="Property-y">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Vec3</a>.y</h3>
+				<p>double y</p>
+				<h3>Description</h3>
+				<p>Y component.</p>
+			</div>
+		</div>
+		<div id="Property-z">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Vec3</a>.z</h3>
+				<p>double z</p>
+				<h3>Description</h3>
+				<p>Z component.</p>
+			</div>
+		</div>
+	</body>
+</html>

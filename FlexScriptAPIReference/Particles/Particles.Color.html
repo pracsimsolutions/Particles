@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles.Color</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles.Color</h1></header>
+			<h3>Description</h3>
+			<p>A node-backed RGBA color used for an emitter's <a href="Particles.Emitter.html#Property-startColor">startColor</a> and <a href="Particles.Emitter.html#Property-endColor">endColor</a>. Each channel is 0-1; the components can be read and written individually and persist in the tree.</p>
+			<p>Because it is node-backed, component assignment writes through (unlike a plain value type):</p>
+			<pre><code>Particles.Emitter e = Model.find("ParticleEmitter1");
+e.startColor.r = 0.5;          // component write, persists
+e.startColor = Color.red;      // whole-color assign from a FlexSim Color
+print(e.startColor);           // [r, g, b, a]</code></pre>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-r">r</a></td>
+					<td>Red channel, 0-1.</td></tr>
+				<tr><td><a href="#Property-g">g</a></td>
+					<td>Green channel, 0-1.</td></tr>
+				<tr><td><a href="#Property-b">b</a></td>
+					<td>Blue channel, 0-1.</td></tr>
+				<tr><td><a href="#Property-a">a</a></td>
+					<td>Alpha (opacity) channel, 0-1.</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-r">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Color</a>.r</h3>
+				<p>double r</p>
+				<h3>Description</h3>
+				<p>Red channel, 0-1.</p>
+			</div>
+		</div>
+		<div id="Property-g">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Color</a>.g</h3>
+				<p>double g</p>
+				<h3>Description</h3>
+				<p>Green channel, 0-1.</p>
+			</div>
+		</div>
+		<div id="Property-b">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Color</a>.b</h3>
+				<p>double b</p>
+				<h3>Description</h3>
+				<p>Blue channel, 0-1.</p>
+			</div>
+		</div>
+		<div id="Property-a">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Color</a>.a</h3>
+				<p>double a</p>
+				<h3>Description</h3>
+				<p>Alpha (opacity) channel, 0-1.</p>
+			</div>
+		</div>
+	</body>
+</html>

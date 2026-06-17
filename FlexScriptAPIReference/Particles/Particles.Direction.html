@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>FlexScript Class - Particles.Direction</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particles.Direction</h1></header>
+			<h3>Description</h3>
+			<p>An enumeration of the launch-direction modes, for <a href="Particles.Emitter.html#Property-directionField">directionField</a>.</p>
+			<pre><code>Model.find("ParticleEmitter1").as(Particles.Emitter).directionField = Particles.Direction.Omni;</code></pre>
+			<h3>Properties</h3>
+			<table class="reference">
+				<tr><td><a href="#Property-Aimed">Aimed</a></td>
+					<td>Launch in a cone around the aim arrow (local +Z), with the half-angle set by coneHalfAngleDeg.</td></tr>
+				<tr><td><a href="#Property-Omni">Omni</a></td>
+					<td>Launch uniformly in all directions (the aim arrow is hidden).</td></tr>
+			</table>
+		</div>
+		<h2>Details</h2>
+		<div id="Property-Aimed">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Direction</a>.Aimed</h3>
+				<p>static readonly int Aimed</p>
+				<h3>Description</h3>
+				<p>Launch in a cone around the aim arrow (local +Z), with the half-angle set by coneHalfAngleDeg. Value: 0.</p>
+			</div>
+		</div>
+		<div id="Property-Omni">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Direction</a>.Omni</h3>
+				<p>static readonly int Omni</p>
+				<h3>Description</h3>
+				<p>Launch uniformly in all directions (the aim arrow is hidden). Value: 1.</p>
+			</div>
+		</div>
+	</body>
+</html>
