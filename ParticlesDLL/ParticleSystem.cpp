@@ -108,6 +108,24 @@ double ParticleSystem::onDraw(treenode view) {
         pvec3 wp{ (float)loc.x, (float)loc.y, (float)loc.z };
         pvec3 rd{ (float)rot.x, (float)rot.y, (float)rot.z };
 
+        // The emitter may be nested inside another object (or several levels deep). getLocation
+        // and rotation above are relative to the emitter's CONTAINER, not the model, so build the
+        // affine map from that container frame to model space and apply it to every particle
+        // below. For a top-level emitter the container is the model, so this is the identity.
+        // vectorproject treats its inputs as real model-unit offsets (it does not re-scale by the
+        // container's size), so only rotation and translation are carried -- particle motion keeps
+        // its true magnitude even when the emitter sits inside a moved/rotated parent.
+        treenode frame = up(a);
+        double pt[3];
+        auto toModel = [&](double x, double y, double z) {
+            vectorproject(frame, x, y, z, model(), pt);
+            return pvec3{ (float)pt[0], (float)pt[1], (float)pt[2] };
+        };
+        pvec3 fO = toModel(0, 0, 0);
+        pvec3 fX = toModel(1, 0, 0) - fO;
+        pvec3 fY = toModel(0, 1, 0) - fO;
+        pvec3 fZ = toModel(0, 0, 1) - fO;
+
         // Distance LOD: thin far emitters by scaling the EMISSION RATE (the cap is rarely the
         // limiter, so scaling it was invisible). Fewer particles -> less draw/fill cost.
         if (lod != 0) {
@@ -133,7 +151,8 @@ double ParticleSystem::onDraw(treenode view) {
         std::vector<Particle>& dst = spritesByTex[tex];
         for (int k = 0; k < n; ++k) {
             Particle p = scratch[k];
-            p.position = localToWorld(p.position, wp, rd);
+            pvec3 cp = localToWorld(p.position, wp, rd);          // emitter -> container frame
+            p.position = fO + fX * cp.x + fY * cp.y + fZ * cp.z;  // container -> model frame
             dst.push_back(p);
         }
     }
