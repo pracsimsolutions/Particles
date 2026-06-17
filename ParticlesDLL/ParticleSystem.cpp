@@ -159,12 +159,23 @@ double ParticleSystem::onDraw(treenode view) {
     auto t1 = std::chrono::high_resolution_clock::now();
     statBuildMs = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
-    // Snapshot every GL flag we touch and restore it EXACTLY afterwards (forcing fixed values
-    // leaked onto FlexSim's later translucent passes and whitened the selection orb).
+    // Nothing alive this frame -> don't touch GL state AT ALL, so we can't leak draw changes
+    // onto other objects. This covers a system sitting in the model with no emitter (or all
+    // emitters off): previously the snapshot/restore block ran every frame and left lighting
+    // and texturing disabled on everything drawn afterwards.
+    if (totalLive == 0) {
+        statEmitterCount = count;
+        statTotalLive = 0;
+        return (double)__super::onDraw(view);
+    }
+
+    // Snapshot only the GL flags that a raw query reports reliably under FlexSim's shader
+    // renderer: blend and the depth-write mask are core GL state, so glIsEnabled/glGetBooleanv
+    // round-trip correctly. LIGHTING and TEXTURE_2D are NOT -- they are shader-pipeline state
+    // (the same reason glGetFloatv(MODELVIEW) returns identity here, see below), so we do not
+    // query them; we force them back to FlexSim's per-object default (on) at the end instead.
     auto d0 = std::chrono::high_resolution_clock::now();
     GLboolean wasBlend = glIsEnabled(GL_BLEND);
-    GLboolean wasTex   = glIsEnabled(GL_TEXTURE_2D);
-    GLboolean wasLight = glIsEnabled(GL_LIGHTING);
     GLboolean wasDepthMask = GL_TRUE; glGetBooleanv(GL_DEPTH_WRITEMASK, &wasDepthMask);
 
     fglDisable(GL_TEXTURE_2D);
@@ -188,10 +199,13 @@ double ParticleSystem::onDraw(treenode view) {
         if (!kv.second.empty()) drawSpriteBatch(kv.first, kv.second, billRight, billUp);
     fglPopMatrix();
 
-    // restore exactly what we found
+    // Restore. Blend and depth-mask round-trip from the raw snapshot. Lighting and texturing
+    // can't be queried reliably (see above), so force them back to FlexSim's default (on),
+    // exactly like the emitter's onDraw does -- this is what stops the unlit/untextured look
+    // from leaking onto other objects.
     if (wasBlend) fglEnable(GL_BLEND); else fglDisable(GL_BLEND);
-    if (wasTex)   fglEnable(GL_TEXTURE_2D); else fglDisable(GL_TEXTURE_2D);
-    if (wasLight) fglEnable(GL_LIGHTING); else fglDisable(GL_LIGHTING);
+    fglEnable(GL_TEXTURE_2D);
+    fglEnable(GL_LIGHTING);
     glDepthMask(wasDepthMask);
     glPointSize(1.0f);
     glLineWidth(1.0f);
