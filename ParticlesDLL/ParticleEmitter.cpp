@@ -9,7 +9,7 @@ namespace Particles {
 
 void ParticleEmitter::bindVariables() {
     bindVariable(rate); bindVariable(lifetime); bindVariable(lifetimeJitter);
-    bindVariable(startTime); bindVariable(stopTimeField);
+    bindVariable(startTime); bindVariable(stopTimeField); bindVariable(prewarm);
     bindVariable(shapeField); bindVariable(directionField); bindVariable(coneHalfAngleDeg);
     bindVariable(speed); bindVariable(speedJitter);
     bindVariable(drag);
@@ -17,20 +17,20 @@ void ParticleEmitter::bindVariables() {
     bindVariable(swirlAmp); bindVariable(swirlFreq);
     bindVariable(sizeStart); bindVariable(sizeEnd);
     // colorStart/colorEnd are structured rgba nodes in the tree (read in buildSpec); not bound here.
-    bindVariable(styleField); bindVariable(textureIndex); bindVariable(seedField);
+    bindVariable(styleField); bindVariable(seedField);
     bindVariable(statLiveCount);
 }
 
 void ParticleEmitter::bindInterface() {
     // Expose every field as a FlexScript property (emitter.rate, emitter.shapeField, ...).
     #define PE_BIND(n) bindTypedProperty(n, double, &ParticleEmitter::pget_##n, &ParticleEmitter::pset_##n)
-    PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField);
+    PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField); PE_BIND(prewarm);
     PE_BIND(shapeField); PE_BIND(directionField); PE_BIND(coneHalfAngleDeg);
     PE_BIND(speed); PE_BIND(speedJitter);
     PE_BIND(drag);
     PE_BIND(swirlAmp); PE_BIND(swirlFreq);
     PE_BIND(sizeStart); PE_BIND(sizeEnd);
-    PE_BIND(styleField); PE_BIND(textureIndex); PE_BIND(seedField);
+    PE_BIND(styleField); PE_BIND(seedField);
     #undef PE_BIND
     bindTypedProperty(statLiveCount, double, &ParticleEmitter::pget_statLiveCount, nullptr);  // read-only
     // Node-backed wrappers: persistent component read+write (emitter.startColor.r = 0.5,

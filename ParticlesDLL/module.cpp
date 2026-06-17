@@ -60,7 +60,8 @@ __declspec(dllexport) Variant Particles_setCap(FLEXSIMINTERFACE)
 
 // Load a particle texture into FlexSim's media list and return its index.
 // Args: param(1)=file path (relative to model/module), param(2)=a unique name.
-// Assign the returned index to an emitter's textureIndex field + set style=Sprite.
+// Set the returned index as the emitter object's image (image picker / setobjectimageindex)
+// and set styleField = Sprite; the system reads it via getobjectimageindex.
 __declspec(dllexport) Variant Particles_loadTexture(FLEXSIMINTERFACE)
 {
     std::string file = param(1);

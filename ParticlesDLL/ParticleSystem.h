@@ -40,12 +40,18 @@ public:
     };
 
     // System-wide controls (bound, GUI-editable). Defaults must match Particles.fsx.
-    double pointSize = 5;        // uniform size for the batched points draw
+    double pointSize = 5;        // legacy uniform; Points now render as world-sized billboards
     double liveCap = 200000;     // max live particles per emitter
     // Handle visibility (always-on by default) + arrow world size.
     double showPlanes = 1;       // draw emitter region outlines
     double showArrows = 1;       // draw emitter aim arrows
     double arrowSize = 1;        // world-unit length of the aim arrow
+    // Performance (1=on). LOD reduces an emitter's cap by distance; frustum cull skips
+    // emitters whose region is fully off-screen (their evaluate() is never run).
+    double lod = 1;
+    double lodStart = 25;        // full detail within this distance, then falls off
+    double lodMin = 0.08;        // floor on the LOD multiplier
+    double frustumCull = 1;
 
     // Aggregate stats (bound, read-only)
     double statEmitterCount = 0, statTotalLive = 0, statBuildMs = 0, statDrawMs = 0;
@@ -53,6 +59,7 @@ public:
     // FlexScript property accessors (system.pointSize, Particles.system.liveCap, ...).
     #define PS_ACC(n) double pget_##n() { return n; } void pset_##n(double v) { n = v; }
     PS_ACC(pointSize) PS_ACC(liveCap) PS_ACC(showPlanes) PS_ACC(showArrows) PS_ACC(arrowSize)
+    PS_ACC(lod) PS_ACC(lodStart) PS_ACC(lodMin) PS_ACC(frustumCull)
     #undef PS_ACC
     double pget_statEmitterCount() { return statEmitterCount; }
     double pget_statTotalLive() { return statTotalLive; }
@@ -60,12 +67,12 @@ public:
     double pget_statDrawMs() { return statDrawMs; }
 
 private:
-    Mesh pointsMesh;
+    int softDotTex = -1;                         // built-in soft round sprite (Points style); lazy-loaded
     std::map<int, Mesh> spriteMeshes;            // one mesh per texture index
     std::vector<Particle> scratch;               // per-emitter evaluation buffer
 
-    void drawPointsBatch(const std::vector<Particle>& pts);
-    // right/up are the camera-facing billboard axes (model space), computed once per frame.
+    // Every particle is now a camera-facing billboard quad. Points use the soft-dot texture,
+    // Sprites use the emitter's imageindexobject (read via node path). right/up = billboard axes.
     void drawSpriteBatch(int texIndex, const std::vector<Particle>& sprites,
                          const pvec3& right, const pvec3& up);
 };

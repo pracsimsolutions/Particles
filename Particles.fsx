@@ -32,6 +32,10 @@
         <node f="42" dt="1"><name>showPlanes</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>showArrows</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>arrowSize</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>lod</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>lodStart</name><data>0000000040390000</data></node>
+        <node f="42" dt="1"><name>lodMin</name><data>47ae147b3fb47ae1</data></node>
+        <node f="42" dt="1"><name>frustumCull</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>statEmitterCount</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>statTotalLive</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>statBuildMs</name><data>0000000000000000</data></node>
@@ -95,6 +99,7 @@
         <node f="42" dt="1"><name>lifetimeJitter</name><data>9999999a3fd99999</data></node>
         <node f="42" dt="1"><name>startTime</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>stopTimeField</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>prewarm</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>shapeField</name><data>0000000040080000</data></node>
         <node f="42" dt="1"><name>directionField</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>coneHalfAngleDeg</name><data>0000000040390000</data></node>
@@ -122,7 +127,6 @@
         <node f="42" dt="1"><name>sizeStart</name><data>9999999a3fc99999</data></node>
         <node f="42" dt="1"><name>sizeEnd</name><data>9999999a3fa99999</data></node>
         <node f="42" dt="1"><name>styleField</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>textureIndex</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>seedField</name><data>0000000040c81c80</data></node>
         <node f="42" dt="1"><name>statLiveCount</name><data>0000000000000000</data></node>
         <node f="42" dt="7"><name>colorStart</name><data/>
@@ -349,7 +353,7 @@ if (model().find("ParticleSystem") == NULL) {
           <node f="42"><name>variables</name>
            <node f="40"><name></name></node>
            <node f="42" dt="1"><name>noFilter</name><data>000000003ff00000</data></node>
-           <node f="42" dt="2"><name>category</name><data>ParticleEmitter&gt;Visual</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
            <node f="42" dt="1"><name>namespaceType</name><data>0000000040000000</data></node>
            <node f="42" dt="2"><name>varPath</name><data>&gt;variables/colorEnd</data></node>
           </node>
@@ -363,9 +367,337 @@ if (model().find("ParticleSystem") == NULL) {
           <node f="42"><name>variables</name>
            <node f="40"><name></name></node>
            <node f="42" dt="1"><name>noFilter</name><data>000000003ff00000</data></node>
-           <node f="42" dt="2"><name>category</name><data>ParticleEmitter&gt;Visual</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
            <node f="42" dt="1"><name>namespaceType</name><data>0000000040000000</data></node>
            <node f="42" dt="2"><name>varPath</name><data>&gt;variables/colorStart</data></node>
+          </node>
+         </data></node>
+         <node f="42" dt="4"><name>Rate</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/rate</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>StartTime</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/UnitUniversalProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/startTime</data></node>
+           <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>StopTime</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/UnitUniversalProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/stopTimeField</data></node>
+           <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>Prewarm</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/UnitUniversalProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/prewarm</data></node>
+           <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>Lifetime</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/UnitUniversalProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/lifetime</data></node>
+           <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>LifetimeJitter</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/UnitUniversalProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/lifetimeJitter</data></node>
+           <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>ConeHalfAngle</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/coneHalfAngleDeg</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>Speed</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/UnitValueProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/speed</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+           <node f="42" dt="2"><name>unitType</name><data>speed</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>SpeedJitter</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/UnitValueProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/speedJitter</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+           <node f="42" dt="2"><name>unitType</name><data>speed</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>Drag</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/drag</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>SwirlAmp</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/swirlAmp</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>SwirlFreq</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/swirlFreq</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>SizeStart</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/sizeStart</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>SizeEnd</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/sizeEnd</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>Seed</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/NumberProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/seedField</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>ShapeField</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/ComboProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/shapeField</data></node>
+           <node f="42"><name>options</name>
+            <node f="40"><name></name></node>
+            <node f="42" dt="1"><name>Point</name><data>0000000000000000</data>
+             <node f="40"><name></name></node></node>
+            <node f="42" dt="1"><name>Line</name><data>000000003ff00000</data>
+             <node f="40"><name></name></node></node>
+            <node f="42" dt="1"><name>Disk</name><data>0000000040000000</data>
+             <node f="40"><name></name></node></node>
+            <node f="42" dt="1"><name>Plane</name><data>0000000040080000</data>
+             <node f="40"><name></name></node></node>
+            <node f="42" dt="1"><name>Box</name><data>0000000040100000</data>
+             <node f="40"><name></name></node></node>
+            <node f="42" dt="1"><name>Sphere</name><data>0000000040140000</data>
+             <node f="40"><name></name></node></node>
+           </node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>DirectionField</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/ComboProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/directionField</data></node>
+           <node f="42"><name>options</name>
+            <node f="40"><name></name></node>
+            <node f="42" dt="1"><name>Aimed</name><data>0000000000000000</data>
+             <node f="40"><name></name></node></node>
+            <node f="42" dt="1"><name>Omni</name><data>000000003ff00000</data>
+             <node f="40"><name></name></node></node>
+           </node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>StyleField</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/ComboProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/styleField</data></node>
+           <node f="42"><name>options</name>
+            <node f="40"><name></name></node>
+            <node f="42" dt="1"><name>Point</name><data>0000000000000000</data>
+             <node f="40"><name></name></node></node>
+            <node f="42" dt="1"><name>Sprite</name><data>000000003ff00000</data>
+             <node f="40"><name></name></node></node>
+           </node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
+         <node f="42" dt="4"><name>Gravity</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/Vec3Property</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+           <node f="42" dt="1"><name>namespaceType</name><data>0000000040000000</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node>
+           <node f="442" dt="2"><name>getValue</name><data>return param(1).as(Particles.Emitter).gravity;
+</data></node>
+           <node f="442" dt="2"><name>setValue</name><data>Vec3 toLoc = param(2);
+Object obj = param(1);
+obj.as(Particles.Emitter).gravity = toLoc;</data></node>
+          </node>
+         </data></node>
+         <node f="42" dt="4"><name>Wind</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/Vec3Property</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+           <node f="42" dt="1"><name>namespaceType</name><data>0000000040000000</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node>
+           <node f="442" dt="2"><name>getValue</name><data>return param(1).as(Particles.Emitter).wind;
+</data></node>
+           <node f="442" dt="2"><name>setValue</name><data>Vec3 toLoc = param(2);
+Object obj = param(1);
+obj.as(Particles.Emitter).wind = toLoc;</data></node>
           </node>
          </data></node>
         </node>
@@ -488,6 +820,1023 @@ return obj;
       <node f="4000000042" dt="2"><name>windowtitle</name><data>Particles</data></node>
      </data>
       <node f="40"><name></name></node></node>
+    </node>
+   </node>
+  </node>
+  <node f="42" dt="2"><name>add_propertiesPanels</name><data>VIEW:/standardviews/modelingutilities/QuickProperties&gt;variables/propertiesPanels</data>
+   <node f="40"><name></name></node>
+   <node f="42" dt="3"><name>ParticleEmitter</name><data><coupling>null</coupling></data>
+    <node f="40"><name></name></node>
+    <node f="42" dt="1"><name>rank</name><data>0000000000000000</data></node>
+    <node f="42" dt="2"><name>after</name><data>Triggers</data></node>
+    <node f="42" dt="1"><name>into object</name><data>0000000000000000</data></node>
+    <node f="42"><name>data</name>
+     <node f="40"><name></name></node>
+     <node f="42" dt="4"><name>ParticleEmitter</name><data>
+      <node f="40"><name>object</name></node>
+      <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040180000</data>
+       <node f="40"><name></name></node></node>
+      <node f="42" dt="2"><name>guifocusclass</name><data>../../..&gt;variables/QuickPropertiesPanel</data></node>
+      <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+      <node f="42" dt="1"><name>spatialy</name><data>0000000000000000</data></node>
+      <node f="42" dt="1"><name>spatialsx</name><data>0000000040634000</data></node>
+      <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+      <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+      <node f="42"><name>variables</name>
+       <node f="40"><name></name></node>
+       <node f="42"><name>propTableQueryTree</name>
+        <node f="40"><name></name></node>
+        <node f="42"><name>SELECT</name>
+         <node f="40"><name></name></node>
+         <node f="42"><name>Color</name></node>
+         <node f="42"><name>CorridorType</name></node>
+         <node f="42"><name>Geometry</name></node>
+         <node f="42"><name>Bulge</name></node>
+        </node>
+        <node f="42"><name>FROM</name>
+         <node f="40"><name></name></node>
+         <node f="42"><name>Objects()</name></node>
+        </node>
+        <node f="42"><name>WHERE</name>
+         <node f="40"><name></name></node>
+         <node f="42"><name>IN</name>
+          <node f="40"><name></name></node>
+          <node f="42"><name>"RouteGraph::Corridor"</name></node>
+          <node f="42"><name>Classes</name></node>
+         </node>
+        </node>
+        <node f="42"><name>ORDER BY</name></node>
+       </node>
+       <node f="42" dt="2"><name>helptopic</name><data>Particles::Emitter</data></node>
+      </node>
+     </data>
+      <node f="40"><name></name></node>
+      <node f="42" dt="4"><name>ParticleEmitter</name><data>
+       <node f="40"><name>object</name></node>
+       <node f="42" dt="3"><name>objectfocus</name><data><coupling>null</coupling></data></node>
+       <node f="42" dt="3"><name>viewfocus</name><data><coupling>null</coupling></data></node>
+       <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040598000</data></node>
+       <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+       <node f="42" dt="1"><name>spatialy</name><data>0000000040350000</data></node>
+       <node f="42" dt="1"><name>spatialsx</name><data>000000004062c000</data></node>
+       <node f="42" dt="1"><name>spatialsy</name><data>0000000040822000</data></node>
+       <node f="42"><name>variables</name>
+        <node f="40"><name></name></node>
+        <node f="42" dt="1"><name>isExpanded</name><data>000000003ff00000</data></node>
+        <node f="42" dt="1"><name>showRequirements</name><data>0000000000000000</data>
+         <node f="40"><name></name></node>
+         <node f="442" dt="2"><name>selObj</name><data>return objectexists(param(1)) &amp;&amp; isclasstype(param(1), "Particles::ParticleEmitter");</data></node>
+         <node f="442" dt="2"><name>docType</name><data>string docType = gets(documentwindow(param(1)));
+return docType == "3D" || docType == "Tree";</data></node>
+         <node f="42" dt="1"><name>editMode</name><data>0000000000000000</data></node>
+        </node>
+       </node>
+       <node f="42" dt="2"><name>undohistory</name><data>..&gt;viewfocus+</data></node>
+       <node f="42"><name>eventfunctions</name>
+        <node f="40"><name></name></node>
+        <node f="442" dt="2"><name>onSelObjChange</name><data>nodepoint(objectfocus(c), param(1));
+nodepoint(viewfocus(c), activedocumentnode());
+applylinks(c, 1);
+</data></node>
+        <node f="442" dt="2"><name>onPropsApply</name><data>applylinks(c, 1);</data></node>
+        <node f="442" dt="2"><name>onExpand</name><data>if (param(1)) {// expanded
+	applylinks(c, 1);
+}
+</data></node>
+        <node f="42" dt="2"><name>OnUndo</name><data>applylinks(c, 1);
+function_s(node("/RouteGraphNetwork", model()), "refreshMesh");
+</data></node>
+        <node f="42" dt="2"><name>coldlinkx</name><data>if (!eventdata &amp;&amp; eventcode == APPLY_LINKS_ON_OPEN) {
+	function_s(node("/ChooseType", c), "refreshList");
+	function_s(node("/ChooseAccumType", c), "refreshList");
+}</data></node>
+       </node>
+       <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+       <node f="42" dt="2"><name>tooltip</name><data></data></node>
+       <node f="4000000042" dt="2"><name>windowtitle</name><data>Corridor</data></node>
+       <node f="42" dt="1"><name>beveltype</name><data>0000000000000000</data></node>
+      </data>
+       <node f="40"><name></name></node>
+       <node f="42" dt="4"><name>StartColor</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040180000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000004052c000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Start Color</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>StartColorPanel</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040598000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Color</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>StartColor</data></node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../StartColor</data></node>
+        </node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="442" dt="2"><name>onApply</name><data>treenode focus = c.find("..&gt;objectfocus+");
+createundorecord(c, focus, UNDO_CUSTOM);
+if (switch_selected(focus, -1)) {
+	forobjecttreeunder(model()) {
+		if (switch_selected(a, -1) &amp;&amp; a != focus)
+			createundorecord(c, a, UNDO_CUSTOM);
+	}
+}
+</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>EndColor</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000403e0000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000004052c000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Start Color</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EndColorPanel</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040598000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Color</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000403b0000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>EndColor</data></node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../EndColor</data></node>
+        </node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="442" dt="2"><name>onApply</name><data>treenode focus = c.find("..&gt;objectfocus+");
+createundorecord(c, focus, UNDO_CUSTOM);
+if (switch_selected(focus, -1)) {
+	forobjecttreeunder(model()) {
+		if (switch_selected(a, -1) &amp;&amp; a != focus)
+			createundorecord(c, a, UNDO_CUSTOM);
+	}
+}
+</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Generative Rate</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000404b0000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000004057c000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Generative Rate</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditGenerativeRate</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/rate</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040498000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040390000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>Rate</data></node>
+         <node f="42" dt="2"><name>valueType</name><data>rate</data></node>
+         <node f="42" dt="1"><name>isHotlink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>rateNumerator</name><data>p</data>
+          <node f="40"><name></name></node>
+          <node f="4000000042" dt="2"><name>single</name><data>particle</data></node>
+          <node f="4000000042" dt="2"><name>plural</name><data>particles</data></node>
+         </node>
+        </node>
+        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+       </data></node>
+       <node f="42" dt="4"><name>StartTime</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040538000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Start Time</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>StartTimeEdit</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004052c000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/startTime</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Start Time</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../StartTime</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>StartTime</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>StopTime</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040598000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Stop Time</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>StopTimeEdit</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004058c000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/stopTimeField</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Stop Time</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../StopTime</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>StopTime</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Prewarm</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000405f8000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Prewarm</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>PrewarmEdit</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000405ec000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/prewarm</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Prewarm</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../Prewarm</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>Prewarm</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Speed</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004062c000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Speed</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditSpeed</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040626000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040568000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/speed</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040380000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Speed</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>speed</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../Speed</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>Speed</data></node>
+        </node>
+        <node f="42" dt="1"><name>rangemin</name><data>0000000000000000</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>SpeedJitter</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004065c000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Speed Jitter</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditSpeedJitter</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040656000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040568000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/speedJitter</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040380000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Speed Jitter</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>speed</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../SpeedJitter</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>SpeedJitter</data></node>
+        </node>
+        <node f="42" dt="1"><name>rangemin</name><data>0000000000000000</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Lifetime</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004068c000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Lifetime</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>LifeTimeEdit</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040684000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/lifetime</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Prewarm</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../LifeTime</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>LifeTime</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>lifetimeJitter</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406bc000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Lifetime Jitter</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>LifetimeJitterEdit</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406b4000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/lifetimeJitter</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Prewarm</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>time</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../LifetimeJitter</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>LifetimeJitter</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>ShapeField</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406ec000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Shape</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>EditShapeField</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405b4000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Options</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406e6000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>ShapeField</data></node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../ShapeField</data></node>
+        </node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Direction</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004070e000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Direction</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>EditDirection</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405b4000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Options</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004070b000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>DirectionField</data></node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../DirectionField</data></node>
+        </node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Style</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040726000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Style</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>EditStyle</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405b4000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Options</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040723000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>StyleField</data></node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../StyleField</data></node>
+        </node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Vec3TopLabels</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040598000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Vec3TopLabels</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004073b000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>00000000403e0000</data>
+         <node f="40"><name></name></node></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040310000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040390000</data></node>
+        <node f="42" dt="1"><name>beveltype</name><data>0000000000000000</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>StartLocation</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040598000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Vec3</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004074f000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data>
+         <node f="40"><name></name></node></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040390000</data></node>
+        <node f="42" dt="1"><name>beveltype</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>Gravity</data></node>
+         <node f="4000000042" dt="2"><name>leftLabel</name><data>Gravity</data></node>
+        </node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="442" dt="2"><name>onApply</name><data>applylinks(c.up, 1);</data></node>
+        </node>
+       </data></node>
+       <node f="42" dt="4"><name>EndLocation</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040598000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Vec3</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040767000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data>
+         <node f="40"><name></name></node></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040390000</data></node>
+        <node f="42" dt="1"><name>beveltype</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>Wind</data></node>
+         <node f="4000000042" dt="2"><name>leftLabel</name><data>Wind</data></node>
+        </node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="442" dt="2"><name>onApply</name><data>applylinks(c.up, 1);</data></node>
+        </node>
+       </data></node>
+       <node f="42" dt="4"><name>Drag</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040782000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000004057c000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Drag</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditDrag</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/drag</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004077f000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040390000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>Drag</data></node>
+         <node f="42" dt="2"><name>valueType</name><data>rate</data></node>
+         <node f="42" dt="1"><name>isHotlink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>rateNumerator</name><data>1</data>
+          <node f="40"><name></name></node>
+          <node f="4000000042" dt="2"><name>single</name><data>1</data></node>
+          <node f="4000000042" dt="2"><name>plural</name><data>1</data></node>
+         </node>
+        </node>
+       </data></node>
+       <node f="42" dt="4"><name>SwirlAmp</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004079a000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>swirl Amplitude</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditswirlAmp</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040797000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/swirlAmp</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Prewarm</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>length</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../SwirlAmp</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>SwirlAmp</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>SwirlFreq</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407b2000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000004057c000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Swirl Frequency</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditSwirlFreq</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/swirlFreq</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407af000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>00000000403e0000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>SwirlFreq</data></node>
+         <node f="42" dt="2"><name>valueType</name><data>rate</data></node>
+         <node f="42" dt="1"><name>isHotlink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>rateNumerator</name><data>rad</data>
+          <node f="40"><name></name></node>
+          <node f="4000000042" dt="2"><name>single</name><data>radian</data></node>
+          <node f="4000000042" dt="2"><name>plural</name><data>radians</data></node>
+         </node>
+        </node>
+       </data></node>
+       <node f="42" dt="4"><name>SizeStart</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407ca000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Size Start</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditSizeStart</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407c7000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/sizeStart</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Prewarm</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>length</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../SizeStart</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>SizeStart</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>SizeEnd</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407e2000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Size End</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditSizeEnd</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407df000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/sizeEnd</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>codedescription</name><data>Prewarm</data></node>
+         <node f="42" dt="2"><name>picklist</name><data>VIEW:/custompicklists/sourcetimepicklist</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name></name><data>VIEW:/picklists/timepicklist</data></node>
+         </node>
+         <node f="42" dt="1"><name>isHotLink</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>unitType</name><data>length</data></node>
+         <node f="42" dt="1"><name>hasDragTarget</name><data>000000003ff00000</data></node>
+         <node f="42" dt="1"><name>valType</name><data>000000003ff00000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>number</name></node>
+         </node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../SizeEnd</data></node>
+         <node f="42" dt="1"><name>isQuickProp</name><data>000000003ff00000</data></node>
+         <node f="42" dt="2"><name>propName</name><data>SizeEnd</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Seed</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407fa000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Seed</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>EditSeed</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Number</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407f7000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>Seed</data></node>
+         <node f="42" dt="2"><name>inheritanceIndicator</name><data>~/../Seed</data></node>
+        </node>
+        <node f="42"><name>style</name>
+         <node f="40"><name></name></node>
+         <node f="42"><name>ES_NUMBER</name></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="242" dt="4"><name>File</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040809000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040488000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>File Path</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
+       <node f="242" dt="4"><name>FileEdit</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040568000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040807800</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040743000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="2"><name>coldlink</name><data>../..&gt;objectfocus+&gt;visual/imageobject</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="4000000042" dt="2"><name>tooltip</name><data>A 2D image file used for texturing the plane and other 3D shapes.</data></node>
+        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040468000</data></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="442" dt="2"><name>applyTexture</name><data>Object focus = node("..&gt;objectfocus+", c);
+
+int undoId = beginaggregatedundo(c, "Change Texture");
+createundorecord(c, c, UNDO_CUSTOM);
+	focus.setProperty("Texture", getviewtext(c));	
+	function_s(c.up, "setPropertyOnAllSelected", "Texture", getviewtext(c), c, focus);
+createundorecord(c, c, UNDO_CUSTOM);
+endaggregatedundo(c, undoId);
+
+repaintall();
+</data></node>
+         <node f="442" dt="2"><name>OnKillFocus</name><data>function_s(c, "applyTexture");
+</data></node>
+        </node>
+        <node f="42"><name>style</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>FS_INHERITANCE_INDICATOR</name><data>~</data>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name>property</name><data>Texture</data></node>
+          <node f="42" dt="2"><name>focus</name><data>~/..&gt;objectfocus+</data></node>
+          <node f="42" dt="2"><name>additional</name><data>~/../File</data></node>
+         </node>
+        </node>
+       </data></node>
+       <node f="242" dt="4"><name>Browse Texture</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040789000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040807800</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>menucode</name><data>setviewtext(node("../FileEdit", ownerobject(c)), "%path%"); 
+function_s(node("../FileEdit", ownerobject(c)), "applyTexture");
+</data></node>
+         <node f="42" dt="2"><name>browsecode</name><data>function_s(ownerobject(c), "browse");</data></node>
+         <node f="4000000042" dt="2"><name>browseText</name><data>Browse...</data></node>
+        </node>
+        <node f="42" dt="1"><name>menupopup</name><data>000000003ff00000</data>
+         <node f="40"><name></name></node></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>OnPress</name><data>treenode menu = menupopup(c);
+
+clearcontents(menu);
+
+nodeinsertinto(menu);
+nodeadddata(last(menu), DATATYPE_STRING);
+setname(last(menu), getvarstr(c, "browseText"));
+sets(last(menu), getvarstr(c, "browsecode"));
+
+nodeinsertinto(menu);
+setname(last(menu), "-");
+
+string menucode = getvarstr(c, "menucode");
+
+//Grab all images from the media folder
+forobjectlayerunder(node("/project/media/images",maintree())) {
+	if (get(a) != 0) {
+		nodeinsertinto(menu);
+		treenode newshape = last(menu);
+		nodeadddata(newshape, DATATYPE_STRING);
+		sets(newshape, stringreplace(menucode, "%path%", stringreplace(getname(a), "\\", "\\\\")));
+			
+		string token = getname(a);
+		string name = stringtoken(token,"\\");
+		
+		while (stringlen(name)&gt;0) {
+			string nextname = stringtoken(NULL,"\\");
+			if (stringlen(nextname) == 0){
+				setname(newshape, name);
+				break;
+			}
+			name = stringtoken(NULL,"\\");
+			if (stringlen(name) == 0){
+				setname(newshape, nextname);
+				break;
+			}
+		}
+	}
+}
+</data>
+          <node f="40"><name></name></node></node>
+         <node f="442" dt="2"><name>browse</name><data>treenode openpathnode = node("VIEW:/environment/mediapath");
+string filepath;
+string directory = applicationcommand("getmediadirectory");
+
+filepath = filebrowse("*.bmp;*.jpg;*.png;*.gif;*.ico","2D images",directory);
+if (stringlen(filepath)&gt;4) {
+	int cdirlen = stringlen(cdir());
+	sets(openpathnode, filepath);
+	filepath = truncatemediapath(filepath);
+
+	setviewtext(node("../FileEdit", c),filepath); 
+	function_s(node("../FileEdit", c), "applyTexture");
+	
+	setitem(node("..&gt;objectfocus+",c));
+	if (gettextureindex(gets(imageobject(item)))==0)
+		autoloadimages();
+	set(imageindexobject(item), gettextureindex(gets(imageobject(item))));
+
+	repaintall();
+}
+</data></node>
+        </node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+        <node f="42" dt="2"><name>bitmap</name><data>buttons\down_arrow_small.bmp</data></node>
+        <node f="42" dt="1"><name>beveltype</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>alignrightposition</name><data>0000000040468000</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>3DTextureSampler</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/SamplerButton</data></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>../../FileEdit</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;visual/imageobject</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040807800</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>alignrightposition</name><data>0000000040380000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="4000000042" dt="2"><name>tooltip</name><data>Click this button then "sample" something in FlexSim like
+an object in the model or the library to define the conveyor's Texture.</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="1"><name>valType</name><data>0000000040500000</data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>picture</name></node>
+         </node>
+        </node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node>
+         <node f="442" dt="2"><name>onSample</name><data>function_s(node("../FileEdit", c), "applyTexture");</data></node>
+        </node>
+       </data>
+        <node f="40"><name></name></node></node>
+      </node>
+     </node>
     </node>
    </node>
   </node>

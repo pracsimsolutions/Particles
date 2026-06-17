@@ -16,6 +16,7 @@ void ParticleSystem::bindVariables() {
     bindVariable(pointSize);
     bindVariable(liveCap);
     bindVariable(showPlanes); bindVariable(showArrows); bindVariable(arrowSize);
+    bindVariable(lod); bindVariable(lodStart); bindVariable(lodMin); bindVariable(frustumCull);
     bindVariable(statEmitterCount); bindVariable(statTotalLive);
     bindVariable(statBuildMs); bindVariable(statDrawMs);
 }
@@ -27,6 +28,7 @@ void ParticleSystem::bindInterface() {
     bindClassByName<Statics>("Particles", true);
     #define PS_BIND(n) bindTypedProperty(n, double, &ParticleSystem::pget_##n, &ParticleSystem::pset_##n)
     PS_BIND(pointSize); PS_BIND(liveCap); PS_BIND(showPlanes); PS_BIND(showArrows); PS_BIND(arrowSize);
+    PS_BIND(lod); PS_BIND(lodStart); PS_BIND(lodMin); PS_BIND(frustumCull);
     #undef PS_BIND
     bindTypedProperty(statEmitterCount, double, &ParticleSystem::pget_statEmitterCount, nullptr);
     bindTypedProperty(statTotalLive, double, &ParticleSystem::pget_statTotalLive, nullptr);
@@ -47,17 +49,49 @@ double ParticleSystem::onCreate(double, double, double, int) {
 
 double ParticleSystem::onReset() {
     switch_noselect(holder, 1);
-    // Anchor each emitter's emission clock to the run start.
-    double now = time();
-    forobjecttreeunder(model()) {
-        if (isclasstype(a, "Particles::ParticleEmitter")) {
-            ParticleEmitter* e = a->objectAs(ParticleEmitter);
-            if (e) e->startTime = now;
-        }
-    }
+    // NOTE: startTime is a user-controlled absolute model time when emission begins
+    // (default 0 = from run start). We deliberately do NOT overwrite it here -- doing so
+    // clobbered any value the user set back to 0 on every reset. The analytic birth schedule
+    // (birth = startTime + i/rate) already gives a clean restart at T=0 when startTime is 0.
     return 0;
 }
 
+
+// Column-major 4x4 multiply: C = A * B.
+static void mul4(const float* A, const float* B, float* C) {
+    for (int col = 0; col < 4; ++col)
+        for (int row = 0; row < 4; ++row) {
+            float s = 0; for (int k = 0; k < 4; ++k) s += A[k*4+row] * B[col*4+k];
+            C[col*4+row] = s;
+        }
+}
+// True if the whole [center +/- R] AABB is outside one frustum plane (safe to cull). The
+// "all 8 corners beyond a single plane" test never culls a partly-visible cloud.
+static bool cloudOffscreen(const float* mvp, const pvec3& c, float R) {
+    int oL=1,oR=1,oB=1,oT=1,oN=1,oF=1;
+    for (int i = 0; i < 8; ++i) {
+        float x=c.x+((i&1)?R:-R), y=c.y+((i&2)?R:-R), z=c.z+((i&4)?R:-R);
+        float cx=mvp[0]*x+mvp[4]*y+mvp[8]*z+mvp[12];
+        float cy=mvp[1]*x+mvp[5]*y+mvp[9]*z+mvp[13];
+        float cz=mvp[2]*x+mvp[6]*y+mvp[10]*z+mvp[14];
+        float cw=mvp[3]*x+mvp[7]*y+mvp[11]*z+mvp[15];
+        if (cx > -cw) oL=0;  if (cx < cw) oR=0;
+        if (cy > -cw) oB=0;  if (cy < cw) oT=0;
+        if (cz > -cw) oN=0;  if (cz < cw) oF=0;
+    }
+    return oL||oR||oB||oT||oN||oF;
+}
+
+// Read a 4x4 matrix (column-major, 16 floats) from the LIVE shader pipeline. Under FlexSim's
+// shader renderer glGetFloatv(GL_MODELVIEW_MATRIX) returns identity, so the camera transform
+// must come from fglInfo (FGL_INFO_MODELVIEW_MATRIX / FGL_INFO_PROJECTION_MATRIX). fglInfo
+// returns the matrix as a 1-based Array of 16 numbers.
+static void readMat16(int op, treenode view, float* m) {
+    Array a = fglInfo(op, view);
+    int n = (int)a.size();
+    for (int i = 0; i < 16; ++i)
+        m[i] = (i < n) ? (float)(double)a[i + 1] : ((i % 5 == 0) ? 1.0f : 0.0f);
+}
 
 double ParticleSystem::onDraw(treenode view) {
     // The system is an invisible manager: keep its name label hidden every frame.
@@ -68,19 +102,30 @@ double ParticleSystem::onDraw(treenode view) {
     if (getpickingmode(view) != 0)
         return (double)__super::onDraw(view);
 
+    // Lazy-load the built-in soft round sprite used for the Points style (every particle is
+    // now a camera-facing billboard quad; Points use this, Sprites use the emitter texture).
+    if (softDotTex < 0)
+        softDotTex = (int)loadimage("modules\\Particles\\bitmaps\\soft_dot.png", "particles_soft_dot");
+
     float T = (float)time();
     long cap = std::max(0L, (long)liveCap);
     if ((long)scratch.size() < cap) scratch.resize(cap);
 
-    std::vector<Particle> points;
+    static const float Rx[16] = {1,0,0,0, 0,0,-1,0, 0,1,0,0, 0,0,0,1};  // fglRotate(-90,1,0,0)
+    auto norm = [](pvec3 v) { float l = std::sqrt(v.x*v.x+v.y*v.y+v.z*v.z);
+                              if (l > 1e-6f) { v.x/=l; v.y/=l; v.z/=l; } return v; };
+    // Frustum-cull matrix from the shader matrices: MVP = projection * (M_entry * R(-90,X)).
+    float mvp[16];
+    { float m[16], p[16], mf[16]; readMat16(FGL_INFO_MODELVIEW_MATRIX, view, m);
+      readMat16(FGL_INFO_PROJECTION_MATRIX, view, p); mul4(m, Rx, mf); mul4(p, mf, mvp); }
+
     std::map<int, std::vector<Particle>> spritesByTex;
     long totalLive = 0;
-    int count = 0;
+    int count = 0, culled = 0;
 
     // Scan every emitter once, evaluate its live particles analytically (pure function of
-    // model time T -- no events), and bucket them for one batched draw call per kind. The
-    // emitters draw their own region outline + aim pyramid in their own onDraw; the system
-    // ONLY draws particles now (drawing the arrows here was the old "funky" double-draw).
+    // model time T -- no events) with per-emitter frustum cull + distance LOD, and bucket
+    // them by texture for one batched billboard draw per texture.
     auto t0 = std::chrono::high_resolution_clock::now();
     forobjecttreeunder(model()) {
         if (!isclasstype(a, "Particles::ParticleEmitter")) continue;
@@ -93,11 +138,40 @@ double ParticleSystem::onDraw(treenode view) {
         pvec3 wp{ (float)loc.x, (float)loc.y, (float)loc.z };
         pvec3 rd{ (float)rot.x, (float)rot.y, (float)rot.z };
 
-        int n = cap > 0 ? ::evaluate(s, T, scratch.data(), (int)cap) : 0;
+        // Frustum cull: bound the whole cloud (region + ballistic travel) and skip evaluate()
+        // entirely when it is fully off-screen. Generous radius so nothing visible pops.
+        if (frustumCull != 0) {
+            float maxLife = s.lifetime + (s.lifetimeJitter > 0 ? s.lifetimeJitter : 0);
+            float g = std::sqrt(s.gravity.x*s.gravity.x + s.gravity.y*s.gravity.y + s.gravity.z*s.gravity.z)
+                    + std::sqrt(s.wind.x*s.wind.x + s.wind.y*s.wind.y + s.wind.z*s.wind.z);
+            Vec3 sz = e->size;
+            float regionR = 0.5f * (float)std::sqrt(sz.x*sz.x + sz.y*sz.y + sz.z*sz.z);
+            float R = regionR + (s.speed + s.speedJitter) * maxLife + 0.5f * g * maxLife * maxLife + 0.5f;
+            if (cloudOffscreen(mvp, wp, R)) { e->statLiveCount = 0; ++culled; continue; }
+        }
+
+        // Distance LOD: fewer particles for far/small emitters (full detail within lodStart).
+        long ecap = cap;
+        if (lod != 0 && cap > 0) {
+            double dist = distfromviewpoint(a, view);
+            double f = 1.0;
+            if (lodStart > 0 && dist > lodStart) { double r = lodStart / dist; f = r * r; }
+            if (f < lodMin) f = lodMin;  if (f > 1.0) f = 1.0;
+            ecap = (long)(cap * f);
+        }
+
+        // Prewarm: evaluate at T + prewarm so the cloud isn't empty at reset / T=0.
+        float Te = T + (float)e->prewarm;
+        int n = ecap > 0 ? ::evaluate(s, Te, scratch.data(), (int)ecap) : 0;
         e->statLiveCount = n;
         totalLive += n;
-        std::vector<Particle>& dst = (s.style == RenderStyle::Sprite)
-            ? spritesByTex[(int)e->textureIndex] : points;
+        // Sprite texture = the object's own image, read straight from imageindexobject (the
+        // attribute the image picker sets). NOTE: do not use getobjectimageindex() -- it returns
+        // imageindexBASE, which is a different slot. 0/unset -> fall back to the built-in soft dot.
+        treenode imgNode = node(">visual/imageindexobject", a);
+        int imgIdx = objectexists(imgNode) ? (int)getnodenum(imgNode) : 0;
+        int tex = (s.style == RenderStyle::Sprite && imgIdx > 0) ? imgIdx : softDotTex;
+        std::vector<Particle>& dst = spritesByTex[tex];
         for (int k = 0; k < n; ++k) {
             Particle p = scratch[k];
             p.position = localToWorld(p.position, wp, rd);
@@ -107,26 +181,9 @@ double ParticleSystem::onDraw(treenode view) {
     auto t1 = std::chrono::high_resolution_clock::now();
     statBuildMs = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
-    // Particle positions are model-space world coordinates; the DLL onDraw frame is rotated
-    // +90deg about X from model Z-up, so fglRotate(-90,1,0,0) brings us to model-aligned.
-    //
-    // Snapshot every GL flag we touch and restore it EXACTLY afterwards. Forcing fixed
-    // values (e.g. blend OFF, color white) leaked onto FlexSim's later translucent passes
-    // and made the selection orb render as a solid white ball. Leave state as we found it.
+    // Snapshot every GL flag we touch and restore it EXACTLY afterwards (forcing fixed values
+    // leaked onto FlexSim's later translucent passes and whitened the selection orb).
     auto d0 = std::chrono::high_resolution_clock::now();
-
-    // Billboard axes for sprite particles. Read the modelview NOW -- before any fgl matrix
-    // ops, so it is the current entry matrix M_entry. The full draw modelview is
-    // M_full = M_entry * R(-90,X) (our model-aligning rotation), which maps model-space
-    // positions -> eye; its first two rows are the camera right/up in model space (a correct
-    // billboard at every angle). Row0(M_entry*R(-90,X)) = (m0, -m8, m4); Row1 = (m1, -m9, m5).
-    float mvs[16];
-    glGetFloatv(GL_MODELVIEW_MATRIX, mvs);
-    auto norm = [](pvec3 v) { float l = std::sqrt(v.x*v.x+v.y*v.y+v.z*v.z);
-                              if (l > 1e-6f) { v.x/=l; v.y/=l; v.z/=l; } return v; };
-    pvec3 billRight = norm(pvec3{ mvs[0], -mvs[8], mvs[4] });
-    pvec3 billUp    = norm(pvec3{ mvs[1], -mvs[9], mvs[5] });
-
     GLboolean wasBlend = glIsEnabled(GL_BLEND);
     GLboolean wasTex   = glIsEnabled(GL_TEXTURE_2D);
     GLboolean wasLight = glIsEnabled(GL_LIGHTING);
@@ -141,7 +198,14 @@ double ParticleSystem::onDraw(treenode view) {
     glDepthMask(GL_TRUE);
     fglPushMatrix();
     fglRotate(-90.0f, 1.0f, 0.0f, 0.0f);
-    if (!points.empty()) drawPointsBatch(points);
+    // Billboard axes from the LIVE shader modelview (now == the view matrix V, since
+    // M_entry*R(-90) maps world->eye): rows 0/1 are the camera right/up in world space. Must
+    // come from fglInfo -- glGetFloatv returns identity under the shader pipeline, which froze
+    // the billboards to a fixed world direction.
+    float vm[16];
+    readMat16(FGL_INFO_MODELVIEW_MATRIX, view, vm);
+    pvec3 billRight = norm(pvec3{ vm[0], vm[4], vm[8] });
+    pvec3 billUp    = norm(pvec3{ vm[1], vm[5], vm[9] });
     for (auto& kv : spritesByTex)
         if (!kv.second.empty()) drawSpriteBatch(kv.first, kv.second, billRight, billUp);
     fglPopMatrix();
@@ -159,20 +223,6 @@ double ParticleSystem::onDraw(treenode view) {
     statEmitterCount = count;
     statTotalLive = (double)totalLive;
     return (double)__super::onDraw(view);
-}
-
-void ParticleSystem::drawPointsBatch(const std::vector<Particle>& pts) {
-    int n = (int)pts.size();
-    pointsMesh.init(n, MESH_POSITION | MESH_AMBIENT_AND_DIFFUSE4, MESH_DYNAMIC_DRAW);
-    for (int k = 0; k < n; ++k) {
-        const Particle& p = pts[k];
-        float pos[3] = { p.position.x, p.position.y, p.position.z };
-        float col[4] = { p.color.r, p.color.g, p.color.b, p.color.a };
-        pointsMesh.setVertexAttrib(k, MESH_POSITION, pos);
-        pointsMesh.setVertexAttrib(k, MESH_AMBIENT_AND_DIFFUSE4, col);
-    }
-    glPointSize((float)pointSize);
-    pointsMesh.draw(GL_POINTS);
 }
 
 void ParticleSystem::drawSpriteBatch(int texIndex, const std::vector<Particle>& sprites,

@@ -52,6 +52,7 @@ public:
     // are read at draw time in buildSpec (see readColorNode). Alpha is the node's 'a' channel.
     double rate = 200, lifetime = 2, lifetimeJitter = 0.4;
     double startTime = 0, stopTimeField = 0;
+    double prewarm = 0;   // evaluate at T+prewarm so the cloud isn't empty at reset/T=0
     double shapeField = (double)EmitShape::Plane;        // 0=Point 1=Line 2=Disk 3=Plane 4=Box 5=Sphere
     double directionField = (double)DirectionMode::Aimed; // 0=Aimed 1=Omni
     double coneHalfAngleDeg = 25;                         // spread
@@ -60,7 +61,8 @@ public:
     double swirlAmp = 0, swirlFreq = 1;
     double sizeStart = 0.2, sizeEnd = 0.05;
     double styleField = (double)RenderStyle::Points;
-    double textureIndex = 0;
+    // (texture for Sprite style = the object's own imageindexobject attribute, read by the
+    //  system via getobjectimageindex -- set it the normal way with the image picker.)
     double seedField = 12345;
     double statLiveCount = 0;
 
@@ -70,13 +72,13 @@ public:
     // FlexScript property accessors: one get/set per field so emitter.<name>
     // works (bound variables alone are not exposed as object properties).
     #define PE_ACC(n) double pget_##n() { return n; } void pset_##n(double v) { n = v; }
-    PE_ACC(rate) PE_ACC(lifetime) PE_ACC(lifetimeJitter) PE_ACC(startTime) PE_ACC(stopTimeField)
+    PE_ACC(rate) PE_ACC(lifetime) PE_ACC(lifetimeJitter) PE_ACC(startTime) PE_ACC(stopTimeField) PE_ACC(prewarm)
     PE_ACC(shapeField) PE_ACC(directionField) PE_ACC(coneHalfAngleDeg)
     PE_ACC(speed) PE_ACC(speedJitter)
     PE_ACC(drag)
     PE_ACC(swirlAmp) PE_ACC(swirlFreq)
     PE_ACC(sizeStart) PE_ACC(sizeEnd)
-    PE_ACC(styleField) PE_ACC(textureIndex) PE_ACC(seedField)
+    PE_ACC(styleField) PE_ACC(seedField)
     double pget_statLiveCount() { return statLiveCount; }
     #undef PE_ACC
 

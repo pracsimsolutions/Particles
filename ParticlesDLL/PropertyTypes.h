@@ -30,6 +30,9 @@ public:
 
     // Interop with FlexSim's Color value type so `emitter.startColor = Color.red` works.
     operator Color() const { return Color(r, g, b, a); }
+    // Convert to Variant (an [r,g,b,a] array) so the wrapper can be returned/printed/assigned
+    // to a Variant -- e.g. `return T.startColor;`. (Color/Vec3 aren't directly Variant-ctor'able.)
+    operator Variant() const { return Variant({ r, g, b, a }); }
     ColorProperty& operator = (const Color& c) { r = c.r; g = c.g; b = c.b; a = c.a; return *this; }
     ColorProperty& operator = (const ColorProperty& o) { r = o.r; g = o.g; b = o.b; a = o.a; return *this; }
 
@@ -43,6 +46,7 @@ public:
         ColorProperty& (ColorProperty::*asgnColor)(const Color&) = &ColorProperty::operator=;
         SimpleDataType::bindOperatorByName<decltype(asgnColor)>("=", asgnColor, "void assign(Color rhs)");
         bindCastOperator(Color, &ColorProperty::operator Color);
+        bindCastOperator(Variant, &ColorProperty::operator Variant);  // return/print T.startColor
     }
 };
 
@@ -63,6 +67,9 @@ public:
 
     // Interop with FlexSim's Vec3 value type so `emitter.gravity = Vec3(...)` works.
     operator Vec3() const { return Vec3(x, y, z); }
+    // Convert to Variant (an [x,y,z] array) so the wrapper can be returned/printed/assigned
+    // to a Variant -- e.g. `return T.gravity;`. (Vec3 isn't directly Variant-ctor'able.)
+    operator Variant() const { return Variant({ x, y, z }); }
     Vec3Property& operator = (const Vec3& v) { x = v.x; y = v.y; z = v.z; return *this; }
     Vec3Property& operator = (const Vec3Property& o) { x = o.x; y = o.y; z = o.z; return *this; }
 
@@ -75,6 +82,7 @@ public:
         Vec3Property& (Vec3Property::*asgnVec)(const Vec3&) = &Vec3Property::operator=;
         SimpleDataType::bindOperatorByName<decltype(asgnVec)>("=", asgnVec, "void assign(Vec3 rhs)");
         bindCastOperator(Vec3, &Vec3Property::operator Vec3);
+        bindCastOperator(Variant, &Vec3Property::operator Variant);  // return/print T.gravity
     }
 };
 
