@@ -19,7 +19,7 @@
 			<h3>Description</h3>
 			<p>A placeable particle emitter. Holds the declarative spec (shape, motion, appearance); the singleton <a href="Particles.System.html">Particles.System</a> reads every emitter and batch-draws its particles analytically at draw time, adding zero events to the simulation.</p>
 			<p>Particles are a closed-form function of model time T (like kinematics), evaluated only when the
-				scene is drawn --so emitters never slow the discrete-event simulation and are frame-skip
+				scene is drawn, so emitters never slow the discrete-event simulation and are frame-skip
 				invariant and deterministic per <a href="#Property-seedField">seedField</a>.</p>
 			<p>The emission region is sized by the object's own resize handles; particle size is independent of
 				object scale. Drop an emitter and it auto-creates the <a href="Particles.System.html">Particles.System</a>.</p>
@@ -37,11 +37,11 @@ e.startColor = Color.orange;</code></pre>
 				<tr><td><a href="#Property-stopTimeField">stopTimeField</a></td>
 					<td>Model time at which emission ends (0 = never). May be a number OR a FlexScript expression.</td></tr>
 				<tr><td><a href="#Property-prewarm">prewarm</a></td>
-					<td>Seconds of pre-simulated emission, so the cloud is already full at reset / T = 0 (evaluates at T + prewarm).</td></tr>
+					<td>How far back to pre-simulate emission (in model time units), so the cloud is already full at reset / T = 0 (evaluates at T + prewarm).</td></tr>
 				<tr><td><a href="#Property-lifetime">lifetime</a></td>
 					<td>Particle lifetime in time units.</td></tr>
 				<tr><td><a href="#Property-lifetimeJitter">lifetimeJitter</a></td>
-					<td>Random per-particle lifetime spread, added as [0, +jitter].</td></tr>
+					<td>Random extra lifetime per particle, between 0 and this value.</td></tr>
 				<tr><td><a href="#Property-shapeField">shapeField</a></td>
 					<td>Emission shape; use <a href="Particles.Shape.html">Particles.Shape</a> (Point/Line/Disk/Plane/Box/Sphere). The region fills the object's resized footprint.</td></tr>
 				<tr><td><a href="#Property-directionField">directionField</a></td>
@@ -59,7 +59,7 @@ e.startColor = Color.orange;</code></pre>
 				<tr><td><a href="#Property-drag">drag</a></td>
 					<td>Exponential velocity-decay rate (1 / time). 0 = none; velocity carries a factor e^(-drag*age).</td></tr>
 				<tr><td><a href="#Property-swirlAmp">swirlAmp</a></td>
-					<td>Radius (length) of a circular wobble added to each particle's path --gives a corkscrew/spiral look. 0 = off.</td></tr>
+					<td>Radius (length) of a circular wobble added to each particle's path, giving a corkscrew/spiral look. 0 = off.</td></tr>
 				<tr><td><a href="#Property-swirlFreq">swirlFreq</a></td>
 					<td>Angular frequency of the swirl, radians per time unit (period = 2*pi/swirlFreq).</td></tr>
 				<tr><td><a href="#Property-startColor">startColor</a></td>
@@ -112,7 +112,7 @@ e.startColor = Color.orange;</code></pre>
 				<h3><a href="#top">Particles.Emitter</a>.prewarm</h3>
 				<p>double prewarm</p>
 				<h3>Description</h3>
-				<p>Seconds of pre-simulated emission, so the cloud is already full at reset / T = 0 (evaluates at T + prewarm).</p>
+				<p>How far back to pre-simulate emission (in model time units), so the cloud is already full at reset / T = 0 (evaluates at T + prewarm).</p>
 			</div>
 		</div>
 		<div id="Property-lifetime">
@@ -130,7 +130,7 @@ e.startColor = Color.orange;</code></pre>
 				<h3><a href="#top">Particles.Emitter</a>.lifetimeJitter</h3>
 				<p>double lifetimeJitter</p>
 				<h3>Description</h3>
-				<p>Random per-particle lifetime spread, added as [0, +jitter].</p>
+				<p>Random extra lifetime per particle, between 0 and this value.</p>
 			</div>
 		</div>
 		<div id="Property-shapeField">
@@ -211,7 +211,7 @@ e.startColor = Color.orange;</code></pre>
 				<h3><a href="#top">Particles.Emitter</a>.swirlAmp</h3>
 				<p>double swirlAmp</p>
 				<h3>Description</h3>
-				<p>Radius (length) of a circular wobble added to each particle's path --gives a corkscrew/spiral look. 0 = off.</p>
+				<p>Radius (length) of a circular wobble added to each particle's path, giving a corkscrew/spiral look. 0 = off.</p>
 			</div>
 		</div>
 		<div id="Property-swirlFreq">

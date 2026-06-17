@@ -2,7 +2,7 @@
 <FlexScriptClass name="Particles">
     <Summary>The Particles module namespace. Provides the global accessor to the one <ClassRef>Particles.System</ClassRef> per model.</Summary>
     <Description>
-        <p>Visual particle emitters (smoke, sparks, fountains, ...) drawn analytically at draw time so they
+        <p>Visual particle emitters (smoke, sparks, fountains) drawn analytically at draw time so they
             add zero events to the simulation. Drop a <ClassRef>Particles.Emitter</ClassRef> from the library;
             the <ClassRef>Particles.System</ClassRef> is created automatically.</p>
         <code>Particles.System sys = Particles.system;

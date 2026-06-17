@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>Particle System Properties Panel</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+			img { max-width: 100%; height: auto; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particle System Properties</h1></header>
+			<h3>Description</h3>
+			<p>The properties panel for the model's single <a href="Particles.System.html">Particles.System</a>.
+			It opens when you double-click the <strong>Particle System</strong> in the Toolbox. The system is
+			created automatically when you drop the first emitter, so you rarely need to open this panel.</p>
+			<p>Every setting here controls how emitters are <em>drawn</em>, not how the particles behave: the
+			editing handles shown on each emitter and the distance-based level-of-detail thinning. Changing them
+			never alters particle motion or appearance, only the picture in the 3D view.</p>
+			<p><img src="images/ParticleSystemProperties.png" alt="Particle System Properties panel"/></p>
+			<h3>Settings</h3>
+			<table class="reference">
+				<tr><td><a href="Particles.System.html#Property-showPlanes">Show Planes</a></td>
+					<td>Show each emitter's region outline (the wireframe emission shape).</td></tr>
+				<tr><td><a href="Particles.System.html#Property-showArrows">Show Arrows</a></td>
+					<td>Show each emitter's aim-direction arrow handle.</td></tr>
+				<tr><td><a href="Particles.System.html#Property-arrowSize">Arrow Size</a></td>
+					<td>World size of the aim-arrow handles. Display only; it has no effect on particles.</td></tr>
+				<tr><td><a href="Particles.System.html#Property-lod">Use Level of Detail</a></td>
+					<td>When on, far emitters emit fewer particles to cut draw cost.</td></tr>
+				<tr><td><a href="Particles.System.html#Property-lodStart">LOD Start</a></td>
+					<td>Distance within which an emitter keeps full detail; thinning begins past it.</td></tr>
+				<tr><td><a href="Particles.System.html#Property-lodMin">LOD Min</a></td>
+					<td>Lowest the thinning can go (0 to 1): how sparse a far emitter may get.</td></tr>
+			</table>
+			<h3>Related</h3>
+			<p>For the same settings as scripted properties (plus the live-particle cap and the read-only
+			performance stats), see the <a href="Particles.System.html">Particles.System</a> API reference.</p>
+		</div>
+	</body>
+</html>

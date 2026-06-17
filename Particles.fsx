@@ -63,12 +63,6 @@
         <node f="42" dt="1"><name>imageindexbase</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>drawflags</name><data>0000000000000000</data></node>
        </node>
-       <node f="42"><name>special</name>
-        <node f="40"><name></name></node>
-        <node f="42" dt="2"><name>title</name><data>Particle System</data></node>
-        <node f="42" dt="2"><name>description</name><data>Manages and batch-draws all particle emitters in the model.</data></node>
-        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/standardviews/modelingutilities/QuickerProperties</data></node>
-       </node>
        <node f="42"><name>spatial</name>
         <node f="40"><name></name></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
@@ -797,6 +791,173 @@ return obj;
         </node>
        </data></node>
       </node>
+      <node f="42"><name>Pages</name>
+       <node f="40"><name></name></node>
+       <node f="42" dt="4"><name>ParticleSystemProperties</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="3"><name>viewfocus</name><data><coupling>null</coupling></data></node>
+        <node f="42" dt="3"><name>objectfocus</name><data><coupling>null</coupling></data></node>
+        <node f="42" dt="1"><name>viewwindowopen</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040100000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040666000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004057c000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000004075e000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>00000000406cc000</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Particle System Properties</data></node>
+        <node f="442" dt="2"><name>OnOpen</name><data>treenode tabcontrol = node("/tabcontrol",c);
+iterate(1, content(tabcontrol), 1){
+  if (objectexists(node("&gt;PageOnOpen",rank(tabcontrol,count))))
+     nodefunction(node("&gt;PageOnOpen",rank(tabcontrol,count)));
+}
+
+repaintview(c);</data></node>
+        <node f="42" dt="2"><name>OnPreOpen</name><data>c.name = "Particle System Properties";
+standardpreopen(c);
+</data>
+         <node f="40"><name></name></node></node>
+        <node f="42" dt="2"><name>OnClose</name><data></data></node>
+        <node f="442" dt="2"><name>OnApply</name><data>treenode tabcontrol = node("../tabcontrol",c);
+iterate(1, content(tabcontrol), 1){
+  if (objectexists(node("&gt;PageOnApply",rank(tabcontrol,count))))
+     nodefunction(node("&gt;PageOnApply",rank(tabcontrol,count)));
+}
+applylinks(c);
+repaintall();</data></node>
+        <node f="42"><name>eventfunctions</name>
+         <node f="40"><name></name></node></node>
+        <node f="42" dt="2"><name>helptopic</name><data>Particles::ParticleSystemPanel</data></node>
+       </data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="4"><name>Show Planes</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405a4000</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>0000000040080000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>000000004062c000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+         <node f="42" dt="2"><name>tooltip</name><data>Show each emitter's region outline (the wireframe emission shape).</data></node>
+         <node f="42" dt="2"><name>coldlink</name><data>@&gt;objectfocus+&gt;variables/showPlanes</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>Show Arrows</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405a4000</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>00000000403b0000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>000000004062c000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+         <node f="42" dt="2"><name>tooltip</name><data>Show each emitter's aim-direction arrow handle.</data></node>
+         <node f="42" dt="2"><name>coldlink</name><data>@&gt;objectfocus+&gt;variables/showArrows</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>ArrowSize</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>00000000404b0000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>0000000040550000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
+         <node f="4000000042" dt="2"><name>windowtitle</name><data>Arrow Size</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>EditArrowSize</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>0000000040498000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>000000004056c000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+         <node f="42" dt="1"><name>alignrightmargin</name><data>00000000403e0000</data></node>
+         <node f="42"><name>variables</name>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name>valueType</name><data>length</data></node>
+          <node f="42" dt="1"><name>rangemin</name><data>0000000000000000</data></node>
+         </node>
+         <node f="42" dt="2"><name>objectfocus</name><data>@&gt;objectfocus+&gt;variables/arrowSize</data></node>
+         <node f="42" dt="2"><name>tooltip</name><data>World size of the aim-arrow handles (display only; no effect on particles).</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>Use Level of Detail</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405a4000</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>000000004052c000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>000000004062c000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+         <node f="42" dt="2"><name>tooltip</name><data>Far emitters emit fewer particles to cut draw cost.</data></node>
+         <node f="42" dt="2"><name>coldlink</name><data>@&gt;objectfocus+&gt;variables/lod</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>LODStart</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>0000000040598000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>0000000040550000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
+         <node f="4000000042" dt="2"><name>windowtitle</name><data>LOD Start</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>EditLODStart</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>000000004058c000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>000000004058c000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+         <node f="42" dt="1"><name>alignrightmargin</name><data>00000000403e0000</data></node>
+         <node f="42"><name>variables</name>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name>valueType</name><data>length</data></node>
+          <node f="42" dt="1"><name>rangemin</name><data>0000000000000000</data></node>
+         </node>
+         <node f="42" dt="2"><name>objectfocus</name><data>@&gt;objectfocus+&gt;variables/lodStart</data></node>
+         <node f="42" dt="2"><name>tooltip</name><data>Distance within which emitters keep full detail; thinning begins past it.</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>LODMin</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>00000000405f8000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>0000000040550000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
+         <node f="4000000042" dt="2"><name>windowtitle</name><data>LOD Min</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>EditLODMin</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>00000000405ec000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>000000004058c000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+         <node f="42" dt="1"><name>alignrightmargin</name><data>00000000403e0000</data></node>
+         <node f="42"><name>variables</name>
+          <node f="40"><name></name></node>
+          <node f="42" dt="2"><name>valueType</name><data>length</data></node>
+          <node f="42" dt="1"><name>rangemin</name><data>0000000000000000</data></node>
+         </node>
+         <node f="42" dt="2"><name>objectfocus</name><data>@&gt;objectfocus+&gt;variables/lodMin</data></node>
+         <node f="42" dt="2"><name>tooltip</name><data>Lowest the LOD thinning can go (0 to 1): how sparse a far emitter may get.</data></node>
+        </data></node>
+        <node f="42" dt="4"><name>BottomButtons</name><data>
+         <node f="40"><name>object</name></node>
+         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
+         <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+         <node f="42" dt="1"><name>spatialy</name><data>00000000403c0000</data></node>
+         <node f="42" dt="1"><name>spatialsx</name><data>0000000040755000</data></node>
+         <node f="42" dt="1"><name>spatialsy</name><data>0000000040360000</data></node>
+         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
+         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/BottomButtons</data></node>
+         <node f="42"><name>variables</name>
+          <node f="40"><name></name></node>
+          <node f="42"><name>deleteButtons</name>
+           <node f="40"><name></name></node>
+           <node f="42"><name>Tree</name></node>
+           <node f="42"><name>Prev</name></node>
+           <node f="42"><name>Next</name></node>
+           <node f="42"><name>Center in View</name></node>
+          </node>
+         </node>
+        </data></node>
+       </node>
+      </node>
      </node>
     </node>
    </node>
@@ -911,7 +1072,7 @@ function_s(node("/RouteGraphNetwork", model()), "refreshMesh");
        </node>
        <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
        <node f="42" dt="2"><name>tooltip</name><data></data></node>
-       <node f="4000000042" dt="2"><name>windowtitle</name><data>Corridor</data></node>
+       <node f="4000000042" dt="2"><name>windowtitle</name><data>Emitter</data></node>
        <node f="42" dt="1"><name>beveltype</name><data>0000000000000000</data></node>
       </data>
        <node f="40"><name></name></node>
@@ -962,7 +1123,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>spatialy</name><data>00000000403e0000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>000000004052c000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
-        <node f="4000000042" dt="2"><name>windowtitle</name><data>Start Color</data></node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>End Color</data></node>
        </data></node>
        <node f="42" dt="4"><name>EndColorPanel</name><data>
         <node f="40"><name>object</name></node>
@@ -1689,7 +1850,7 @@ if (switch_selected(focus, -1)) {
         </node>
        </data>
         <node f="40"><name></name></node></node>
-       <node f="242" dt="4"><name>File</name><data>
+       <node f="42" dt="4"><name>File</name><data>
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
@@ -1699,7 +1860,7 @@ if (switch_selected(focus, -1)) {
         <node f="4000000042" dt="2"><name>windowtitle</name><data>File Path</data></node>
        </data>
         <node f="40"><name></name></node></node>
-       <node f="242" dt="4"><name>FileEdit</name><data>
+       <node f="42" dt="4"><name>FileEdit</name><data>
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040568000</data></node>
@@ -1736,7 +1897,7 @@ repaintall();
          </node>
         </node>
        </data></node>
-       <node f="242" dt="4"><name>Browse Texture</name><data>
+       <node f="42" dt="4"><name>Browse Texture</name><data>
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040789000</data></node>
@@ -1870,6 +2031,21 @@ an object in the model or the library to define the conveyor's Texture.</data></
       <node f="4000000042" dt="2"><name>windowtitle</name><data>Particles</data></node>
      </data>
       <node f="40"><name> </name></node>
+      <node f="42" dt="4"><name>Property Panels</name><data>
+       <node f="40"><name></name></node>
+      </data>
+       <node f="40"><name></name></node>
+       <node f="42" dt="4"><name>Particle System Properties</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.SystemPanel.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::ParticleSystemPanel</data></node>
+       </data></node>
+       <node f="42" dt="4"><name>Particle Emitter Properties</name><data>
+        <node f="40"><name></name></node>
+        <node f="42" dt="2"><name>viewfocus</name><data>modules/Particles/FlexScriptAPIReference/Particles/Particles.EmitterPanel.html</data></node>
+        <node f="42" dt="2"><name>uniqueid</name><data>Particles::Emitter</data></node>
+       </data></node>
+      </node>
       <node f="42" dt="4"><name>FlexScript API Reference</name><data>
        <node f="40"><name></name></node>
       </data>
@@ -1916,6 +2092,34 @@ an object in the model or the library to define the conveyor's Texture.</data></
        </data></node>
       </node>
      </node>
+    </node>
+   </node>
+  </node>
+  <node f="42" dt="2"><name>add_tools</name><data>VIEW:/standardviews/modelingutilities/Toolbox&gt;variables/tools</data>
+   <node f="40"><name></name></node>
+   <node f="42" dt="3"><name>ParticleSystem</name><data><coupling>null</coupling></data>
+    <node f="40"><name></name></node>
+    <node f="42" dt="1"><name>rank</name><data>0000000000000000</data></node>
+    <node f="42" dt="2"><name>after</name><data>Workspaces</data></node>
+    <node f="42" dt="1"><name>into object</name><data>0000000000000000</data></node>
+    <node f="42"><name>data</name>
+     <node f="40"><name></name></node>
+     <node f="42" dt="4"><name>ParticleSystem</name><data>
+      <node f="40"><name></name></node>
+      <node f="42" dt="2"><name>objectfocus</name><data>MODEL:/ParticleSystem</data></node>
+      <node f="42" dt="2"><name>bitmap</name><data>modules\Particles\bitmaps\ParticleSystem.png</data></node>
+      <node f="42"><name>variables</name>
+       <node f="40"><name></name></node>
+       <node f="42" dt="2"><name>menuBitmap</name><data>modules\RouteGraph\bitmaps\routegraph.png</data></node>
+       <node f="42" dt="2"><name>toolType</name><data>Singleton</data></node>
+      </node>
+      <node f="42"><name>eventfunctions</name>
+       <node f="40"><name></name></node>
+       <node f="442" dt="2"><name>onDoubleClick</name><data>createview("VIEW:/modules/Particles/Pages/ParticleSystemProperties", "MODEL:/ParticleSystem", "MODEL:/ParticleSystem");</data></node>
+       <node f="442" dt="2"><name>onDelete</name><data>return 1;</data></node>
+      </node>
+      <node f="4000000042" dt="2"><name>windowtitle</name><data>Particle System</data></node>
+     </data></node>
     </node>
    </node>
   </node>

@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title>Particle Emitter Properties Panel</title>
+		<meta charset="UTF-8"/>
+		<meta name="keywords" content=""/>
+		<link rel="stylesheet" href="../../../../manual/CSS/FlexsimHelpStandard.css"/>
+		<link rel="stylesheet" href="../../../../manual/Reference/CodingInFlexSim/FlexScriptAPIReference/FlexScriptAPI.css"/>
+		<link rel="stylesheet" href="../../../../manual/CSS/prism.css"/>
+		<script src="../../../../manual/CSS/prism.js"></script>
+		<style>
+			table.reference td { overflow-wrap: anywhere; word-break: break-word; }
+			img { max-width: 100%; height: auto; }
+		</style>
+
+	</head>
+	<body class="language-flexscript">
+		<div>
+			<header><h1>Particle Emitter Properties</h1></header>
+			<h3>Description</h3>
+			<p>The Quick Properties for a <a href="Particles.Emitter.html">Particles.Emitter</a>. Select an emitter
+			in the 3D view and these fields appear in the Quick Properties pane. They describe one emitter's spec:
+			when it emits, the region and direction particles launch from, how long they live, the forces acting
+			on them, and how they look.</p>
+			<p>The emission region is sized by dragging the emitter's own resize handles in the 3D view; particle
+			size is set by the Size Start / Size End fields. The fields below are listed in the order they appear
+			on the panel; each links to the scripted property of the same emitter for the full definition.</p>
+			<p><img src="images/ParticleEmitterProperties.png" alt="Particle Emitter properties panel"/></p>
+			<h3>Fields</h3>
+			<table class="reference">
+				<tr><td><a href="Particles.Emitter.html#Property-startColor">Start Color</a></td>
+					<td>Particle color and opacity at birth.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-endColor">End Color</a></td>
+					<td>Color and opacity each particle fades to by the end of its life.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-rate">Generative Rate</a></td>
+					<td>Particles emitted per second.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-startTime">Start Time</a></td>
+					<td>Model time emission begins (0 = at run start). Accepts a number or FlexScript.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-stopTimeField">Stop Time</a></td>
+					<td>Model time emission ends (0 = never stops). Accepts a number or FlexScript.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-prewarm">Prewarm</a></td>
+					<td>How far back to pre-simulate at reset so the cloud starts full instead of empty.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-speed">Speed</a></td>
+					<td>Initial launch speed of each particle.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-speedJitter">Speed Jitter</a></td>
+					<td>Random +/- variation added to each particle's launch speed.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-lifetime">Lifetime</a></td>
+					<td>How long each particle lives before disappearing.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-lifetimeJitter">Lifetime Jitter</a></td>
+					<td>Random extra lifetime per particle.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-shapeField">Shape</a></td>
+					<td>Shape of the emission region (Point, Line, Disk, Plane, Box, Sphere).</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-directionField">Direction</a></td>
+					<td>Aimed launches in a cone along the arrow; Omni launches in all directions.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-styleField">Style</a></td>
+					<td>Draw particles as soft dots (Points) or as the emitter's own image (Sprite).</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-gravity">Gravity</a></td>
+					<td>Constant acceleration on every particle (e.g. Z = -9.8 for gravity). X / Y / Z.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-wind">Wind</a></td>
+					<td>Extra constant acceleration added on top of gravity. X / Y / Z.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-drag">Drag</a></td>
+					<td>Slows particles over time; higher values decay velocity faster.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-swirlAmp">Swirl Amplitude</a></td>
+					<td>Radius of a spiral wobble added to each particle's path (0 = none).</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-swirlFreq">Swirl Frequency</a></td>
+					<td>How fast the swirl spins.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-sizeStart">Size Start</a></td>
+					<td>Particle diameter at birth.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-sizeEnd">Size End</a></td>
+					<td>Particle diameter at the end of its life.</td></tr>
+				<tr><td><a href="Particles.Emitter.html#Property-seedField">Seed</a></td>
+					<td>Random seed; change it to vary the random pattern.</td></tr>
+				<tr><td>File Path</td>
+					<td>Image used when Style is Sprite. Set it with the image picker or the Browse button; leave it empty to fall back to the built-in soft dot.</td></tr>
+			</table>
+			<h3>Related</h3>
+			<p>For these fields as scripted properties (with types, defaults, and code examples), see the
+			<a href="Particles.Emitter.html">Particles.Emitter</a> API reference. The
+			<a href="Particles.SystemPanel.html">Particle System Properties</a> panel holds the model-wide
+			display and level-of-detail settings.</p>
+		</div>
+	</body>
+</html>
