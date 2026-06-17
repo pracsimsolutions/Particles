@@ -75,9 +75,21 @@ identical regardless of draw history).
 
 ## Using it in FlexSim
 
-The DLL is independent of the FlexSim-side library. To expose the object and its
-GUI, author `Particles.fsx` — see [docs/FSX-AUTHORING.md](docs/FSX-AUTHORING.md).
+No build required to use it — the repo ships the prebuilt `Particles.dll`
+alongside `Particles.fsx` and the `bitmaps/` textures. Copy the whole `Particles`
+folder into your FlexSim 2026 `modules/` directory and restart FlexSim; the
+**Particles** group then appears in the library. Drag a **ParticleEmitter** into
+the 3D view and edit it in Quick Properties.
+
+A FlexScript API reference for the `Particles.*` classes (System, Emitter, Color,
+Vec3, Shape, Direction, Style) is built in: in-editor autocomplete shows each
+property's docs, and the full pages are under **Help ▸ Modules ▸ Particles ▸
+FlexScript API Reference**.
 
 ## License
 
 Free / MIT (see `LICENSE.txt`).
+
+## Contact
+
+Questions, bugs, or feature requests: **josh@pracsimsolutions.com**.
