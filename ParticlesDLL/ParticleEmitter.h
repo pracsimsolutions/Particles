@@ -51,8 +51,9 @@ public:
     // colorStart/colorEnd are NOT here: they live in the tree as structured rgba nodes and
     // are read at draw time in buildSpec (see readColorNode). Alpha is the node's 'a' channel.
     double rate = 200, lifetime = 2, lifetimeJitter = 0.4;
-    double startTime = 0, stopTimeField = 0;
     double prewarm = 0;   // evaluate at T+prewarm so the cloud isn't empty at reset/T=0
+    // startTime / stopTimeField are NOT plain doubles: they live in the tree as nodes that may
+    // hold a number OR a FlexScript expression, evaluated at draw time (see evalField below).
     double shapeField = (double)EmitShape::Plane;        // 0=Point 1=Line 2=Disk 3=Plane 4=Box 5=Sphere
     double directionField = (double)DirectionMode::Aimed; // 0=Aimed 1=Omni
     double coneHalfAngleDeg = 25;                         // spread
@@ -72,7 +73,7 @@ public:
     // FlexScript property accessors: one get/set per field so emitter.<name>
     // works (bound variables alone are not exposed as object properties).
     #define PE_ACC(n) double pget_##n() { return n; } void pset_##n(double v) { n = v; }
-    PE_ACC(rate) PE_ACC(lifetime) PE_ACC(lifetimeJitter) PE_ACC(startTime) PE_ACC(stopTimeField) PE_ACC(prewarm)
+    PE_ACC(rate) PE_ACC(lifetime) PE_ACC(lifetimeJitter) PE_ACC(prewarm)
     PE_ACC(shapeField) PE_ACC(directionField) PE_ACC(coneHalfAngleDeg)
     PE_ACC(speed) PE_ACC(speedJitter)
     PE_ACC(drag)
@@ -81,6 +82,18 @@ public:
     PE_ACC(styleField) PE_ACC(seedField)
     double pget_statLiveCount() { return statLiveCount; }
     #undef PE_ACC
+
+    // startTime / stopTime can be a plain number OR a FlexScript expression in their tree node.
+    // evalField evaluates the node, passing holder as param(1) so user code can do
+    // `current = param(1)`; setField writes a plain number (clearing any code). Defined in .cpp.
+    double evalField(const char* name, double def);
+    void   setField(const char* name, double v);
+    // The backing nodes are named *Val so they don't collide with the bound property name
+    // (a same-named tree variable shadows the property's setter -- writes bypass pset_).
+    double pget_startTime()             { return evalField("startTimeVal", 0); }
+    void   pset_startTime(double v)     { setField("startTimeVal", v); }
+    double pget_stopTimeField()         { return evalField("stopTimeFieldVal", 0); }
+    void   pset_stopTimeField(double v) { setField("stopTimeFieldVal", v); }
 
     EmitterSpec buildSpec();        // reads object size -> region; not const
 

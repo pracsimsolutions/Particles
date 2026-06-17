@@ -9,7 +9,9 @@ namespace Particles {
 
 void ParticleEmitter::bindVariables() {
     bindVariable(rate); bindVariable(lifetime); bindVariable(lifetimeJitter);
-    bindVariable(startTime); bindVariable(stopTimeField); bindVariable(prewarm);
+    bindVariable(prewarm);
+    // startTime/stopTimeField are NOT bound: they are tree nodes evaluated at draw time (a
+    // bound double would clobber a FlexScript expression with 0 on save). See evalField.
     bindVariable(shapeField); bindVariable(directionField); bindVariable(coneHalfAngleDeg);
     bindVariable(speed); bindVariable(speedJitter);
     bindVariable(drag);
@@ -70,12 +72,27 @@ void ParticleEmitter::setColorEnd(double r, double g, double b, double a) {
     if (ColorProperty* c = __getEndColor()) { c->r = r; c->g = g; c->b = b; c->a = a; }
 }
 
+// A field that may be a plain number OR a FlexScript expression. treenode::evaluate() handles
+// both; we pass holder so the user's code sees the emitter as param(1) (`current = param(1)`).
+double ParticleEmitter::evalField(const char* name, double def) {
+    treenode n = getvarnode(holder, name);
+    if (!objectexists(n)) return def;
+    return (double)n->evaluate(holder);
+}
+void ParticleEmitter::setField(const char* name, double v) {
+    treenode n = getvarnode(holder, name);
+    if (!objectexists(n)) return;
+    switch_flexscript(n, 0);   // assigning a number clears any FlexScript code
+    setnodenum(n, v);
+}
+
 EmitterSpec ParticleEmitter::buildSpec() {
     EmitterSpec s;
     s.rate = (float)std::max(1e-4, rate);
     s.lifetime = (float)lifetime; s.lifetimeJitter = (float)lifetimeJitter;
-    s.startTime = (float)startTime;
-    s.stopTime = stopTimeField > 0 ? (float)stopTimeField : 1e30f;
+    s.startTime = (float)evalField("startTimeVal", 0.0);
+    double stop = evalField("stopTimeFieldVal", 0.0);
+    s.stopTime = stop > 0 ? (float)stop : 1e30f;
     s.shape = (EmitShape)(int)shapeField;
     s.direction = (DirectionMode)(int)directionField;
     s.coneHalfAngleDeg = (float)coneHalfAngleDeg;

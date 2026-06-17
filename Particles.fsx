@@ -95,8 +95,8 @@
         <node f="42" dt="1"><name>rate</name><data>0000000040690000</data></node>
         <node f="42" dt="1"><name>lifetime</name><data>0000000040000000</data></node>
         <node f="42" dt="1"><name>lifetimeJitter</name><data>9999999a3fd99999</data></node>
-        <node f="42" dt="1"><name>startTime</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>stopTimeField</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>startTimeVal</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>stopTimeFieldVal</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>prewarm</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>shapeField</name><data>0000000040080000</data></node>
         <node f="42" dt="1"><name>directionField</name><data>0000000000000000</data></node>
@@ -392,7 +392,7 @@ if (model().find("ParticleSystem") == NULL) {
           </node>
           <node f="42"><name>variables</name>
            <node f="40"><name></name></node>
-           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/startTime</data></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/startTimeVal</data></node>
            <node f="42" dt="2"><name>unitType</name><data>time</data></node>
            <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
           </node>
@@ -407,7 +407,7 @@ if (model().find("ParticleSystem") == NULL) {
           </node>
           <node f="42"><name>variables</name>
            <node f="40"><name></name></node>
-           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/stopTimeField</data></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/stopTimeFieldVal</data></node>
            <node f="42" dt="2"><name>unitType</name><data>time</data></node>
            <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
           </node>
@@ -1046,7 +1046,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
-        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/startTime</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/startTimeVal</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
@@ -1086,7 +1086,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
-        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/stopTimeField</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/stopTimeFieldVal</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42"><name>variables</name>
          <node f="40"><name></name></node>
