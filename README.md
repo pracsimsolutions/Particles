@@ -1,6 +1,6 @@
 # Particles
 
-A **free** FlexSim 2026 module that adds standalone *particle-emitter* objects:
+A **free** FlexSim module that adds standalone *particle-emitter* objects:
 purely visual effects (smoke, steam, dust, sparks, spray) drawn in the 3D view.
 
 ## Design goal: never slow the simulation
@@ -52,7 +52,7 @@ handful of draw calls (one `GL_POINTS` batch for all point emitters plus one
 
 ## Build
 
-Requires Visual Studio 2022 (v143) and an installed FlexSim 2026 (the SDK headers
+Requires Visual Studio 2022 (v143) and an installed FlexSim (the SDK headers
 and libs are staged automatically from `../../program/system` by `copyheaders.bat`).
 
 ```
@@ -64,7 +64,7 @@ MSBuild ParticlesDLL\ParticlesDLL.sln /p:Configuration=Release /p:Platform=x64
 
 No build is required to use it. The repo ships the prebuilt `Particles.dll`
 alongside `Particles.fsx` and the `bitmaps/` textures. Copy the whole `Particles`
-folder into your FlexSim 2026 `modules/` directory and restart FlexSim; the
+folder into your FlexSim `modules/` directory and restart FlexSim; the
 **Particles** group then appears in the library. Drag a **ParticleEmitter** into
 the 3D view and edit it in Quick Properties.
 
