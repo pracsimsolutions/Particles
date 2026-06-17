@@ -40,26 +40,24 @@ public:
     };
 
     // System-wide controls (bound, GUI-editable). Defaults must match Particles.fsx.
-    double pointSize = 5;        // legacy uniform; Points now render as world-sized billboards
-    double liveCap = 200000;     // max live particles per emitter
+    double liveCap = 200000;     // max live particles per emitter (hard cap)
     // Handle visibility (always-on by default) + arrow world size.
     double showPlanes = 1;       // draw emitter region outlines
     double showArrows = 1;       // draw emitter aim arrows
     double arrowSize = 1;        // world-unit length of the aim arrow
-    // Performance (1=on). LOD reduces an emitter's cap by distance; frustum cull skips
-    // emitters whose region is fully off-screen (their evaluate() is never run).
+    // Distance LOD (1=on): far emitters emit fewer particles. Scales the EMISSION RATE by
+    // (lodStart/dist)^2 beyond lodStart, floored at lodMin -- a visible, draw-cost reduction.
     double lod = 1;
     double lodStart = 25;        // full detail within this distance, then falls off
     double lodMin = 0.08;        // floor on the LOD multiplier
-    double frustumCull = 1;
 
     // Aggregate stats (bound, read-only)
     double statEmitterCount = 0, statTotalLive = 0, statBuildMs = 0, statDrawMs = 0;
 
-    // FlexScript property accessors (system.pointSize, Particles.system.liveCap, ...).
+    // FlexScript property accessors (Particles.system.liveCap, ...).
     #define PS_ACC(n) double pget_##n() { return n; } void pset_##n(double v) { n = v; }
-    PS_ACC(pointSize) PS_ACC(liveCap) PS_ACC(showPlanes) PS_ACC(showArrows) PS_ACC(arrowSize)
-    PS_ACC(lod) PS_ACC(lodStart) PS_ACC(lodMin) PS_ACC(frustumCull)
+    PS_ACC(liveCap) PS_ACC(showPlanes) PS_ACC(showArrows) PS_ACC(arrowSize)
+    PS_ACC(lod) PS_ACC(lodStart) PS_ACC(lodMin)
     #undef PS_ACC
     double pget_statEmitterCount() { return statEmitterCount; }
     double pget_statTotalLive() { return statTotalLive; }

@@ -27,7 +27,6 @@
        </node>
        <node f="42"><name>variables</name>
         <node f="80000040"><name></name></node>
-        <node f="42" dt="1"><name>pointSize</name><data>0000000040140000</data></node>
         <node f="42" dt="1"><name>liveCap</name><data>0000000041086a00</data></node>
         <node f="42" dt="1"><name>showPlanes</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>showArrows</name><data>000000003ff00000</data></node>
@@ -35,7 +34,6 @@
         <node f="42" dt="1"><name>lod</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>lodStart</name><data>0000000040390000</data></node>
         <node f="42" dt="1"><name>lodMin</name><data>47ae147b3fb47ae1</data></node>
-        <node f="42" dt="1"><name>frustumCull</name><data>000000003ff00000</data></node>
         <node f="42" dt="1"><name>statEmitterCount</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>statTotalLive</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>statBuildMs</name><data>0000000000000000</data></node>
