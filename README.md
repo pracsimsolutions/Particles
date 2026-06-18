@@ -52,6 +52,11 @@ handful of draw calls (one `GL_POINTS` batch for all point emitters plus one
 
 ## Build
 
+The prebuilt `Particles.dll` is committed to the repo, so you do **not** need to
+build to use the module — see "Using it in FlexSim" below. You only need to build
+if you're modifying the source and want to test your changes (for example, when
+working on the `main` branch); rebuild the DLL and it replaces the shipped one.
+
 Requires Visual Studio 2022 (v143) and an installed FlexSim (the SDK headers
 and libs are staged automatically from `../../program/system` by `copyheaders.bat`).
 
