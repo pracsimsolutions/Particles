@@ -1,0 +1,44 @@
+[product]
+name           = "Particles"
+display_name   = "PracSim Particles"
+description    = "PracSim Particles — visual particle emitters (smoke, steam, dust, sparks, spray, fountains) for FlexSim. Drawn analytically at draw time, so they add zero events to the simulation."
+url            = "https://github.com/pracsimsolutions/Particles"
+# Free module: no PSSLM. (requires_psslm omitted -> defaults to false, so no
+# PSSLM bootstrapper / bundle_upgrade_code is needed.)
+
+[wix]
+# FIXED FOREVER. Changing either GUID breaks MSI in-place upgrades.
+upgrade_code         = "ED2E1BA4-5342-423E-9858-3C7F251C1182"
+component_guid_prefix = "15A43ED4-0F13-456E-8648-6190D3F14"
+
+# Paths are relative to pracsim-platform/brand/ (the central brand folder), NOT this
+# module. The builder auto-generates the derived files from these sources: the .ico
+# (from icon_svg), the banner/dialog BMPs (from the SVGs), and the toolbox .png (from
+# the icon via build-bitmaps). The SOURCE assets below must be created in that folder.
+[brand]
+icon_svg     = "particles.svg"
+banner_svg   = "installer/particles-banner.svg"
+dialog_svg   = "installer/particles-dialog.svg"
+toolbox_png  = "bitmaps/particles.png"
+
+[flexsim]
+default_version_dir = "FlexSim 2026"
+
+[payload]
+# APPEND ONLY. Each entry maps to one WiX <Component>.
+# Particles.t is the runtime tree (built by FlexSim's Save Defaults from
+# Particles.fsx) -- ship the .t, NOT the .fsx source.
+files = [
+    "Particles.t",
+    "Particles.dll",
+    "LICENSE.txt",
+    "README.md",
+]
+# Recursively included. Runtime references:
+#   bitmaps/soft_dot.png       -> loaded by ParticleSystem.cpp (Points style)
+#   bitmaps/*.png              -> library/preset icons from Particles.fsx
+#   FlexScriptAPIReference/    -> in-editor autocomplete (XML) + help pages (HTML + images)
+#   manual/                    -> the What's New help page (HTML)
+# NOTE: the toolbox PNG is auto-staged as Particles.png from [brand].toolbox_png
+# (reserved component GUID 901) -- do NOT add it to files above.
+subdirs = ["bitmaps", "FlexScriptAPIReference", "manual"]
