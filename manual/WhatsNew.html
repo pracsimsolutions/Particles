@@ -12,43 +12,9 @@
 		<p>Release notes for each version of the Particles module. Newest at the top.</p>
 	</header>
 
-	<section id="v1_0_0">
-		<h2>Version 1.0.0, FlexSim 2026 (June 17, 2026)</h2>
-		<p>First release. Particles adds placeable, purely visual particle-emitter objects
-		(smoke, steam, dust, sparks, spray) that are drawn analytically at draw time, so they
-		add zero events to the simulation and never slow it down.</p>
-		<ul>
-			<li><strong>Emitter and system objects.</strong> Drop one or many
-			<em>ParticleEmitter</em> objects; a single <em>ParticleSystem</em> is created
-			automatically and batch-draws every emitter in one pass.</li>
-			<li><strong>Analytic, draw-time particles.</strong> Each particle is a closed-form
-			function of model time, so the visuals are frame-skip invariant, deterministic per
-			seed, and free for the simulation engine.</li>
-			<li><strong>Emission region shapes.</strong> Point, Line, Disk, Plane, Box, and
-			Sphere, sized by dragging the emitter's own resize handles.</li>
-			<li><strong>Launch control.</strong> Aimed (a cone around the aim arrow, with an
-			adjustable Cone Half-Angle) or Omni (all directions), plus initial speed and speed
-			jitter.</li>
-			<li><strong>Closed-form motion.</strong> Gravity, wind, exponential drag, and a
-			spiral swirl (amplitude and frequency).</li>
-			<li><strong>Appearance over life.</strong> Start and end color with alpha fade, and
-			start and end size.</li>
-			<li><strong>Two render styles.</strong> Cheap soft round dots (Points) and textured
-			camera-facing billboards (Sprite) using the emitter's own image.</li>
-			<li><strong>Emission timing.</strong> Start and stop time (a number or a FlexScript
-			expression), prewarm so the cloud starts full at reset, and particle lifetime with
-			jitter.</li>
-			<li><strong>System controls.</strong> A per-emitter live-particle cap, distance
-			level-of-detail thinning for far emitters, and toggles for the region and aim-arrow
-			handles.</li>
-			<li><strong>Nesting aware.</strong> Emitters placed inside other objects emit from
-			their true world position and orientation, at any nesting depth.</li>
-			<li><strong>FlexScript API.</strong> Scriptable <em>Particles.System</em>,
-			<em>Particles.Emitter</em>, and the Color, Vec3, Shape, Direction, and Style types,
-			with in-editor autocomplete documentation.</li>
-			<li><strong>In-product help.</strong> Quick Properties and System Properties panels,
-			property-panel reference pages, and this manual section.</li>
-		</ul>
+	<section id="v26_0_0">
+		<h2>Particles 26.0.0 (June 17, 2026)</h2>
+		<p>Particles 26.0.0 released.</p>
 	</section>
 
 </body>
