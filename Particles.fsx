@@ -693,6 +693,20 @@ Object obj = param(1);
 obj.as(Particles.Emitter).wind = toLoc;</data></node>
           </node>
          </data></node>
+         <node f="42" dt="4"><name>Disabled</name><data>
+          <node f="40"><name></name></node>
+          <node f="42"><name>superclasses</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="3"><name>/FlexSimEventHandler&gt;behaviour/CheckboxProperty</name><data><coupling>null</coupling></data></node>
+          </node>
+          <node f="42"><name>variables</name>
+           <node f="40"><name></name></node>
+           <node f="42" dt="2"><name>varPath</name><data>&gt;variables/disabled</data></node>
+           <node f="42" dt="2"><name>category</name><data>Particles&gt;Emitter</data></node>
+          </node>
+          <node f="42"><name>eventfunctions</name>
+           <node f="40"><name></name></node></node>
+         </data></node>
         </node>
        </node>
        <node f="42"><name>visual</name>
@@ -1039,7 +1053,7 @@ repaintall();</data></node>
        <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
        <node f="42" dt="1"><name>spatialy</name><data>0000000040350000</data></node>
        <node f="42" dt="1"><name>spatialsx</name><data>000000004062c000</data></node>
-       <node f="42" dt="1"><name>spatialsy</name><data>0000000040822000</data></node>
+       <node f="42" dt="1"><name>spatialsy</name><data>000000004083b000</data></node>
        <node f="42"><name>variables</name>
         <node f="40"><name></name></node>
         <node f="42" dt="1"><name>isExpanded</name><data>000000003ff00000</data></node>
@@ -1071,17 +1085,36 @@ function_s(node("/RouteGraphNetwork", model()), "refreshMesh");
 	function_s(node("/ChooseAccumType", c), "refreshList");
 }</data></node>
        </node>
-       <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
        <node f="42" dt="2"><name>tooltip</name><data></data></node>
+       <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
        <node f="4000000042" dt="2"><name>windowtitle</name><data>Emitter</data></node>
        <node f="42" dt="1"><name>beveltype</name><data>0000000000000000</data></node>
       </data>
        <node f="40"><name></name></node>
+       <node f="42" dt="4"><name>Disabled</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405a4000</data></node>
+        <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Checkbox</data></node>
+        <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="1"><name>itemcurrent</name><data>000000003ff00000</data></node>
+        <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Check to Disable the Particle Emitter</data></node>
+        <node f="42"><name>variables</name>
+         <node f="40"><name></name></node>
+         <node f="42" dt="2"><name>propName</name><data>Disabled</data></node>
+        </node>
+        <node f="4000000042" dt="2"><name>windowtitle</name><data>Disabled</data></node>
+       </data>
+        <node f="40"><name></name></node></node>
        <node f="42" dt="4"><name>StartColor</name><data>
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040180000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000403e0000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>000000004052c000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Start Color</data></node>
@@ -1093,7 +1126,7 @@ function_s(node("/RouteGraphNetwork", model()), "refreshMesh");
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000403b0000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
@@ -1121,7 +1154,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000403e0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000404b0000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>000000004052c000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>End Color</data></node>
@@ -1133,7 +1166,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000403b0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040498000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
@@ -1161,7 +1194,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000404b0000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040538000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>000000004057c000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Generative Rate</data></node>
@@ -1172,7 +1205,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UnitValueEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/rate</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040498000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004052c000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040390000</data></node>
@@ -1194,7 +1227,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040538000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040598000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Start Time</data></node>
@@ -1203,7 +1236,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004052c000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004058c000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1235,7 +1268,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040598000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000405f8000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Stop Time</data></node>
@@ -1244,7 +1277,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004058c000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000405ec000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1276,7 +1309,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000405f8000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004062c000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Prewarm</data></node>
@@ -1285,7 +1318,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000405ec000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040626000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1317,7 +1350,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004062c000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004065c000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Speed</data></node>
@@ -1326,7 +1359,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040626000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040656000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040568000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
@@ -1359,7 +1392,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004065c000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004068c000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Speed Jitter</data></node>
@@ -1368,7 +1401,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040656000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040686000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040568000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
@@ -1401,7 +1434,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004068c000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406bc000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Lifetime</data></node>
@@ -1410,7 +1443,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040684000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406b4000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1442,7 +1475,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000406bc000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406ec000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Lifetime Jitter</data></node>
@@ -1451,7 +1484,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000406b4000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000406e4000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040783000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1483,7 +1516,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000406ec000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004070e000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Shape</data></node>
@@ -1495,7 +1528,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Options</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000406e6000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004070b000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42"><name>variables</name>
@@ -1513,7 +1546,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004070e000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040726000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Direction</data></node>
@@ -1525,7 +1558,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Options</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004070b000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040723000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42"><name>variables</name>
@@ -1543,7 +1576,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040726000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004073e000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040534000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Cone Half-Angle</data></node>
@@ -1552,7 +1585,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040723000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004073b000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040568000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/UniversalEdit</data></node>
@@ -1580,7 +1613,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004073e000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040756000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Style</data></node>
@@ -1592,7 +1625,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Options</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004073b000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040753000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42"><name>variables</name>
@@ -1611,7 +1644,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040598000</data></node>
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Vec3TopLabels</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040753000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004076b000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000403e0000</data>
          <node f="40"><name></name></node></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040310000</data></node>
@@ -1625,7 +1658,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Vec3</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040767000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004077f000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data>
          <node f="40"><name></name></node></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
@@ -1649,7 +1682,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Vec3</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000000000000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004077f000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040797000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data>
          <node f="40"><name></name></node></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
@@ -1671,7 +1704,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>000000004079a000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407b2000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>000000004057c000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Drag</data></node>
@@ -1683,7 +1716,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/drag</data></node>
         <node f="42" dt="2"><name>tooltip</name><data>Slows particles over time; higher values decay velocity faster.</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040797000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407af000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
@@ -1704,7 +1737,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407b2000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407ca000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>swirl Amplitude</data></node>
@@ -1713,7 +1746,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407af000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407c7000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000405e0000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1745,7 +1778,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407ca000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407e2000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>000000004057c000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Swirl Frequency</data></node>
@@ -1757,7 +1790,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;variables/swirlFreq</data></node>
         <node f="42" dt="2"><name>tooltip</name><data>How fast the swirl spins.</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407c7000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407df000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000404e0000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>undohistory</name><data>../..</data></node>
@@ -1778,7 +1811,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407e2000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407fa000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Size Start</data></node>
@@ -1787,7 +1820,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407df000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>00000000407f7000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000405e0000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1819,7 +1852,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407fa000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040809000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Size End</data></node>
@@ -1828,7 +1861,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>00000000407f7000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040807800</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>00000000405e0000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000000000000</data></node>
@@ -1860,7 +1893,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040809000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040815000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040584000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402e0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>Seed</data></node>
@@ -1871,7 +1904,7 @@ if (switch_selected(focus, -1)) {
         <node f="42" dt="2"><name>guifocusclass</name><data>VIEW:/guiclasses/QuickProps/Number</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>00000000405e0000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040807800</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040813800</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040618000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightmargin</name><data>0000000040080000</data></node>
@@ -1892,7 +1925,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>000000004059c000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040815000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040821000</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040488000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>00000000402c0000</data></node>
         <node f="4000000042" dt="2"><name>windowtitle</name><data>File Path</data></node>
@@ -1902,7 +1935,7 @@ if (switch_selected(focus, -1)) {
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040594000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040568000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040813800</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004081f800</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040743000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="2"><name>coldlink</name><data>../..&gt;objectfocus+&gt;visual/imageobject</data></node>
@@ -1939,7 +1972,7 @@ repaintall();
         <node f="40"><name>object</name></node>
         <node f="42" dt="1"><name>viewwindowtype</name><data>0000000040590000</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040789000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040813800</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004081f800</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42"><name>variables</name>
@@ -2030,7 +2063,7 @@ if (stringlen(filepath)&gt;4) {
         <node f="42" dt="2"><name>viewfocus</name><data>../../FileEdit</data></node>
         <node f="42" dt="2"><name>objectfocus</name><data>../..&gt;objectfocus+&gt;visual/imageobject</data></node>
         <node f="42" dt="1"><name>spatialx</name><data>0000000040590000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040813800</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>000000004081f800</data></node>
         <node f="42" dt="1"><name>spatialsx</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
         <node f="42" dt="1"><name>alignrightposition</name><data>0000000040380000</data></node>
@@ -2050,16 +2083,6 @@ an object in the model or the library to define the conveyor's Texture.</data></
         </node>
        </data>
         <node f="40"><name></name></node></node>
-       <node f="42" dt="4"><name>Disabled</name><data>
-        <node f="40"><name>object</name></node>
-        <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405a4000</data></node>
-        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
-        <node f="42" dt="1"><name>spatialy</name><data>0000000040821000</data></node>
-        <node f="42" dt="1"><name>spatialsx</name><data>000000004062c000</data></node>
-        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
-        <node f="42" dt="2"><name>tooltip</name><data>Turn the emitter off: it produces no particles. The handle still shows so you can re-enable it.</data></node>
-        <node f="42" dt="2"><name>coldlink</name><data>../..&gt;objectfocus+&gt;variables/disabled</data></node>
-       </data></node>
       </node>
      </node>
     </node>
