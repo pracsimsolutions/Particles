@@ -41,5 +41,6 @@ e.startColor = Color.orange;</code>
 
     <Property name="styleField" return-type="int"><Summary>Render style; use <ClassRef>Particles.Style</ClassRef> (Points = built-in soft dot, Sprite = the object's own image). Every particle is a camera-facing billboard.</Summary></Property>
     <Property name="seedField" return-type="int"><Summary>Random seed for this emitter (determinism).</Summary></Property>
+    <Property name="disabled" return-type="int"><Summary>1 = turn this emitter off (it produces no particles); 0 = active. The emitter's handle still draws while disabled, so you can find and re-enable it.</Summary></Property>
     <Property name="statLiveCount" readonly="true" return-type="int"><Summary>Read-only: the number of live particles this emitter drew last frame.</Summary></Property>
 </FlexScriptClass>

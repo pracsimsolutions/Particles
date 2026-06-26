@@ -120,6 +120,7 @@
         <node f="42" dt="1"><name>sizeEnd</name><data>9999999a3fa99999</data></node>
         <node f="42" dt="1"><name>styleField</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>seedField</name><data>0000000040c81c80</data></node>
+        <node f="42" dt="1"><name>disabled</name><data>0000000000000000</data></node>
         <node f="42" dt="1"><name>statLiveCount</name><data>0000000000000000</data></node>
         <node f="42" dt="7"><name>colorStart</name><data/>
          <node f="40"><name></name></node>
@@ -2049,6 +2050,16 @@ an object in the model or the library to define the conveyor's Texture.</data></
         </node>
        </data>
         <node f="40"><name></name></node></node>
+       <node f="42" dt="4"><name>Disabled</name><data>
+        <node f="40"><name>object</name></node>
+        <node f="42" dt="1"><name>viewwindowtype</name><data>00000000405a4000</data></node>
+        <node f="42" dt="1"><name>spatialx</name><data>0000000040080000</data></node>
+        <node f="42" dt="1"><name>spatialy</name><data>0000000040821000</data></node>
+        <node f="42" dt="1"><name>spatialsx</name><data>000000004062c000</data></node>
+        <node f="42" dt="1"><name>spatialsy</name><data>0000000040350000</data></node>
+        <node f="42" dt="2"><name>tooltip</name><data>Turn the emitter off: it produces no particles. The handle still shows so you can re-enable it.</data></node>
+        <node f="42" dt="2"><name>coldlink</name><data>../..&gt;objectfocus+&gt;variables/disabled</data></node>
+       </data></node>
       </node>
      </node>
     </node>

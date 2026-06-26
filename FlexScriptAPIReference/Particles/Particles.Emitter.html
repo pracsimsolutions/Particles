@@ -75,6 +75,8 @@ e.startColor = Color.orange;</code></pre>
 					<td>Render style; use <a href="Particles.Style.html">Particles.Style</a> (Points = built-in soft dot, Sprite = the object's own image). Every particle is a camera-facing billboard.</td></tr>
 				<tr><td><a href="#Property-seedField">seedField</a></td>
 					<td>Random seed for this emitter (determinism).</td></tr>
+				<tr><td><a href="#Property-disabled">disabled</a></td>
+					<td>1 = turn this emitter off (no particles); 0 = active. The handle still draws while disabled.</td></tr>
 				<tr><td><a href="#Property-statLiveCount">statLiveCount</a></td>
 					<td>Read-only: the number of live particles this emitter drew last frame.</td></tr>
 			</table>
@@ -276,6 +278,15 @@ e.startColor = Color.orange;</code></pre>
 				<p>int seedField</p>
 				<h3>Description</h3>
 				<p>Random seed for this emitter (determinism).</p>
+			</div>
+		</div>
+		<div id="Property-disabled">
+			<div class="anchor-fix">Do no remove, this fixes the anchor on doc.flexsim.com</div>
+			<div class="property-details">
+				<h3><a href="#top">Particles.Emitter</a>.disabled</h3>
+				<p>int disabled</p>
+				<h3>Description</h3>
+				<p>1 = turn this emitter off (it produces no particles); 0 = active. The emitter's handle still draws while disabled, so you can find and re-enable it.</p>
 			</div>
 		</div>
 		<div id="Property-statLiveCount">

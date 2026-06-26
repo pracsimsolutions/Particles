@@ -61,6 +61,7 @@ public:
     // (texture for Sprite style = the object's own imageindexobject attribute, read by the
     //  system via getobjectimageindex -- set it the normal way with the image picker.)
     double seedField = 12345;
+    double disabled = 0;   // 1 = emit no particles (the handle still shows so you can re-enable it)
     double statLiveCount = 0;
 
     // gravity/wind live in the tree as node-backed Vec3Property SDTs (see __getGravity /
@@ -75,7 +76,7 @@ public:
     PE_ACC(drag)
     PE_ACC(swirlAmp) PE_ACC(swirlFreq)
     PE_ACC(sizeStart) PE_ACC(sizeEnd)
-    PE_ACC(styleField) PE_ACC(seedField)
+    PE_ACC(styleField) PE_ACC(seedField) PE_ACC(disabled)
     double pget_statLiveCount() { return statLiveCount; }
     #undef PE_ACC
 

@@ -19,7 +19,7 @@ void ParticleEmitter::bindVariables() {
     bindVariable(swirlAmp); bindVariable(swirlFreq);
     bindVariable(sizeStart); bindVariable(sizeEnd);
     // colorStart/colorEnd are structured rgba nodes in the tree (read in buildSpec); not bound here.
-    bindVariable(styleField); bindVariable(seedField);
+    bindVariable(styleField); bindVariable(seedField); bindVariable(disabled);
     bindVariable(statLiveCount);
 }
 
@@ -33,7 +33,7 @@ void ParticleEmitter::bindInterface() {
     PE_BIND(drag);
     PE_BIND(swirlAmp); PE_BIND(swirlFreq);
     PE_BIND(sizeStart); PE_BIND(sizeEnd);
-    PE_BIND(styleField); PE_BIND(seedField);
+    PE_BIND(styleField); PE_BIND(seedField); PE_BIND(disabled);
     #undef PE_BIND
     bindTypedProperty(statLiveCount, double, &ParticleEmitter::pget_statLiveCount, nullptr);  // read-only
     // Node-backed wrappers: persistent component read+write (emitter.startColor.r = 0.5,
@@ -220,9 +220,14 @@ double ParticleEmitter::onDraw(treenode view)
     // onDraw and never calls drawtoobjectscale or fglRotate(-90)). So geometry drawn here
     // scales with the object. Everything is centered on the object center (FlexSim box is
     // local x[0,1], y[-1,0], z[0,1] -> center (0.5,-0.5,0.5)) and is wireframe GL_LINES.
+    // Handle visibility: the System's showPlanes/showArrows are the GLOBAL gate (hide them all);
+    // when global is on, each emitter's own FlexSim hide-shape flag decides whether ITS handle
+    // draws. So handle = global show AND this emitter not hidden. (This only affects the handle --
+    // a hidden emitter keeps emitting particles, which the system draws separately.)
     ParticleSystem* sys = ParticleSystem::getInstance();
-    bool showPlanes = !sys || sys->showPlanes != 0;
-    bool showArrows = !sys || sys->showArrows != 0;
+    bool hidden = switch_hideshape(holder, -1) != 0;
+    bool showPlanes = (!sys || sys->showPlanes != 0) && !hidden;
+    bool showArrows = (!sys || sys->showArrows != 0) && !hidden;
     double arrowLen = sys ? sys->arrowSize : 1.0;     // constant WORLD length of the arrow
     EmitShape shape = (EmitShape)(int)shapeField;
     // The aim pyramid only means something for DIRECTIONAL emission: show it when Aimed,

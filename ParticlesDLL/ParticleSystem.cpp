@@ -102,6 +102,9 @@ double ParticleSystem::onDraw(treenode view) {
         ParticleEmitter* e = a->objectAs(ParticleEmitter);
         if (!e) continue;
         ++count;
+        // Disabled emitters emit nothing (their handle still draws in the emitter's own onDraw,
+        // so you can still find and re-enable them).
+        if (e->disabled != 0) { e->statLiveCount = 0; continue; }
         EmitterSpec s = e->buildSpec();
         Vec3 loc = e->getLocation(0.5, 0.5, 0.5);   // spawn from the object center (matches the region)
         Vec3 rot = e->rotation;
