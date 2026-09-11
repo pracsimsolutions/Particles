@@ -24,6 +24,18 @@ toolbox_png  = "bitmaps/particles.png"
 [flexsim]
 default_version_dir = "FlexSim 2026"
 
+# [payload].root (optional, omitted here)
+#   This module ships the files as they sit in this working tree, so there is
+#   nothing to declare. A module whose shipped bytes DIFFER from its source --
+#   comment-stripped scripts, a compiled exe replacing a script, build output that
+#   must not travel -- prepares a clean payload folder with its own tooling and
+#   names it here:
+#
+#       root = "dist/preflight-staged"
+#
+#   `files` and `subdirs` are then read from that folder instead of this one. If
+#   it's declared and missing, the build STOPS rather than falling back to the
+#   working tree. See docs/manifest-schema.md in module-builder.
 [payload]
 # APPEND ONLY. Each entry maps to one WiX <Component>.
 # Particles.t is the runtime tree (built by FlexSim's Save Defaults from
