@@ -2200,4 +2200,7 @@ an object in the model or the library to define the conveyor's Texture.</data></
    </node>
   </node>
  </node>
+ <node f="42" dt="2"><name>release</name><data>26.0</data></node>
+ <node f="42" dt="2"><name>revision</name><data>.0</data></node>
+ <node f="42" dt="2"><name>flexsim release</name><data>26.0</data></node>
 </node></flexsim-tree>
