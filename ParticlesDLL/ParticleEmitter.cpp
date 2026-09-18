@@ -24,7 +24,6 @@ void ParticleEmitter::bindVariables() {
 }
 
 void ParticleEmitter::bindInterface() {
-    bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.Emitter.xml");
     // Expose every field as a FlexScript property (emitter.rate, emitter.shapeField, ...).
     #define PE_BIND(n) bindTypedProperty(n, double, &ParticleEmitter::pget_##n, &ParticleEmitter::pset_##n)
     PE_BIND(rate); PE_BIND(lifetime); PE_BIND(lifetimeJitter); PE_BIND(startTime); PE_BIND(stopTimeField); PE_BIND(prewarm);
