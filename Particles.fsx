@@ -840,7 +840,7 @@ applylinks(c);
 repaintall();</data></node>
         <node f="42"><name>eventfunctions</name>
          <node f="40"><name></name></node></node>
-        <node f="42" dt="2"><name>helptopic</name><data>Particles::ParticleSystemPanel</data></node>
+        <node f="42" dt="2"><name>helptopic</name><data></data></node>
        </data>
         <node f="40"><name></name></node>
         <node f="42" dt="4"><name>Show Planes</name><data>
@@ -1041,7 +1041,7 @@ repaintall();</data></node>
         </node>
         <node f="42"><name>ORDER BY</name></node>
        </node>
-       <node f="42" dt="2"><name>helptopic</name><data>Particles::Emitter</data></node>
+       <node f="42" dt="2"><name>helptopic</name><data></data></node>
       </node>
      </data>
       <node f="40"><name></name></node>
