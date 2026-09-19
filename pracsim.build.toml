@@ -45,8 +45,6 @@ files = [
 # Recursively included. Runtime references:
 #   bitmaps/soft_dot.png       -> loaded by ParticleSystem.cpp (Points style)
 #   bitmaps/*.png              -> library/preset icons from Particles.fsx
-#   FlexScriptAPIReference/    -> in-editor autocomplete (XML) + help pages (HTML + images)
-#   manual/                    -> the What's New help page (HTML)
 # NOTE: the toolbox PNG is auto-staged as Particles.png from [brand].toolbox_png
 # (reserved component GUID 901) -- do NOT add it to files above.
-subdirs = ["bitmaps", "FlexScriptAPIReference", "manual"]
+subdirs = ["bitmaps"]

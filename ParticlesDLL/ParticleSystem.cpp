@@ -22,7 +22,6 @@ void ParticleSystem::bindVariables() {
 
 void ParticleSystem::bindInterface() {
     bindParentClass("Object");   // REQUIRED before bindTypedProperty (or nothing registers).
-    bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.System.xml");
     // Register the static "Particles" namespace so FlexScript can reach the
     // singleton via Particles.system (then .liveCap, .statTotalLive, ...).
     bindClassByName<Statics>("Particles", true);
@@ -37,7 +36,6 @@ void ParticleSystem::bindInterface() {
 }
 
 void ParticleSystem::Statics::bindInterface() {
-    SimpleDataType::bindDocumentationXMLPath("modules\\Particles\\FlexScriptAPIReference\\Particles\\Particles.xml");
     bindStaticTypedPropertyByName<ParticleSystem*>("system", "Particles.System",
         force_cast<void*>(&ParticleSystem::Statics::getSystem), nullptr);
 }

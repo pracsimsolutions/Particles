@@ -1,0 +1,7 @@
+module: particles
+title: PracSim Particles
+sections:
+  - id: panels
+    title: Property Panels
+  - id: api
+    title: FlexScript API Reference
