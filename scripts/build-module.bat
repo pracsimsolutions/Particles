@@ -7,16 +7,9 @@ REM Cleans build artifacts and compiles the FlexSim module DLL via MSBuild.
 REM
 REM Usage:  Run from a Visual Studio Developer Command Prompt.
 REM         scripts\build-module.bat
-REM         scripts\build-module.bat 26.1.3   (also updates version metadata --
-REM                                             see update-module-version.ps1)
 REM
 REM The script auto-detects the *DLL/ folder and *.sln file.
 REM ============================================================================
-
-REM -- Optional version arg. When given, refreshes generated\pracsim_version.h
-REM    and the .fsx's release/revision metadata BEFORE compiling, so the DLL
-REM    you're about to build actually reports this version.
-set "MODULE_VERSION=%~1"
 
 REM -- Resolve module root (one level up from scripts/)
 set "MODULE_ROOT=%~dp0.."
@@ -30,18 +23,6 @@ echo  FlexSim Module Build
 echo  Root: %MODULE_ROOT%
 echo ============================================================================
 echo.
-
-if defined MODULE_VERSION (
-    echo [Step 0] Updating version metadata to %MODULE_VERSION%...
-    echo.
-    powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0update-module-version.ps1" -Version %MODULE_VERSION%
-    if errorlevel 1 (
-        echo ERROR: update-module-version.ps1 failed. See output above.
-        if not defined MODULE_BUILD_NOPAUSE pause
-        exit /b 1
-    )
-    echo.
-)
 
 REM -- Auto-detect the DLL folder (*DLL/ pattern)
 set "DLL_DIR="
