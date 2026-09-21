@@ -118,13 +118,13 @@ Random launch-speed spread, applied as +/- jitter.
 
 ### gravity
 
-`Particles.Vec3 gravity`
+`Vec3 gravity`
 
 Constant acceleration (length / time^2). Node-backed: read/write components, e.g. `e.gravity.z = -9.8;` or assign a whole Vec3.
 
 ### wind
 
-`Particles.Vec3 wind`
+`Vec3 wind`
 
 Additional constant acceleration (length / time^2), added to gravity. With drag > 0 it acts as a steady drift toward (gravity+wind)/drag.
 
@@ -148,13 +148,13 @@ Angular frequency of the swirl, radians per time unit (period = 2\*pi/swirlFreq)
 
 ### startColor
 
-`Particles.Color startColor`
+`Color startColor`
 
 Color (and alpha) at birth. Node-backed: `e.startColor.r = 0.5;` or `e.startColor = Color.red;`
 
 ### endColor
 
-`Particles.Color endColor`
+`Color endColor`
 
 Color (and alpha) at end of life. The particle color interpolates startColor -> endColor over its life.
 
