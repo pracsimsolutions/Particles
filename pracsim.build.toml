@@ -3,39 +3,24 @@ name           = "Particles"
 display_name   = "PracSim Particles"
 description    = "PracSim Particles — visual particle emitters (smoke, steam, dust, sparks, spray, fountains) for FlexSim. Drawn analytically at draw time, so they add zero events to the simulation."
 url            = "https://github.com/pracsimsolutions/Particles"
-# Free module: no PSSLM licensing.
+# Free module: no licensing.
 
 [wix]
 # FIXED FOREVER. Changing either GUID breaks MSI in-place upgrades.
 upgrade_code         = "ED2E1BA4-5342-423E-9858-3C7F251C1182"
 component_guid_prefix = "15A43ED4-0F13-456E-8648-6190D3F14"
 
-# Paths are relative to pracsim-platform/brand/ (the central brand folder), NOT this
-# module. The builder auto-generates the derived files from these sources: the .ico
-# (from icon_svg), the banner/dialog BMPs (from the SVGs), and the toolbox .png (from
-# the icon via build-bitmaps). The SOURCE assets below must be created in that folder.
+# Installer artwork. The names below are resolved against the maintainers'
+# brand asset folder when an installer is built; they are not files in this
+# repo, and they are not needed to build or run the module itself.
 [brand]
 icon_svg     = "particles.svg"
 banner_svg   = "installer/particles-banner.svg"
 dialog_svg   = "installer/particles-dialog.svg"
 toolbox_png  = "bitmaps/particles.png"
 
-# [payload].root (optional, omitted here)
-#   This module ships the files as they sit in this working tree, so there is
-#   nothing to declare. A module whose shipped bytes DIFFER from its source --
-#   comment-stripped scripts, a compiled exe replacing a script, build output that
-#   must not travel -- prepares a clean payload folder with its own tooling and
-#   names it here:
-#
-#       root = "dist/preflight-staged"
-#
-#   `files` and `subdirs` are then read from that folder instead of this one. If
-#   it's declared and missing, the build STOPS rather than falling back to the
-#   working tree. See docs/manifest-schema.md in module-builder.
 [payload]
-# APPEND ONLY. Each entry maps to one WiX <Component>.
-# Particles.t is the runtime tree (built by FlexSim's Save Defaults from
-# Particles.fsx) -- ship the .t, NOT the .fsx source.
+# What an installer ships. APPEND ONLY.
 files = [
     "Particles.t",
     "Particles.dll",
@@ -45,6 +30,6 @@ files = [
 # Recursively included. Runtime references:
 #   bitmaps/soft_dot.png       -> loaded by ParticleSystem.cpp (Points style)
 #   bitmaps/*.png              -> library/preset icons from Particles.fsx
-# NOTE: the toolbox PNG is auto-staged as Particles.png from [brand].toolbox_png
-# (reserved component GUID 901) -- do NOT add it to files above.
+# NOTE: the toolbox PNG is staged automatically from [brand].toolbox_png --
+# do NOT add it to files above.
 subdirs = ["bitmaps"]

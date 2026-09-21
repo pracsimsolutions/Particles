@@ -184,8 +184,6 @@ echo.
 
 endlocal
 REM Interactive convenience only — a human double-clicking this .bat gets a "press any key"
-REM prompt. Any non-interactive caller (the modelerai_moduledev_build tool) sets
-REM MODULE_BUILD_NOPAUSE so this never blocks on stdin (the old unconditional `pause` was the
-REM 600s false-timeout: the build had already succeeded but the process hung here). — 2026-08-08
+REM prompt. Set MODULE_BUILD_NOPAUSE to skip it, so an automated caller never blocks on stdin.
 if not defined MODULE_BUILD_NOPAUSE pause
 exit /b 0

@@ -52,13 +52,10 @@ handful of draw calls (one `GL_POINTS` batch for all point emitters plus one
 
 ## Build
 
-The prebuilt `Particles.dll` is committed to the repo, so you do **not** need to
-build to use the module — see "Using it in FlexSim" below. You only need to build
-if you're modifying the source and want to test your changes (for example, when
-working on the `main` branch); rebuild the DLL and it replaces the shipped one.
-
-Requires Visual Studio 2022 (v143) and an installed FlexSim (the SDK headers
-and libs are staged automatically from `../../program/system` by `copyheaders.bat`).
+`Particles.dll` is **not** committed to the repo: you build it yourself from the
+source here. Requires Visual Studio 2022 (v143) and an installed FlexSim (the SDK
+headers and libs are staged automatically from `../../program/system` by
+`copyheaders.bat`).
 
 ```
 # Build the module DLL (produces Particles.dll at the module root)
@@ -67,16 +64,17 @@ MSBuild ParticlesDLL\ParticlesDLL.sln /p:Configuration=Release /p:Platform=x64
 
 ## Using it in FlexSim
 
-No build is required to use it. The repo ships the prebuilt `Particles.dll`
-alongside `Particles.fsx` and the `bitmaps/` textures. Copy the whole `Particles`
-folder into your FlexSim `modules/` directory and restart FlexSim; the
-**Particles** group then appears in the library. Drag a **ParticleEmitter** into
-the 3D view and edit it in Quick Properties.
+Copy the whole `Particles` folder into your FlexSim `modules/` directory, build
+`Particles.dll` as above, and restart FlexSim; the **Particles** group then
+appears in the library. Drag a **ParticleEmitter** into the 3D view and edit it in
+Quick Properties. If you would rather not build anything, install the module from
+its installer instead.
 
-A FlexScript API reference for the `Particles.*` classes (System, Emitter, Shape,
-Direction, Style) is built in: in-editor autocomplete shows each
-property's docs, and the full pages are under **Help > Modules > Particles >
-FlexScript API Reference**.
+## Documentation
+
+The user manual, including a FlexScript API reference for the `Particles.*`
+classes (System, Emitter, Shape, Direction, Style), is in [manual/](manual/index.md)
+and is published online at pracsimsolutions.com.
 
 ## License
 
