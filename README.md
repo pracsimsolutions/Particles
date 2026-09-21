@@ -73,8 +73,8 @@ folder into your FlexSim `modules/` directory and restart FlexSim; the
 **Particles** group then appears in the library. Drag a **ParticleEmitter** into
 the 3D view and edit it in Quick Properties.
 
-A FlexScript API reference for the `Particles.*` classes (System, Emitter, Color,
-Vec3, Shape, Direction, Style) is built in: in-editor autocomplete shows each
+A FlexScript API reference for the `Particles.*` classes (System, Emitter, Shape,
+Direction, Style) is built in: in-editor autocomplete shows each
 property's docs, and the full pages are under **Help > Modules > Particles >
 FlexScript API Reference**.
 
