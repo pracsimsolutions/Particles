@@ -1,11 +1,15 @@
 ---
 title: What's New
-summary: Release notes for each version of the Particles module.
+summary: Release notes for each version of PracSim Particles.
 order: 99
 ---
 
-Release notes for each version of the Particles module. Newest at the top.
+Release notes for each version of PracSim Particles. Newest at the top.
 
-## Particles 27.0.0 (September 21, 2026)
+## PracSim Particles 27.0.0 (September 21, 2026)
 
-Particles 27.0.0 released today.
+PracSim Particles 27.0.0 released.
+
+## PracSim Particles 26.0.0 (September 21, 2026)
+
+PracSim Particles 26.0.0 released.
