@@ -49,7 +49,7 @@ Every page starts with front matter:
 
 ```markdown
 ---
-title: Corridor
+title: Emitter panel
 summary: One sentence, shown under the title and in search results.
 section: objects
 order: 2
@@ -61,8 +61,8 @@ order: 2
 - Do not start the body with a `#` heading. The title comes from the front matter, so start
   with text or a `##` heading.
 - Links between pages are relative and end in `.md`, and they are case-sensitive:
-  `[Junction](junction.md)`, `[Emitter](../api/Particles.Emitter.md)`.
-- Images are relative files inside this folder: `![Corridor panel](images/corridor-panel.png)`
+  `[System panel](system-panel.md)`, `[Emitter](../api/Particles.Emitter.md)`.
+- Images are relative files inside this folder: `![Emitter properties](images/ParticleEmitterProperties.png)`
   (or `../images/...` from a subfolder). Always write alt text. External images are blocked.
   Allowed types: png, jpg, gif, webp, svg (an svg may not contain scripts).
 - Raw HTML is not rendered. Use markdown tables and lists instead.
