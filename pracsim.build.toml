@@ -25,7 +25,6 @@ files = [
     "Particles.t",
     "Particles.dll",
     "LICENSE.txt",
-    "README.md",
 ]
 # Recursively included. Runtime references:
 #   bitmaps/soft_dot.png       -> loaded by ParticleSystem.cpp (Points style)
