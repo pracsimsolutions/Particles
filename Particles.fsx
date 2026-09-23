@@ -1022,10 +1022,9 @@ repaintall();</data></node>
         <node f="40"><name></name></node>
         <node f="42"><name>SELECT</name>
          <node f="40"><name></name></node>
-         <node f="42"><name>Color</name></node>
-         <node f="42"><name>CorridorType</name></node>
-         <node f="42"><name>Geometry</name></node>
-         <node f="42"><name>Bulge</name></node>
+         <node f="42"><name>Location</name></node>
+         <node f="42"><name>Size</name></node>
+         <node f="42"><name>Rotation.Z</name></node>
         </node>
         <node f="42"><name>FROM</name>
          <node f="40"><name></name></node>
@@ -1035,7 +1034,7 @@ repaintall();</data></node>
          <node f="40"><name></name></node>
          <node f="42"><name>IN</name>
           <node f="40"><name></name></node>
-          <node f="42"><name>"RouteGraph::Corridor"</name></node>
+          <node f="42"><name>"Particles::ParticleEmitter"</name></node>
           <node f="42"><name>Classes</name></node>
          </node>
         </node>
@@ -1078,7 +1077,6 @@ applylinks(c, 1);
 }
 </data></node>
         <node f="42" dt="2"><name>OnUndo</name><data>applylinks(c, 1);
-function_s(node("/RouteGraphNetwork", model()), "refreshMesh");
 </data></node>
         <node f="42" dt="2"><name>coldlinkx</name><data>if (!eventdata &amp;&amp; eventcode == APPLY_LINKS_ON_OPEN) {
 	function_s(node("/ChooseType", c), "refreshList");
@@ -2103,7 +2101,7 @@ an object in the model or the library to define the conveyor's Texture.</data></
       <node f="42" dt="2"><name>bitmap</name><data>modules\Particles\bitmaps\ParticleSystem.png</data></node>
       <node f="42"><name>variables</name>
        <node f="40"><name></name></node>
-       <node f="42" dt="2"><name>menuBitmap</name><data>modules\RouteGraph\bitmaps\routegraph.png</data></node>
+       <node f="42" dt="2"><name>menuBitmap</name><data>modules\Particles\bitmaps\ParticleSystem.png</data></node>
        <node f="42" dt="2"><name>toolType</name><data>Singleton</data></node>
       </node>
       <node f="42"><name>eventfunctions</name>
