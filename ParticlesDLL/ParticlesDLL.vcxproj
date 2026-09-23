@@ -98,6 +98,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;flexsimcontent\flexsimcontent.lib;flexsimcontent\flexsim.lib;winhttp.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AdditionalOptions>/PDBALTPATH:%_PDB% %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <BuildLog>
       <Path>$(Platform)\$(Configuration)\$(MSBuildProjectName).log</Path>
